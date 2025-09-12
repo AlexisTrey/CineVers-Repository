@@ -80,9 +80,16 @@ public class Reservation {
     public void setPaid(boolean paid) {
         this.paid = paid;
     }
+    
+    public void confirmPayment() {
+        this.paid = true;
+    }
 
     @Override
     public String toString() {
-        return "Reservation{" + "id=" + id + ", user=" + user + ", function=" + function + ", seat=" + seat + ", reservationDate=" + reservationDate + ", paid=" + paid + '}';
+        return "Reserva #" + id + " | Usuario: " + user.getFullName() +
+                " | Película: " + function.getMovie().getTitle() +
+                " | Asiento: " + seat.toString() +
+                " | Pagada: " + (paid ? "Sí" : "No");
     }
 }
