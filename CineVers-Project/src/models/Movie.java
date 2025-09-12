@@ -99,8 +99,12 @@ public class Movie {
         this.language = language;
     }
 
+    public String getMovieInfo() {
+        return title + " (" + genre + ") - " + durationMinutes + " min - Clasificación: " + classification;
+    }
+
     @Override
     public String toString() {
-        return "Movie{" + "id=" + id + ", title=" + title + ", genre=" + genre + ", durationMinutes=" + durationMinutes + ", classification=" + classification + ", director=" + director + ", synopsis=" + synopsis + ", language=" + language + '}';
-    }    
+        return getMovieInfo();
+    }   
 }
