@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -20,8 +22,10 @@ public class Movie {
     private String director;
     private String synopsis;
     private String language;
+    private Date releaseDate;
+    private Boolean incart; // si esta cartelera o no 
 
-    public Movie(String id, String title, String genre, int durationMinutes, String classification, String director, String synopsis, String language) {
+    public Movie(String id, String title, String genre, int durationMinutes, String classification, String director, String synopsis, String language, Date date , Boolean incarte) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -30,6 +34,8 @@ public class Movie {
         this.director = director;
         this.synopsis = synopsis;
         this.language = language;
+        this.releaseDate = date;
+        this.incart = incarte;
     }
     public Movie() {
     }
