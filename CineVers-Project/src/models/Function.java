@@ -61,6 +61,21 @@ public class Function {
     public void setPrice(double price) {
         this.price = price;
     }
+    public int getAvailableSeats() {
+         return room.getAvailableSeats();
+    }
+    public boolean reserveSeat(int row, int number) {
+    Seat[][] seats = room.getSeats();
+    if (row >= 0 && row < seats.length && number >= 0 && number < seats[row].length) {
+        Seat seat = seats[row][number];
+        if (seat.isAvailable()) {
+            seat.reserve();
+            return true;
+         }
+     }
+        return false; 
+    }
+
 
     @Override
     public String toString() {
