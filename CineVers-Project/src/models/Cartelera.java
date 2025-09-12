@@ -4,6 +4,7 @@
  */
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,10 +51,28 @@ public class Cartelera {
     public void setFunctions(List<Function> functions) {
         this.functions = functions;
     }
+    
+    public void addFunction(Function function) {
+        functions.add(function);
+    }
+
+    public void removeFunction(Function function) {
+        functions.remove(function);
+    }
+
+    public List<Function> searchByMovie(String title) {
+        List<Function> result = new ArrayList<>();
+        for (Function f : functions) {
+            if (f.getMovie().getTitle().equalsIgnoreCase(title)) {
+                result.add(f);
+            }
+        }
+        return result;
+    }
 
     @Override
     public String toString() {
-        return "Cartelera{" + "id=" + id + ", city=" + city + ", functions=" + functions + '}';
+        return "Cartelera en " + city.getName() + " con " + functions.size() + " funciones.";
     }
     
 }
