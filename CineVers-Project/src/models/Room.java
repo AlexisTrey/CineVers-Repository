@@ -68,10 +68,20 @@ public class Room {
     public void setSeats(Seat[][] seats) {
         this.seats = seats;
     }
+    
+    public int getAvailableSeats() {
+        int count = 0;
+        for (Seat[] row : seats) {
+            for (Seat seat : row) {
+                if (seat.isAvailable()) count++;
+            }
+        }
+        return count;
+    }
 
     @Override
     public String toString() {
-        return "Room{" + "id=" + id + ", name=" + name + ", capacity=" + capacity + ", type=" + type + ", seats=" + seats + '}';
+        return "Sala: " + name + " (" + type + ") - Capacidad: " + capacity;
     }
     
 }
