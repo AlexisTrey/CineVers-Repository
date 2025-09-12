@@ -77,7 +77,6 @@ public class Reservation {
         return price;
     }
 
-
     public void setPrice(double price) {
         this.price = price;
     }
@@ -88,7 +87,6 @@ public class Reservation {
     public void cancel() {
     this.status = false;
     }
-
 
    public String getReservationDetails() {
     return "Reserva " + id +
