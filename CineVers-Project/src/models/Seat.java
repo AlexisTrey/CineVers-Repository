@@ -12,5 +12,57 @@ package models;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Seat {
+    private String id;
+    private int row;
+    private int number;
+    private boolean available;
+
+    public Seat(String id, int row, int number, boolean available) {
+        this.id = id;
+        this.row = row;
+        this.number = number;
+        this.available = available;
+    }
+
+    public Seat() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    @Override
+    public String toString() {
+        return "Seat{" + "id=" + id + ", row=" + row + ", number=" + number + ", available=" + available + '}';
+    }
+    
     
 }
