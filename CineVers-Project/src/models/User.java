@@ -98,9 +98,21 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public boolean login(String email, String password) {
+        return this.email.equals(email) && this.password.equals(password);
+    }
+    
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", documentType=" + documentType + ", documentNumber=" + documentNumber + ", email=" + email + ", phone=" + phone + ", password=" + password + '}';
+        return "Usuario: " + getFullName() + " | Email: " + email;
     }
 }
