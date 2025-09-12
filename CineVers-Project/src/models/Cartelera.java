@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.util.List;
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -12,5 +14,46 @@ package models;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Cartelera {
+    private String id;
+    private City city;
+    private List<Function> functions;
+
+    public Cartelera(String id, City city, List<Function> functions) {
+        this.id = id;
+        this.city = city;
+        this.functions = functions;
+    }
+
+    public Cartelera() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public List<Function> getFunctions() {
+        return functions;
+    }
+
+    public void setFunctions(List<Function> functions) {
+        this.functions = functions;
+    }
+
+    @Override
+    public String toString() {
+        return "Cartelera{" + "id=" + id + ", city=" + city + ", functions=" + functions + '}';
+    }
     
 }
