@@ -69,6 +69,35 @@ public class Room {
         }
         return count;
     }
+    public Seat findSeat(int row, int number) {
+    for (Seat[] fila : seats) {
+        for (Seat seat : fila) {
+            if (seat.getRow() == row && seat.getNumber() == number) {
+                return seat;
+            }
+        }
+    }
+    return null; 
+}
+
+public boolean reserveSeat(int row, int number) {
+    Seat seat = findSeat(row, number);
+    if (seat != null && seat.isAvailable()) {
+        seat.reserve();
+        return true;
+    }
+    return false;
+}
+
+public void showSeatMap() {
+    for (Seat[] fila : seats) {
+        for (Seat seat : fila) {
+            System.out.print(seat.isAvailable() ? "[L]" : "[X]");
+        }
+        System.out.println(); 
+    }
+}
+
 
     @Override
     public String toString() {
@@ -76,3 +105,4 @@ public class Room {
     }
     
 }
+
