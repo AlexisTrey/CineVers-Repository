@@ -118,6 +118,18 @@ public class Admin {
     public void setCity(City city) {
         this.city = city;
     }
+    
+    public boolean login(String email, String password) {
+        return this.email.equals(email) && this.password.equals(password);
+    }
+    
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
+    
+    public boolean hasRole(String roleName) {
+        return this.role.getName().equalsIgnoreCase(roleName);
+    }
 
     @Override
     public String toString() {
