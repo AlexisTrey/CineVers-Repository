@@ -24,30 +24,24 @@ public class Cartelera {
         this.city = city;
         this.functions = functions;
     }
-
     public Cartelera() {
     }
 
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public City getCity() {
         return city;
     }
-
     public void setCity(City city) {
         this.city = city;
     }
-
     public List<Function> getFunctions() {
         return functions;
     }
-
     public void setFunctions(List<Function> functions) {
         this.functions = functions;
     }
