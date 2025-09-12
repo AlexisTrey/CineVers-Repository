@@ -58,6 +58,10 @@ public class Role {
     public void setLevelAccess(String levelAccess) {
         this.levelAccess = levelAccess;
     }
+    
+    public boolean hasHighAccess() {
+        return levelAccess.equalsIgnoreCase("Alto");
+    }
 
     @Override
     public String toString() {
