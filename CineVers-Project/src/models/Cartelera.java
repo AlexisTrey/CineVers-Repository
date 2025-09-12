@@ -63,6 +63,37 @@ public class Cartelera {
         }
         return result;
     }
+    
+    public List<Function> searchByDate(String date){
+            List<Function> result = new ArrayList<>();
+            for (Function f : functions) {
+                if (f.getDateTime().equals(date)) {
+                    result.add(f);
+                }
+            }
+            return result;
+    }
+    
+    public List <Movie> getMovies(){
+                  List<Movie> result = new ArrayList<>();
+                  for (Function f : functions) {
+                      //tiene que devolver solo las peliculas que estan en cartelera, sin importar la cantidad de funciones que tengan 
+                        if (!result.contains(f.getMovie())) {
+                            result.add(f.getMovie());
+                        }
+                  }
+                  return result;
+    }
+    
+    public int countFunctionByMovie(String title){
+        int count = 0;
+        for (Function f : functions) {
+                   if (f.getMovie().getTitle().equalsIgnoreCase(title)) {
+                           count ++;
+                   }
+        }
+        return  count;
+    }
 
     @Override
     public String toString() {

@@ -4,7 +4,7 @@
  */
 package models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -22,10 +22,10 @@ public class Movie {
     private String director;
     private String synopsis;
     private String language;
-    private Date releaseDate;
+    private LocalDateTime releaseDate;
     private Boolean incart; // si esta cartelera o no 
 
-    public Movie(String id, String title, String genre, int durationMinutes, String classification, String director, String synopsis, String language, Date date , Boolean incarte) {
+    public Movie(String id, String title, String genre, int durationMinutes, String classification, String director, String synopsis, String language, LocalDateTime date , Boolean incarte) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -38,6 +38,22 @@ public class Movie {
         this.incart = incarte;
     }
     public Movie() {
+    }
+
+    public LocalDateTime getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDateTime releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Boolean getIncart() {
+        return incart;
+    }
+
+    public void setIncart(Boolean incart) {
+        this.incart = incart;
     }
     
     public String getId() {

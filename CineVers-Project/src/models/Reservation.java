@@ -90,8 +90,8 @@ public class Reservation {
 
    public String getReservationDetails() {
     return "Reserva " + id +
-           " | Usuario: " + (user != null ? user.getName() : "N/A") +
-           " | Función: " + (function != null ? function.getMovieTitle() : "N/A") +
+           " | Usuario: " + (user != null ? user.getFullName(): "N/A") +
+           " | Función: " + (function != null ? function.getMovie().getTitle() : "N/A") +
            " | Asiento: " + (seat != null ? seat.getSeatInfo() : "N/A") +
            " | Fecha: " + reservationDate +
            " | Estado: " + (status ? "Confirmada" : "Cancelada") +
