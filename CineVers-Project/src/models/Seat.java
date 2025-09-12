@@ -4,8 +4,7 @@
  */
 package models;
 
-/**
- *
+/*
  * @author Yulian Alexis Tobar Rios
  * @author Paola Andrea Camacho Gonzalez
  * @author Hellen Valeria Melo Cubides
@@ -40,6 +39,7 @@ public class Seat {
     }
 
     public void setRow(int row) {
+        if (row < 0) throw new IllegalArgumentException("Row cannot be negative");
         this.row = row;
     }
 
@@ -48,6 +48,7 @@ public class Seat {
     }
 
     public void setNumber(int number) {
+        if (number < 0) throw new IllegalArgumentException("Number cannot be negative");
         this.number = number;
     }
 
@@ -58,11 +59,25 @@ public class Seat {
     public void setAvailable(boolean available) {
         this.available = available;
     }
+    public void reserve() {
+        this.available = false;
+    }
+
+    public void free() {
+        this.available = true;
+    }
+
+    public String getSeatInfo() {
+        return "Fila " + row + " - Asiento " + number;
+    }
 
     @Override
-    public String toString() {
-        return "Seat{" + "id=" + id + ", row=" + row + ", number=" + number + ", available=" + available + '}';
+     public String toString() {
+        return "Seat{" +
+                "id='" + id + '\'' +
+                ", row=" + row +
+                ", number=" + number +
+                ", available=" + available +
+                '}';
     }
-    
-    
 }

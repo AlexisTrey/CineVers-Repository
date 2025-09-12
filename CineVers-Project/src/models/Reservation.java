@@ -19,20 +19,22 @@ public class Reservation {
     private Function function;
     private Seat seat;
     private LocalDateTime reservationDate;
-    private boolean paid;
+    private boolean status;
+    private double price;
 
-    public Reservation(String id, User user, Function function, Seat seat, LocalDateTime reservationDate, boolean paid) {
+    public Reservation(String id, User user, Function function, Seat seat, LocalDateTime reservationDate, boolean status, double price) {
         this.id = id;
         this.user = user;
         this.function = function;
         this.seat = seat;
         this.reservationDate = reservationDate;
-        this.paid = paid;
+        this.status = status; //Confirmada, cancelada
+        this.price = price; 
     }
 
     public Reservation() {
     }
-    
+ 
     public String getId() {
         return id;
     }
@@ -73,16 +75,36 @@ public class Reservation {
         this.reservationDate = reservationDate;
     }
 
-    public boolean isPaid() {
-        return paid;
+    public boolean isConfirmed() {
+        return status;
+    }
+    public void setConfirmed(boolean status) {
+        this.status = status;
     }
 
-    public void setPaid(boolean paid) {
-        this.paid = paid;
+    public double getPrice() {
+        return price;
     }
 
-    @Override
-    public String toString() {
-        return "Reservation{" + "id=" + id + ", user=" + user + ", function=" + function + ", seat=" + seat + ", reservationDate=" + reservationDate + ", paid=" + paid + '}';
+    public void setPrice(double price) {
+        this.price = price;
     }
+    public void confirm() {
+    this.status = true;
+    }
+
+    public void cancel() {
+    this.status = false;
+    }
+
+
+   public String getReservationDetails() {
+    return "Reserva " + id +
+           " | Usuario: " + (user != null ? user.getName() : "N/A") +
+           " | Función: " + (function != null ? function.getMovieTitle() : "N/A") +
+           " | Asiento: " + (seat != null ? seat.getSeatInfo() : "N/A") +
+           " | Fecha: " + reservationDate +
+           " | Estado: " + (status ? "Confirmada" : "Cancelada") +
+           " | Precio: $" + price;
+}
 }
