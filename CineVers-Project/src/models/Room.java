@@ -12,6 +12,7 @@ package models;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Room {
+
     private String id;
     private String name;
     private int capacity;
@@ -28,7 +29,7 @@ public class Room {
 
     public Room() {
     }
-    
+
     public String getId() {
         return id;
     }
@@ -59,50 +60,51 @@ public class Room {
     public void setSeats(Seat[][] seats) {
         this.seats = seats;
     }
-    
+
     public int getAvailableSeats() {
         int count = 0;
         for (Seat[] row : seats) {
             for (Seat seat : row) {
-                if (seat.isAvailable()) count++;
+                if (seat.isAvailable()) {
+                    count++;
+                }
             }
         }
         return count;
     }
+
     public Seat findSeat(int row, int number) {
-    for (Seat[] fila : seats) {
-        for (Seat seat : fila) {
-            if (seat.getRow() == row && seat.getNumber() == number) {
-                return seat;
+        for (Seat[] fila : seats) {
+            for (Seat seat : fila) {
+                if (seat.getRow() == row && seat.getNumber() == number) {
+                    return seat;
+                }
             }
         }
+        return null;
     }
-    return null; 
-}
 
-public boolean reserveSeat(int row, int number) {
-    Seat seat = findSeat(row, number);
-    if (seat != null && seat.isAvailable()) {
-        seat.reserve();
-        return true;
-    }
-    return false;
-}
-
-public void showSeatMap() {
-    for (Seat[] fila : seats) {
-        for (Seat seat : fila) {
-            System.out.print(seat.isAvailable() ? "[L]" : "[X]");
+    public boolean reserveSeat(int row, int number) {
+        Seat seat = findSeat(row, number);
+        if (seat != null && seat.isAvailable()) {
+            seat.reserve();
+            return true;
         }
-        System.out.println(); 
+        return false;
     }
-}
 
+    public void showSeatMap() {
+        for (Seat[] fila : seats) {
+            for (Seat seat : fila) {
+                System.out.print(seat.isAvailable() ? "[L]" : "[X]");
+            }
+            System.out.println();
+        }
+    }
 
     @Override
     public String toString() {
         return "Sala: " + name + " (" + type + ") - Capacidad: " + capacity;
     }
-    
-}
 
+}
