@@ -31,70 +31,54 @@ public class Movie {
         this.synopsis = synopsis;
         this.language = language;
     }
-
     public Movie() {
     }
     
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getGenre() {
         return genre;
     }
-
     public void setGenre(String genre) {
         this.genre = genre;
     }
-
     public int getDurationMinutes() {
         return durationMinutes;
     }
-
     public void setDurationMinutes(int durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
-
     public String getClassification() {
         return classification;
     }
-
     public void setClassification(String classification) {
         this.classification = classification;
     }
-
     public String getDirector() {
         return director;
     }
-
     public void setDirector(String director) {
         this.director = director;
     }
-
     public String getSynopsis() {
         return synopsis;
     }
-
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
     }
-
     public String getLanguage() {
         return language;
     }
-
     public void setLanguage(String language) {
         this.language = language;
     }
