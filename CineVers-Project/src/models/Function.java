@@ -73,7 +73,8 @@ public class Function {
 
     @Override
     public String toString() {
-        return "Function{" + "id=" + id + ", movie=" + movie + ", room=" + room + ", dateTime=" + dateTime + ", price=" + price + '}';
+        return "Función: " + movie.getTitle() + " en sala " + room.getName() +
+                " | Fecha: " + dateTime + " | Precio: $" + price;
     }
    
 }
