@@ -28,50 +28,51 @@ public class Room {
 
     public Room() {
     }
-
+    
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public int getCapacity() {
         return capacity;
     }
-
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }
-
     public Seat[][] getSeats() {
         return seats;
     }
-
     public void setSeats(Seat[][] seats) {
         this.seats = seats;
+    }
+    
+    public int getAvailableSeats() {
+        int count = 0;
+        for (Seat[] row : seats) {
+            for (Seat seat : row) {
+                if (seat.isAvailable()) count++;
+            }
+        }
+        return count;
     }
 
     @Override
     public String toString() {
-        return "Room{" + "id=" + id + ", name=" + name + ", capacity=" + capacity + ", type=" + type + ", seats=" + seats + '}';
+        return "Sala: " + name + " (" + type + ") - Capacidad: " + capacity;
     }
     
 }

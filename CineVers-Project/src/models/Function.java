@@ -34,46 +34,38 @@ public class Function {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public Movie getMovie() {
         return movie;
     }
-
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
-
     public Room getRoom() {
         return room;
-    }
-
+    }    
     public void setRoom(Room room) {
         this.room = room;
     }
-
     public LocalDateTime getDateTime() {
         return dateTime;
     }
-
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-
     public double getPrice() {
         return price;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
-        return "Function{" + "id=" + id + ", movie=" + movie + ", room=" + room + ", dateTime=" + dateTime + ", price=" + price + '}';
+        return "Función: " + movie.getTitle() + " en sala " + room.getName() +
+                " | Fecha: " + dateTime + " | Precio: $" + price;
     }
    
 }

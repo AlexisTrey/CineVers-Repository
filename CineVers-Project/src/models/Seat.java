@@ -29,33 +29,26 @@ public class Seat {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public int getRow() {
         return row;
     }
-
     public void setRow(int row) {
         if (row < 0) throw new IllegalArgumentException("Row cannot be negative");
         this.row = row;
     }
-
     public int getNumber() {
         return number;
     }
-
     public void setNumber(int number) {
         if (number < 0) throw new IllegalArgumentException("Number cannot be negative");
         this.number = number;
     }
-
     public boolean isAvailable() {
         return available;
     }
-
     public void setAvailable(boolean available) {
         this.available = available;
     }

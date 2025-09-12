@@ -38,39 +38,30 @@ public class Reservation {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
-
     public Function getFunction() {
         return function;
     }
-
     public void setFunction(Function function) {
         this.function = function;
     }
-
     public Seat getSeat() {
         return seat;
     }
-
     public void setSeat(Seat seat) {
         this.seat = seat;
     }
-
     public LocalDateTime getReservationDate() {
         return reservationDate;
     }
-
     public void setReservationDate(LocalDateTime reservationDate) {
         this.reservationDate = reservationDate;
     }
@@ -85,6 +76,7 @@ public class Reservation {
     public double getPrice() {
         return price;
     }
+
 
     public void setPrice(double price) {
         this.price = price;
