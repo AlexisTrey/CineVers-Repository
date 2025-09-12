@@ -59,10 +59,17 @@ public class Seat {
         this.available = available;
     }
 
-    @Override
-    public String toString() {
-        return "Seat{" + "id=" + id + ", row=" + row + ", number=" + number + ", available=" + available + '}';
+    public void reserve() { 
+        this.available = false; 
     }
     
-    
+    public void release() {
+        this.available = true; 
+    }
+
+    @Override
+    public String toString() {
+        return "Fila " + row + " Asiento " + number + (available ? " [Disponible]" : " [Ocupado]");
+    }
+        
 }
