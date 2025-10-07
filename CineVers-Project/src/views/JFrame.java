@@ -6,7 +6,10 @@ package views;
 
 /**
  *
- * @author Alexis Tobar R
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class JFrame extends javax.swing.JFrame {
     
