@@ -5,6 +5,8 @@
 package models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,54 +16,73 @@ import java.time.LocalDateTime;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Reservation {
+
     private String id;
     private User user;
     private Function function;
-    private Seat seat;
+    private List<Seat> seats;
     private LocalDateTime reservationDate;
     private boolean status;
     private double price;
 
-    public Reservation(String id, User user, Function function, Seat seat, LocalDateTime reservationDate, boolean status, double price) {
+    public Reservation(String id, User user, Function function, List<Seat> seats, LocalDateTime reservationDate, boolean status, double price) {
         this.id = id;
         this.user = user;
         this.function = function;
-        this.seat = seat;
+        this.seats = new ArrayList<>();
         this.reservationDate = reservationDate;
-        this.status = status; //Confirmada, cancelada
-        this.price = price; 
+        this.status = status;
+        this.price = price;
     }
 
     public Reservation() {
+        this.seats = new ArrayList<>();
     }
- 
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public User getUser() {
         return user;
     }
+
     public void setUser(User user) {
         this.user = user;
     }
+
     public Function getFunction() {
         return function;
     }
+
     public void setFunction(Function function) {
         this.function = function;
     }
-    public Seat getSeat() {
-        return seat;
+
+    public List<Seat> getSeats() {
+        return seats;
     }
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public LocalDateTime getReservationDate() {
         return reservationDate;
     }
+
     public void setReservationDate(LocalDateTime reservationDate) {
         this.reservationDate = reservationDate;
     }
@@ -69,6 +90,7 @@ public class Reservation {
     public boolean isConfirmed() {
         return status;
     }
+
     public void setConfirmed(boolean status) {
         this.status = status;
     }
@@ -80,21 +102,31 @@ public class Reservation {
     public void setPrice(double price) {
         this.price = price;
     }
+
     public void confirm() {
-    this.status = true;
+        this.status = true;
     }
 
     public void cancel() {
-    this.status = false;
+        this.status = false;
     }
 
-   public String getReservationDetails() {
-    return "Reserva " + id +
-           " | Usuario: " + (user != null ? user.getFullName(): "N/A") +
-           " | Función: " + (function != null ? function.getMovie().getTitle() : "N/A") +
-           " | Asiento: " + (seat != null ? seat.getSeatInfo() : "N/A") +
-           " | Fecha: " + reservationDate +
-           " | Estado: " + (status ? "Confirmada" : "Cancelada") +
-           " | Precio: $" + price;
-}
+    public void addSeat(Seat seat) {
+        seats.add(seat);
+    }
+
+    public void removeSeat(Seat seat) {
+        seats.remove(seat);
+    }
+
+    public double getTotalPrice() {
+        return price * seats.size();
+    }
+
+    public String getReservationDetails() {
+        return "Reserva: " + id + " | Usuario: " + user.getFullName()
+                + " | Función: " + function.getMovie().getTitle()
+                + " | Asientos: " + seats.size()
+                + " | Total: $" + getTotalPrice();
+    }
 }
