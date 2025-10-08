@@ -18,10 +18,10 @@ public class Controller {
     private MainFrame mainFrame;
 
     public Controller() {
-        mainFrame = new MainFrame(); // crea la ventana principal
+        mainFrame = new MainFrame();
     }
 
     public void init() {
-        mainFrame.setVisible(true); // la hace visible
+        mainFrame.setVisible(true);
     }
 }
