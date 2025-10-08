@@ -4,6 +4,8 @@
  */
 package controllers;
 
+import views.MainFrame;
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -12,5 +14,14 @@ package controllers;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Controller {
-    
+
+    private MainFrame mainFrame;
+
+    public Controller() {
+        mainFrame = new MainFrame(); // crea la ventana principal
+    }
+
+    public void init() {
+        mainFrame.setVisible(true); // la hace visible
+    }
 }
