@@ -4,6 +4,8 @@
  */
 package runners;
 
+import controllers.Controller;
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -12,5 +14,9 @@ package runners;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Run {
-    
+
+    public static void main(String[] args) {
+        Controller controller = new Controller();
+        controller.init();
+    }
 }
