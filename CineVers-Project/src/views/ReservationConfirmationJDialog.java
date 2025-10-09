@@ -74,7 +74,7 @@ public class ReservationConfirmationJDialog extends javax.swing.JDialog {
         jPanel1.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 180, -1, -1));
 
         lblSubMessage.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblSubMessage.setText("Disfruta tu película");
+        lblSubMessage.setText("Disfruta la película");
         jPanel1.add(lblSubMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 230, -1, -1));
 
         btnOk.setBackground(new java.awt.Color(54, 21, 90));
