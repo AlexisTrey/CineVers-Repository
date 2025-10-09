@@ -104,7 +104,7 @@ public class ReservationConfirmationJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        // TODO add your handling code here:
+        dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnOkActionPerformed
 
     /**
