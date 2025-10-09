@@ -18,17 +18,25 @@ public class MainFrame extends JFrame {
 
     private ActionListener listener;
     private MainPanel mainPanel;
+    
 
     public MainFrame(ActionListener listener) {
         super("CineVers");
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        mainPanel = new MainPanel(listener);
+        this.listener = listener;
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
+        //this.setLayout(new BorderLayout());
+        
+        mainPanel = new MainPanel(listener);
         add(mainPanel, BorderLayout.CENTER);
-        this.listener = listener;
+        
         this.setVisible(true);
+    }
+    
+    public MainPanel getMainPanel() {
+        return mainPanel;
     }
 }
