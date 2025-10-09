@@ -4,6 +4,8 @@
  */
 package controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import views.MainFrame;
 
 /**
@@ -15,13 +17,28 @@ import views.MainFrame;
  */
 public class Controller {
 
+    private ActionListener listener;
     private MainFrame mainFrame;
 
     public Controller() {
-        mainFrame = new MainFrame();
+       this.listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                initListener(e);
+            }
+        };
+        mainFrame = new MainFrame(listener);
     }
 
     public void init() {
         mainFrame.setVisible(true);
+    }
+    
+    public void initListener (ActionEvent e){
+                String name = e.getActionCommand();
+                switch (name) {
+                   // case "BILLBOARD" -> calculateSum();
+                    
+                }
     }
 }

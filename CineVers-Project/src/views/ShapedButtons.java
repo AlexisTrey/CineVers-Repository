@@ -32,10 +32,10 @@ public class ShapedButtons extends BasicButtonUI {
             case "Cartelera":
                 btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
-            case "Ingresar":
-                btnFill(g2d, c.getWidth(), c.getHeight(), isHover);
+            case "Próximos estrenos":
+                btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
-            case "Agregar Estudiante":
+            case "Mi Cuenta":
                 btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
             case "Buscar Estudiante":
@@ -63,9 +63,9 @@ public class ShapedButtons extends BasicButtonUI {
     private void btnRoundRectangle(Graphics2D g2d, int width, int height, boolean isHover) {
         Shape buttonShape = new RoundRectangle2D.Double(0, 0, width, height, 10, 10);
         if (isHover) {
-            g2d.setPaint(new Color(25, 50, 75)); //Hover
+            g2d.setPaint(new Color(34, 34, 54)); //Hover
         } else {
-            g2d.setPaint(new Color(33, 64, 95)); // Normal
+            g2d.setPaint(new Color(14, 14, 24)); // Normal
         }
         g2d.fill(buttonShape);
     }

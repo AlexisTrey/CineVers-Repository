@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
@@ -16,9 +17,9 @@ public class MainPanel extends JPanel {
     private Header header;
     private Background background;
 
-    public MainPanel() {
+    public MainPanel(ActionListener listener) {
         setLayout(new BorderLayout());
-        header = new Header();
+        header = new Header(listener);
         background = new Background();
         add(header, BorderLayout.NORTH);
         add(background, BorderLayout.CENTER);
