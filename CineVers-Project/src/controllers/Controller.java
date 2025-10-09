@@ -7,6 +7,7 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import views.MainFrame;
+import views.MainPanel;
 
 /**
  *
@@ -15,30 +16,28 @@ import views.MainFrame;
  * @author Hellen Valeria Melo Cubides
  * @author Jhonnyd Bleyck Arias Santafe
  */
-public class Controller {
+public class Controller implements ActionListener {
 
-    private ActionListener listener;
     private MainFrame mainFrame;
 
     public Controller() {
-       this.listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                initListener(e);
-            }
-        };
-        mainFrame = new MainFrame(listener);
+        mainFrame = new MainFrame(this);
     }
 
     public void init() {
-        mainFrame.setVisible(true);
+        mainFrame.getMainPanel().showPanel(MainPanel.HOME);
     }
-    
-    public void initListener (ActionEvent e){
-                String name = e.getActionCommand();
-                switch (name) {
-                   // case "BILLBOARD" -> calculateSum();
-                    
-                }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        switch (command) {
+            case "HOME":
+                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                break;
+            default:
+                System.out.println("Acción no reconocida: " + command);
+        }
     }
 }
