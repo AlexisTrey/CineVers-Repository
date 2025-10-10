@@ -3,12 +3,15 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.io.InputStream;
+import javax.swing.JButton;
 
 import javax.swing.JPanel;
 
@@ -22,14 +25,20 @@ import javax.swing.JPanel;
 public class Header extends JPanel {
 
     private Font customFont;
+    private JButton btnBillboard;
+    private JButton btnUpcomingReleases;
+    private JButton btnAccount;
+    private ActionListener listener;
 
-    public Header() {
+    public Header(ActionListener listener) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int panelHeight = (int) (screenSize.height * 0.12);
         this.setPreferredSize(new Dimension(screenSize.width, panelHeight));
         setLayout(new BorderLayout());
 
+        this.listener = listener;
         loadCustomFont();
+        createPanelBtns();
     }
 
     private void loadCustomFont() {
@@ -78,14 +87,41 @@ public class Header extends JPanel {
 
         g2d.setFont(normalFont);
         g2d.drawString("ERS", x, y);
-
-        g2d.setFont(new Font("Segoe UI", Font.PLAIN, 22));
-        g2d.drawString("Cartelera", 1000, 70);
-        g2d.drawString("Próximos Estrenos", 1130, 70);
-        g2d.drawString("Mi Cuenta", 1350, 70);
     }
 
-    /*private ShapedButtons createBtnBillboard (String text) {
-		
-	}*/
+    private JButton createBtns(String textButton) {
+        JButton button = new JButton(textButton);
+        button.setPreferredSize(new Dimension(220, 70));
+        button.setUI(new ShapedButtons());
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Segoe UI", Font.PLAIN, 22));
+        button.setFocusPainted(false);
+        return button;
+    }
+
+    private void createPanelBtns() {
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 20));
+        buttonsPanel.setOpaque(false);
+
+        buttonsPanel.add(createBtns("Cartelera"));
+        buttonsPanel.add(createBtns("Próximos estrenos"));
+        buttonsPanel.add(createBtns("Mi Cuenta"));
+
+        add(buttonsPanel, BorderLayout.CENTER);
+    }
+
+    public void btnBillboardListener() {
+        btnBillboard.addActionListener(listener);
+    }
+    
+    public void btnUpcomingReleasesListener() {
+        btnUpcomingReleases.addActionListener(listener);
+    }
+    
+     public void btnAccountListener() {
+        btnAccount.addActionListener(listener);
+    }
 }

@@ -3,6 +3,7 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
@@ -15,17 +16,27 @@ import javax.swing.JFrame;
  */
 public class MainFrame extends JFrame {
 
+    private ActionListener listener;
     private MainPanel mainPanel;
+    
 
-    public MainFrame() {
+    public MainFrame(ActionListener listener) {
         super("CineVers");
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        mainPanel = new MainPanel();
+        this.listener = listener;
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
+        //this.setLayout(new BorderLayout());
+        
+        mainPanel = new MainPanel(listener);
         add(mainPanel, BorderLayout.CENTER);
+        
         this.setVisible(true);
+    }
+    
+    public MainPanel getMainPanel() {
+        return mainPanel;
     }
 }

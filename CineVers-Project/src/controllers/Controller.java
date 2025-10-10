@@ -4,7 +4,10 @@
  */
 package controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import views.MainFrame;
+import views.MainPanel;
 
 /**
  *
@@ -13,15 +16,37 @@ import views.MainFrame;
  * @author Hellen Valeria Melo Cubides
  * @author Jhonnyd Bleyck Arias Santafe
  */
-public class Controller {
+public class Controller implements ActionListener {
 
     private MainFrame mainFrame;
 
     public Controller() {
-        mainFrame = new MainFrame();
+        mainFrame = new MainFrame(this);
     }
 
     public void init() {
-        mainFrame.setVisible(true);
+        mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        switch (command) {
+            case "HOME":
+                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                break;
+            case "EDITAR_SALAS":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
+                break;
+            case "EDITAR_CARTELERA":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                break;
+            case "EDITAR_FUNCIONES":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
+                break;
+            default:
+                System.out.println("Acción no reconocida: " + command);
+        }
     }
 }
