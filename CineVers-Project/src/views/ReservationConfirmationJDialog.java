@@ -4,6 +4,8 @@
  */
 package views;
 
+import utilities.Utilities;
+
 /**
  *
  * @author Alexis Tobar R
@@ -21,7 +23,7 @@ public class ReservationConfirmationJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
 
         // Ícono
-        java.net.URL iconURL = getClass().getResource("/resources/images/check.png");
+        java.net.URL iconURL = getClass().getResource(Utilities.CHECK_PATH);
         if (iconURL != null) {
             javax.swing.ImageIcon icon = new javax.swing.ImageIcon(iconURL);
             java.awt.Image scaledImage = icon.getImage().getScaledInstance(
@@ -57,7 +59,6 @@ public class ReservationConfirmationJDialog extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(216, 216, 216));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 400));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIcon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/check.png"))); // NOI18N
@@ -66,16 +67,13 @@ public class ReservationConfirmationJDialog extends javax.swing.JDialog {
         lblIcon1.setMaximumSize(new java.awt.Dimension(64, 64));
         lblIcon1.setMinimumSize(new java.awt.Dimension(64, 64));
         lblIcon1.setPreferredSize(new java.awt.Dimension(64, 64));
-        jPanel1.add(lblIcon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 100, 100));
 
         lblMessage.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblMessage.setForeground(new java.awt.Color(98, 43, 160));
         lblMessage.setText("¡Reserva Exitosa!");
-        jPanel1.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 180, -1, -1));
 
         lblSubMessage.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblSubMessage.setText("Disfruta la película");
-        jPanel1.add(lblSubMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 230, -1, -1));
 
         btnOk.setBackground(new java.awt.Color(54, 21, 90));
         btnOk.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -87,7 +85,36 @@ public class ReservationConfirmationJDialog extends javax.swing.JDialog {
                 btnOkActionPerformed(evt);
             }
         });
-        jPanel1.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(lblIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(lblMessage))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(lblSubMessage))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(btnOk))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(lblIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(lblMessage)
+                .addGap(2, 2, 2)
+                .addComponent(lblSubMessage)
+                .addGap(28, 28, 28)
+                .addComponent(btnOk))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
