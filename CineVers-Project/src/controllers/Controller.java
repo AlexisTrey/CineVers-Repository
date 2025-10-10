@@ -25,7 +25,7 @@ public class Controller implements ActionListener {
     }
 
     public void init() {
-        mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+        mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
     }
 
     @Override
@@ -35,6 +35,15 @@ public class Controller implements ActionListener {
         switch (command) {
             case "HOME":
                 mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                break;
+            case "EDITAR_SALAS":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
+                break;
+            case "EDITAR_CARTELERA":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                break;
+            case "EDITAR_FUNCIONES":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
                 break;
             default:
                 System.out.println("Acción no reconocida: " + command);
