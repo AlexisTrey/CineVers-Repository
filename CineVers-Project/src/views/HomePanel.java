@@ -27,7 +27,7 @@ public class HomePanel extends JPanel {
 
     public HomePanel() {
         setLayout(new BorderLayout());
-        setBackground(new Color(44, 44, 84)); // color oscuro elegante
+        setBackground(new Color(44, 44, 84));
 
         createTopPanel();
         createContentPanel();
