@@ -3,8 +3,10 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -19,6 +21,8 @@ public class MainPanel extends JPanel {
     private JPanel contentPanel;
     private CardLayout cardLayout;
     private Background background;
+    private Footer footer;
+    private JPanel scrollContainer;
 
     public static final String HOME = "home";
     public static final String EDIT_ROOMS = "editRooms";
@@ -28,7 +32,11 @@ public class MainPanel extends JPanel {
     public MainPanel(ActionListener listener) {
         setLayout(new BorderLayout());
         header = new Header(listener);
+        footer = new Footer();
         //background = new Background();
+
+        scrollContainer = new JPanel();
+        scrollContainer.setLayout(new BoxLayout(scrollContainer, BoxLayout.Y_AXIS));
 
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
@@ -39,9 +47,15 @@ public class MainPanel extends JPanel {
         contentPanel.add(new BillboardEditionPanel(), EDIT_BILLBOARD);
         contentPanel.add(new FunctionsEditionPanel(), EDIT_FUNCTIONS);
 
+        scrollContainer.add(contentPanel);
+        scrollContainer.add(footer);
+
+        JScrollPane scrollPane = new JScrollPane(scrollContainer);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+
         add(header, BorderLayout.NORTH);
-        add(contentPanel, BorderLayout.CENTER);
-        //add(background, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     public void showPanel(String panelName) {
