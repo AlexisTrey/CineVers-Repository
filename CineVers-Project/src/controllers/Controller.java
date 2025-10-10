@@ -21,6 +21,7 @@ public class Controller implements ActionListener {
     private MainFrame mainFrame;
 
     public Controller() {
+
         mainFrame = new MainFrame(this);
     }
 
@@ -28,7 +29,6 @@ public class Controller implements ActionListener {
         mainFrame.getMainPanel().showPanel(MainPanel.HOME);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
@@ -44,6 +44,9 @@ public class Controller implements ActionListener {
                 break;
             case "EDITAR_FUNCIONES":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
+                break;
+            case "BILLBOARD":
+                mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
                 break;
             default:
                 System.out.println("Acción no reconocida: " + command);

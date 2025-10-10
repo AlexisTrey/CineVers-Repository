@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class MainPanel extends JPanel {
+    
+    private ActionListener listener;
 
     private Header header;
     private JPanel contentPanel;
@@ -28,10 +30,13 @@ public class MainPanel extends JPanel {
     public static final String EDIT_ROOMS = "editRooms";
     public static final String EDIT_BILLBOARD = "editBillboard";
     public static final String EDIT_FUNCTIONS = "editFunctions";
+    public static final String MOVIE_DETAILS = "movieDetails";
 
     public MainPanel(ActionListener listener) {
         setLayout(new BorderLayout());
+        this.listener = listener;
         header = new Header(listener);
+
         footer = new Footer();
         //background = new Background();
 
@@ -60,5 +65,21 @@ public class MainPanel extends JPanel {
 
     public void showPanel(String panelName) {
         cardLayout.show(contentPanel, panelName);
+
+        //--- Contenedor central con CardLayout ---
+        cardLayout = new CardLayout();
+        contentPanel = new JPanel(cardLayout);
+
+        // Paneles de contenido
+        Background background = new Background(); 
+        MovieDetailsPanel movieDetailsPanel = new MovieDetailsPanel(listener); // nuevo panel
+
+        // Agregamos los paneles con un nombre identificador
+        contentPanel.add(background, HOME);
+        contentPanel.add(movieDetailsPanel, MOVIE_DETAILS);
+
+        // Añadimos al centro del MainPanel
+        add(contentPanel, BorderLayout.CENTER);
     }
+
 }

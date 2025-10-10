@@ -105,23 +105,34 @@ public class Header extends JPanel {
     private void createPanelBtns() {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 20));
         buttonsPanel.setOpaque(false);
+       // Crear los botones y asignarlos a las variables de instancia
+        btnBillboard = createBtns("Cartelera");
+        btnUpcomingReleases = createBtns("Próximos estrenos");
+        btnAccount = createBtns("Mi Cuenta");
 
-        buttonsPanel.add(createBtns("Cartelera"));
-        buttonsPanel.add(createBtns("Próximos estrenos"));
-        buttonsPanel.add(createBtns("Mi Cuenta"));
+        btnBillboardListener();
+        btnUpcomingReleasesListener();
+        btnAccountListener();
+
+        buttonsPanel.add(btnBillboard);
+        buttonsPanel.add(btnUpcomingReleases);
+        buttonsPanel.add(btnAccount);
 
         add(buttonsPanel, BorderLayout.CENTER);
     }
 
     public void btnBillboardListener() {
+        btnBillboard.setActionCommand("BILLBOARD");
         btnBillboard.addActionListener(listener);
     }
-    
+
     public void btnUpcomingReleasesListener() {
+        btnUpcomingReleases.setActionCommand("UPCOMING_RELEASES");
         btnUpcomingReleases.addActionListener(listener);
     }
-    
-     public void btnAccountListener() {
+
+    public void btnAccountListener() {
+        btnAccount.setActionCommand("ACCOUNT");
         btnAccount.addActionListener(listener);
     }
 }

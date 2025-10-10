@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
         
         this.setVisible(true);
     }
-    
+
     public MainPanel getMainPanel() {
         return mainPanel;
     }
