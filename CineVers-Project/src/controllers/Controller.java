@@ -49,7 +49,7 @@ public class Controller implements ActionListener {
                 mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
                 break;
             default:
-                System.out.println("Acción no reconocida: " + command);
+                System.out.println("Acción no reconocida:  " + command);
         }
     }
 }
