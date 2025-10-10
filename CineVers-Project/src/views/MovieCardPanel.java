@@ -43,14 +43,14 @@ public class MovieCardPanel extends JPanel {
 
     public MovieCardPanel(String title, String genre, String tags, ImageIcon poster) {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(350, 550));
+        setPreferredSize(new Dimension(350, 570));
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         //Poster
         lblPoster = new JLabel();
         lblPoster.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPoster.setPreferredSize(new Dimension(320, 440));
+        lblPoster.setPreferredSize(new Dimension(320, 400));
 
         if (poster != null) {
             Image img = poster.getImage().getScaledInstance(320, 440, Image.SCALE_SMOOTH);
@@ -83,27 +83,16 @@ public class MovieCardPanel extends JPanel {
         lblTags.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         btnDetails = new JButton("Ver Detalles");
+        btnDetails.setUI(new ShapedButtons());
         btnDetails.setFont(new Font("Segoe UI", Font.BOLD, 16));
         btnDetails.setForeground(Color.WHITE);
-        btnDetails.setBackground(new Color(98, 43, 160));
-        btnDetails.setFocusPainted(false);
+        btnDetails.setOpaque(true);
+        btnDetails.setContentAreaFilled(true);
         btnDetails.setBorderPainted(false);
+        btnDetails.setFocusPainted(false);
         btnDetails.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnDetails.setMaximumSize(new Dimension(180, 45));
         btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        // Hover del botón
-        btnDetails.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDetails.setBackground(new Color(122, 43, 191));
-            }
-
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDetails.setBackground(new Color(98, 43, 160));
-            }
-        });
 
         infoPanel.add(lblTitle);
         infoPanel.add(lblGenre);
