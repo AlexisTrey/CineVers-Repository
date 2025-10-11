@@ -25,7 +25,7 @@ public class Controller implements ActionListener {
     }
 
     public void init() {
-        mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+        mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
     }
 
     @Override

@@ -29,6 +29,7 @@ public class ShapedButtons extends BasicButtonUI {
         AbstractButton button = (AbstractButton) c;
         boolean isHover = button.getModel().isRollover();
         String text = button.getText();
+
         switch (text) {
             case "Cartelera":
                 btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
@@ -42,7 +43,19 @@ public class ShapedButtons extends BasicButtonUI {
             case "Ver Detalles":
                 btnGradientRounded(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
+            case "Edición de Funciones":
+            case "Edición de Cartelera":
+            case "Edición de Salas":
+                btnGradientRoundedEdits(g2d, c.getWidth(), c.getHeight(), isHover);
+                break;
+            case "Editar":
+                btnGradientEdit(g2d, c.getWidth(), c.getHeight(), isHover);
+                break;
+            case "Eliminar":
+                btnGradientDelete(g2d, c.getWidth(), c.getHeight(), isHover);
+                break;
         }
+
         g2d.setColor(Color.WHITE);
         g2d.setFont(c.getFont());
         String textBtn = ((AbstractButton) c).getText();
@@ -105,10 +118,63 @@ public class ShapedButtons extends BasicButtonUI {
         Color endColor = isHover ? new Color(140, 100, 210) : new Color(105, 80, 185);
 
         java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, startColor, width, height, endColor);
+        g2d.setBackground(new Color(255, 255, 255, 255));
+        g2d.clearRect(0, 0, width, height);
+
         g2d.setPaint(gradient);
         g2d.fill(buttonShape);
+        g2d.setColor(new Color(255, 255, 255, 255));
+        g2d.setStroke(new BasicStroke(1.5f));
+        g2d.draw(buttonShape);
+    }
 
-        g2d.setColor(new Color(255, 255, 255, 80));
+    private void btnGradientRoundedEdits(Graphics2D g2d, int width, int height, boolean isHover) {
+        Shape buttonShape = new RoundRectangle2D.Double(0, 0, width, height, 40, 40);
+
+        Color startColor = isHover ? new Color(110, 70, 190) : new Color(85, 60, 160);
+        Color endColor = isHover ? new Color(140, 100, 210) : new Color(105, 80, 185);
+
+        java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, startColor, width, height, endColor);
+        g2d.setBackground(new Color(122, 43, 191, 255));
+        g2d.clearRect(0, 0, width, height);
+
+        g2d.setPaint(gradient);
+        g2d.fill(buttonShape);
+        g2d.setColor(new Color(122, 43, 191, 255));
+        g2d.setStroke(new BasicStroke(1.5f));
+        g2d.draw(buttonShape);
+    }
+
+    private void btnGradientEdit(Graphics2D g2d, int width, int height, boolean isHover) {
+        Shape buttonShape = new RoundRectangle2D.Double(0, 0, width, height, 40, 40);
+
+        Color startColor = isHover ? new Color(60, 180, 100) : new Color(45, 150, 80);
+        Color endColor = isHover ? new Color(100, 220, 140) : new Color(70, 190, 110);
+
+        java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, startColor, width, height, endColor);
+        g2d.setBackground(new Color(255, 255, 255, 255));
+        g2d.clearRect(0, 0, width, height);
+
+        g2d.setPaint(gradient);
+        g2d.fill(buttonShape);
+        g2d.setColor(new Color(255, 255, 255, 255));
+        g2d.setStroke(new BasicStroke(1.5f));
+        g2d.draw(buttonShape);
+    }
+
+    private void btnGradientDelete(Graphics2D g2d, int width, int height, boolean isHover) {
+        Shape buttonShape = new RoundRectangle2D.Double(0, 0, width, height, 40, 40);
+
+        Color startColor = isHover ? new Color(210, 60, 80) : new Color(180, 40, 60);
+        Color endColor = isHover ? new Color(240, 90, 110) : new Color(200, 60, 80);
+
+        java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, startColor, width, height, endColor);
+        g2d.setBackground(new Color(255, 255, 255, 255));
+        g2d.clearRect(0, 0, width, height);
+
+        g2d.setPaint(gradient);
+        g2d.fill(buttonShape);
+        g2d.setColor(new Color(255, 255, 255, 255));
         g2d.setStroke(new BasicStroke(1.5f));
         g2d.draw(buttonShape);
     }

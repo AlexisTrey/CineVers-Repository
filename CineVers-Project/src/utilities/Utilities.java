@@ -15,6 +15,7 @@ public class Utilities {
 
     //Rutas
     public static final String CHECK_PATH = "/resources/images/check.png";
+    public static final String ICON_ROOM_PATH = "/resources/images/IconRoom.png";
 
     public static final String LOGO_FOOTER_PATH = "/resources/images/LogoFooter.png";
     public static final String INSTAGRAM_PATH = "/resources/images/Instagram.png";
