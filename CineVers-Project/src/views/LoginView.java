@@ -19,22 +19,20 @@ import javax.swing.border.EmptyBorder;
 
 public class LoginView extends JPanel {
 
-    private Header header;
+  
     private Background background;
     private JTextField txtCorreo;
     private JPasswordField txtContrasena;
     private JButton btnLogin, btnCrearCuenta;
     private JLabel lblOlvido, lblMensajeInferior, lblTitulo;
-
-    public LoginView() {
+    private ActionListener listener;
+    
+    public LoginView(ActionListener listener) {
+        this.listener=listener;
         setLayout(new BorderLayout());
 
         
-        header = new Header(e -> {
-            System.out.println("Botón del header presionado: " + e.getActionCommand());
-        });
-        add(header, BorderLayout.NORTH);
-
+   
     
         background = new Background();
         background.setLayout(new GridBagLayout());
@@ -158,7 +156,9 @@ btnCrear.setFocusPainted(false);
 btnCrear.setContentAreaFilled(false);
 btnCrear.setBorderPainted(false);
 btnCrear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-btnCrear.addActionListener(e -> System.out.println("Abrir pantalla de registro..."));
+
+btnCrear.setActionCommand("ABRIR_REGISTRO");
+btnCrear.addActionListener(listener);
 
 panelInferior.add(lblMensaje1);
 panelInferior.add(btnCrear);

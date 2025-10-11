@@ -4,7 +4,6 @@
  */
 package views;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -22,14 +21,14 @@ public class SelectCityView extends JPanel {
     private Background background;
     private JButton btnSelectCity;
     private ActionListener listener;
+
     public SelectCityView(ActionListener listener) {
-        this.listener=listener;
+        this.listener = listener;
         setLayout(new BorderLayout());
 
         background = new Background();
         background.setLayout(new GridBagLayout());
 
-       
         btnSelectCity = new JButton("Seleccionar Ciudad") {
             @Override
             protected void paintComponent(Graphics g) {
@@ -52,7 +51,6 @@ public class SelectCityView extends JPanel {
         btnSelectCity.setBorderPainted(false);
         btnSelectCity.setPreferredSize(new Dimension(250, 50));
 
-      
         btnSelectCity.addActionListener(e -> showDialog());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -65,29 +63,28 @@ public class SelectCityView extends JPanel {
 
     private void showDialog() {
         JDialog dialog = new JDialog((Frame) null, "Selecciona tu ubicación", true);
-dialog.setUndecorated(true);
-dialog.setBackground(new Color(0, 0, 0, 0)); 
-dialog.setSize(450, 300);
-dialog.setLocationRelativeTo(this);
+        dialog.setUndecorated(true);
+        dialog.setBackground(new Color(0, 0, 0, 0));
+        dialog.setSize(450, 300);
+        dialog.setLocationRelativeTo(this);
 
+        JPanel panel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(Color.WHITE);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 40, 40);
+                g2.setColor(new Color(0, 0, 0, 30));
+                g2.setStroke(new BasicStroke(2f));
+                g2.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 40, 40);
 
-    JPanel panel = new JPanel(new GridBagLayout()) {
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(Color.WHITE);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 40, 40); 
-        g2.setColor(new Color(0, 0, 0, 30)); 
-g2.setStroke(new BasicStroke(2f));
-g2.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 40, 40);
+                g2.dispose();
+            }
+        };
+        panel.setOpaque(false);
 
-        g2.dispose();
-    }
-};
-panel.setOpaque(false);
-
-panel.setBorder(new EmptyBorder(30, 50, 30, 50));
+        panel.setBorder(new EmptyBorder(30, 50, 30, 50));
 
         dialog.setContentPane(panel);
 
@@ -98,7 +95,6 @@ panel.setBorder(new EmptyBorder(30, 50, 30, 50));
         JLabel lblPais = new JLabel("País");
         lblPais.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 
-    
         JComboBox<String> cbPais = new JComboBox<>(new String[]{"Seleccionar país", "Colombia"});
         cbPais.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         cbPais.setPreferredSize(new Dimension(300, 35));
@@ -116,7 +112,7 @@ panel.setBorder(new EmptyBorder(30, 50, 30, 50));
         cbCiudad.setPreferredSize(new Dimension(300, 35));
         estilizarCombo(cbCiudad);
         lblCiudad.setVisible(false);
-        cbCiudad.setVisible(false);       
+        cbCiudad.setVisible(false);
         JButton btnAceptar = new JButton("Seleccionar ubicación") {
             @Override
             protected void paintComponent(Graphics g) {
@@ -139,11 +135,10 @@ panel.setBorder(new EmptyBorder(30, 50, 30, 50));
         btnAceptar.setBorderPainted(false);
         btnAceptar.setPreferredSize(new Dimension(250, 45));
 
-     
         cbPais.addActionListener(e -> {
             boolean mostrarCiudad = "Colombia".equals(cbPais.getSelectedItem());
-            lblCiudad.setVisible(mostrarCiudad); 
-            cbCiudad.setVisible(mostrarCiudad); 
+            lblCiudad.setVisible(mostrarCiudad);
+            cbCiudad.setVisible(mostrarCiudad);
             dialog.revalidate();
             dialog.repaint();
         });
@@ -153,16 +148,13 @@ panel.setBorder(new EmptyBorder(30, 50, 30, 50));
                 JOptionPane.showMessageDialog(dialog, "Selecciona un país primero.");
                 return;
             }
-            String ciudad = (String) cbCiudad.getSelectedItem();
-            JOptionPane.showMessageDialog(dialog, "Has seleccionado: " + ciudad);
             dialog.dispose();
-              if (listener != null) {
-        listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "goHome"));
-    }
-        
+            if (listener != null) {
+                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "goHome"));
+            }
+
         });
 
-       
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.gridx = 0;
@@ -182,87 +174,82 @@ panel.setBorder(new EmptyBorder(30, 50, 30, 50));
         dialog.setVisible(true);
     }
 
-private void estilizarCombo(JComboBox<String> combo) {
-    combo.setBackground(Color.WHITE);
-    combo.setForeground(new Color(60, 60, 60));
-    combo.setPreferredSize(new Dimension(320, 40));
-    combo.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-    combo.setFocusable(false);
+    private void estilizarCombo(JComboBox<String> combo) {
+        combo.setBackground(Color.WHITE);
+        combo.setForeground(new Color(60, 60, 60));
+        combo.setPreferredSize(new Dimension(320, 40));
+        combo.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        combo.setFocusable(false);
 
-    combo.setRenderer(new DefaultListCellRenderer() {
-        @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
-                                                      boolean isSelected, boolean cellHasFocus) {
-            JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            lbl.setOpaque(true);
-            if (isSelected) {
-                lbl.setBackground(new Color(150, 90, 255)); 
-                lbl.setForeground(Color.WHITE);
-            } else {
-                lbl.setBackground(Color.WHITE);
-                lbl.setForeground(new Color(60, 60, 60));
+        combo.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                lbl.setOpaque(true);
+                if (isSelected) {
+                    lbl.setBackground(new Color(150, 90, 255));
+                    lbl.setForeground(Color.WHITE);
+                } else {
+                    lbl.setBackground(Color.WHITE);
+                    lbl.setForeground(new Color(60, 60, 60));
+                }
+                lbl.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                return lbl;
             }
-            lbl.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-            return lbl;
-        }
-    });
+        });
 
-
-    combo.setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
-        @Override
-        protected JButton createArrowButton() {
-            JButton arrow = new JButton("▾");
-            arrow.setBorder(null);
-            arrow.setContentAreaFilled(false);
-            arrow.setFocusPainted(false);
-            arrow.setForeground(new Color(120, 70, 220));
-            return arrow;
-        }
-
-        @Override
-        public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            if (hasFocus || combo.isPopupVisible()) {
-                g2.setColor(new Color(150, 90, 255)); 
-            } else {
-                g2.setColor(Color.WHITE); 
+        combo.setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
+            @Override
+            protected JButton createArrowButton() {
+                JButton arrow = new JButton("▾");
+                arrow.setBorder(null);
+                arrow.setContentAreaFilled(false);
+                arrow.setFocusPainted(false);
+                arrow.setForeground(new Color(120, 70, 220));
+                return arrow;
             }
 
-            g2.fillRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, 30, 30);
-            g2.dispose();
-        }
+            @Override
+            public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        @Override
-        public void paint(Graphics g, JComponent c) {
-            super.paint(g, c);
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                if (hasFocus || combo.isPopupVisible()) {
+                    g2.setColor(new Color(150, 90, 255));
+                } else {
+                    g2.setColor(Color.WHITE);
+                }
 
-          
-            g2.setColor(new Color(150, 90, 255));
-            g2.setStroke(new BasicStroke(2f));
-            g2.drawRoundRect(1, 1, c.getWidth() - 3, c.getHeight() - 3, 30, 30);
+                g2.fillRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, 30, 30);
+                g2.dispose();
+            }
 
-            g2.dispose();
-        }
-    });
-}
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                super.paint(g, c);
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-/**
- *
- *  public static void main(String[] args) {
-        JFrame frame = new JFrame("CineVers - Seleccionar Ciudad");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.add(new SelectCityView());
-        frame.setVisible(true);
+                g2.setColor(new Color(150, 90, 255));
+                g2.setStroke(new BasicStroke(2f));
+                g2.drawRoundRect(1, 1, c.getWidth() - 3, c.getHeight() - 3, 30, 30);
+
+                g2.dispose();
+            }
+        });
     }
- */
-   
-public JButton getBtnSelectCity() {
-    return btnSelectCity;
-}
+
+    /**
+     *
+     * public static void main(String[] args) { JFrame frame = new
+     * JFrame("CineVers - Seleccionar Ciudad");
+     * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     * frame.setExtendedState(JFrame.MAXIMIZED_BOTH); frame.add(new
+     * SelectCityView()); frame.setVisible(true); }
+     */
+    public JButton getBtnSelectCity() {
+        return btnSelectCity;
+    }
 
 }
