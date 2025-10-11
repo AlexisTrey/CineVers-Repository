@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -17,10 +18,10 @@ import javax.swing.SwingUtilities;
  * @author jhonnyd
  */
 public class PanelAsientos extends JPanel{
-        Icon ICONO_SILLA_BASE = new ImageIcon("/resources/images/silladesocupada.jpg"); 
+        Icon ICONO_SILLA_BASE = new ImageIcon(getClass().getResource("/resources/images/silladesocupada.png")); 
     
     // Si usas íconos diferentes para el estado seleccionado y base
-        Icon ICONO_SILLA_SELECCIONADA = new ImageIcon("/resources/images/sillaocupada.jpg");
+        Icon ICONO_SILLA_SELECCIONADA = new ImageIcon(getClass().getResource("/resources/images/sillaocupada.png"));
     
         public PanelAsientos() {
         // Establecer el diseño a null (absolute positioning)
@@ -28,7 +29,7 @@ public class PanelAsientos extends JPanel{
         
         // Opcional: Establecer un tamaño para el panel
         setPreferredSize(new Dimension(800, 1000)); 
-        
+            setBackground(Color.WHITE);
         // Agregar las sillas
         generarAsientos();
     }
@@ -55,7 +56,7 @@ public class PanelAsientos extends JPanel{
                 JButton silla = new JButton(); // ¡Ya no necesita texto!
                 silla.setName(filas[i] + (j + 1)); 
                 silla.setBounds(x, y, T_SILLA, T_SILLA); 
-                
+                silla.setBackground(Color.WHITE);
                 silla.setIcon(ICONO_SILLA_BASE);
 
                 // Agregar el Listener para el Clic
@@ -79,18 +80,20 @@ private void alternarSeleccion(JButton silla, Icon baseIcon, Icon seleccionadoIc
     }
     System.out.println("Silla " + silla.getName() + " estado cambiado.");
 }
-        public static void main(String[] args) {
-        // Asegura que la GUI se ejecute en el hilo de eventos de Swing
+
+
+         public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Panel de Asientos");
+            JFrame frame = new JFrame("Demo Cineverso");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
-            // Agregar el panel de asientos
+            frame.setSize(1024, 768);
+            frame.setLocationRelativeTo(null);
+
+            // Aquí agregás tu panel principal completo
             frame.add(new PanelAsientos());
-            
-            frame.pack(); // Ajusta el tamaño del marco al tamaño preferido del panel
-            frame.setLocationRelativeTo(null); // Centra la ventana
+
             frame.setVisible(true);
         });
-        }
+    }
+
 }
