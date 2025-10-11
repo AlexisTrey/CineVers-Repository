@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -89,8 +90,8 @@ public class Header extends JPanel {
         g2d.drawString("ERS", x, y);
     }
 
-    private JButton createBtns(String textButton) {
-        JButton button = new JButton(textButton);
+    private JButton createBtn(String text, String actionCommand, ActionListener listener) {
+        JButton button = new JButton(text);
         button.setPreferredSize(new Dimension(220, 70));
         button.setUI(new ShapedButtons());
         button.setOpaque(false);
@@ -99,6 +100,9 @@ public class Header extends JPanel {
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Segoe UI", Font.PLAIN, 22));
         button.setFocusPainted(false);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setActionCommand(actionCommand);
+        button.addActionListener(listener);
         return button;
     }
 
@@ -106,9 +110,13 @@ public class Header extends JPanel {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 20));
         buttonsPanel.setOpaque(false);
 
-        buttonsPanel.add(createBtns("Cartelera"));
-        buttonsPanel.add(createBtns("Próximos estrenos"));
-        buttonsPanel.add(createBtns("Mi Cuenta"));
+        btnBillboard = createBtn("Cartelera", "HOME", listener);
+        btnUpcomingReleases = createBtn("Próximos estrenos", "UPCOMING", listener);
+        btnAccount = createBtn("Mi Cuenta", "ACCOUNT", listener);
+
+        buttonsPanel.add(btnBillboard);
+        buttonsPanel.add(btnUpcomingReleases);
+        buttonsPanel.add(btnAccount);
 
         add(buttonsPanel, BorderLayout.CENTER);
     }
@@ -116,12 +124,12 @@ public class Header extends JPanel {
     public void btnBillboardListener() {
         btnBillboard.addActionListener(listener);
     }
-    
+
     public void btnUpcomingReleasesListener() {
         btnUpcomingReleases.addActionListener(listener);
     }
-    
-     public void btnAccountListener() {
+
+    public void btnAccountListener() {
         btnAccount.addActionListener(listener);
     }
 }

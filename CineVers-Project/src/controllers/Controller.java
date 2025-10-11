@@ -25,7 +25,7 @@ public class Controller implements ActionListener {
     }
 
     public void init() {
-        mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+        mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
     }
 
     @Override
@@ -35,6 +35,12 @@ public class Controller implements ActionListener {
         switch (command) {
             case "HOME":
                 mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                break;
+            case "UPCOMING":
+                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                break;
+            case "ACCOUNT":
+                System.out.println("Abrir panel de cuenta (pendiente)");
                 break;
             case "EDITAR_SALAS":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);

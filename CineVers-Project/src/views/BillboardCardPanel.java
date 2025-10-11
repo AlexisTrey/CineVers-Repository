@@ -33,15 +33,16 @@ import javax.swing.border.EmptyBorder;
  * @author Hellen Valeria Melo Cubides
  * @author Jhonnyd Bleyck Arias Santafe
  */
-public class MovieCardPanel extends JPanel {
+public class BillboardCardPanel extends JPanel {
 
     private JLabel lblPoster;
     private JLabel lblTitle;
     private JLabel lblGenre;
     private JLabel lblTags;
-    private JButton btnDetails;
+    private JButton btnEdit;
+    private JButton btnDelete;
 
-    public MovieCardPanel(String title, String genre, String tags, ImageIcon poster) {
+    public BillboardCardPanel(String title, String genre, String tags, ImageIcon poster) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(350, 570));
         setBackground(Color.WHITE);
@@ -82,29 +83,47 @@ public class MovieCardPanel extends JPanel {
         lblTags.setForeground(new Color(255, 215, 0));
         lblTags.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnDetails = new JButton("Ver Detalles");
-        btnDetails.setUI(new ShapedButtons());
-        btnDetails.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        btnDetails.setForeground(Color.WHITE);
-        btnDetails.setOpaque(true);
-        btnDetails.setContentAreaFilled(true);
-        btnDetails.setBorderPainted(false);
-        btnDetails.setFocusPainted(false);
-        btnDetails.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnDetails.setMaximumSize(new Dimension(180, 45));
-        btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //Botones
+        JPanel btnPanel = new JPanel();
+        btnPanel.setBackground(Color.WHITE);
+        btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
+        btnPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btnEdit = createStyledButton("Editar");
+        btnDelete = createStyledButton("Eliminar");
+
+        btnPanel.add(Box.createHorizontalGlue());
+        btnPanel.add(btnEdit);
+        btnPanel.add(Box.createHorizontalStrut(10));
+        btnPanel.add(btnDelete);
+        btnPanel.add(Box.createHorizontalGlue());
 
         infoPanel.add(lblTitle);
         infoPanel.add(lblGenre);
         infoPanel.add(Box.createVerticalStrut(5));
         infoPanel.add(lblTags);
         infoPanel.add(Box.createVerticalStrut(10));
-        infoPanel.add(btnDetails);
+        infoPanel.add(btnPanel);
 
         add(lblPoster, BorderLayout.NORTH);
         add(infoPanel, BorderLayout.CENTER);
 
         setOpaque(false);
+    }
+
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setUI(new ShapedButtons());
+        button.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setContentAreaFilled(true);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setMaximumSize(new Dimension(140, 45));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        return button;
     }
 
     @Override
@@ -121,7 +140,11 @@ public class MovieCardPanel extends JPanel {
         super.paintComponent(g);
     }
 
-    public JButton getBtnDetails() {
-        return btnDetails;
+    public JButton getBtnEdit() {
+        return btnEdit;
+    }
+
+    public JButton getBtnDelete() {
+        return btnDelete;
     }
 }

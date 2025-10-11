@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -43,9 +42,9 @@ public class MainPanel extends JPanel {
 
         // Agregación de vistas al CardLayout
         contentPanel.add(new HomePanel(), HOME);
-        contentPanel.add(new RoomEditionPanel(), EDIT_ROOMS);
-        contentPanel.add(new BillboardEditionPanel(), EDIT_BILLBOARD);
-        contentPanel.add(new FunctionsEditionPanel(), EDIT_FUNCTIONS);
+        contentPanel.add(new RoomEditionPanel(listener), EDIT_ROOMS);
+        contentPanel.add(new BillboardEditionPanel(listener), EDIT_BILLBOARD);
+        contentPanel.add(new FunctionsEditionPanel(listener), EDIT_FUNCTIONS);
 
         scrollContainer.add(contentPanel);
         scrollContainer.add(footer);
@@ -61,4 +60,5 @@ public class MainPanel extends JPanel {
     public void showPanel(String panelName) {
         cardLayout.show(contentPanel, panelName);
     }
+
 }
