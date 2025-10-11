@@ -1,8 +1,6 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -18,7 +16,6 @@ public class MainFrame extends JFrame {
 
     private ActionListener listener;
     private MainPanel mainPanel;
-    
 
     public MainFrame(ActionListener listener) {
         super("CineVers");
@@ -29,13 +26,13 @@ public class MainFrame extends JFrame {
         this.setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         //this.setLayout(new BorderLayout());
-        
+
         mainPanel = new MainPanel(listener);
         add(mainPanel, BorderLayout.CENTER);
-        
+
         this.setVisible(true);
     }
-    
+
     public MainPanel getMainPanel() {
         return mainPanel;
     }
