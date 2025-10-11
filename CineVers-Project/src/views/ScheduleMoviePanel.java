@@ -45,7 +45,6 @@ public class ScheduleMoviePanel extends JPanel {
     public ScheduleMoviePanel() {
         setBackground(backgroundColor);
         setLayout(new BorderLayout());
-
         initializeDays();
         createUI();
     }

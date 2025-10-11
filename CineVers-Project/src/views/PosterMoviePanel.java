@@ -33,7 +33,7 @@ public class PosterMoviePanel extends JPanel {
 
         // Cargar la imagen del poster
         try {
-            posterImage = ImageIO.read(new File("resources/images/poster_together.png"));
+            posterImage = ImageIO.read(getClass().getResource("/resources/images/poster_together.png"));
         } catch (IOException e) {
             System.err.println("Error al cargar la imagen: " + e.getMessage());
             // Crear una imagen placeholder si no se encuentra la imagen

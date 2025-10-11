@@ -17,9 +17,11 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -60,7 +62,7 @@ private BannerMoviePanel banner;
 
         // ---------- PANEL DERECHO (Horarios) ----------
         schedule = new ScheduleMoviePanel();
-        schedule.setPreferredSize(new Dimension(350, 500)); // Aumenté la altura
+        schedule.setPreferredSize(new Dimension(300, 600)); // Aumenté la altura
 
         // Usar GridLayout para distribución equitativa o ajustar proporciones
         JPanel contentPanel = new JPanel(new GridLayout(1, 3, 20, 0));
@@ -77,7 +79,7 @@ private BannerMoviePanel banner;
         
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setBackground(Color.WHITE);
-        rightContainer.add(schedule, BorderLayout.CENTER);
+        rightContainer.add(schedule);
 
         contentPanel.add(leftContainer);
         contentPanel.add(centerContainer);
@@ -109,4 +111,18 @@ private BannerMoviePanel banner;
         button.setFocusPainted(false);
         return button;
     }
-}
+    public static void main(String[] args) {
+          SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Horarios de Cine");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+             MovieDetailsPanel panel = new MovieDetailsPanel(null);
+            frame.add(panel);
+
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+    }
+    }
+
