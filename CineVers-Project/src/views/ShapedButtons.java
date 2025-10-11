@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -38,26 +39,19 @@ public class ShapedButtons extends BasicButtonUI {
             case "Mi Cuenta":
                 btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
-            case "Buscar Estudiante":
-                btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
-                break;
-            case "Agregar Asignatura":
-                btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
-                break;
-            case "Borrar Asignatura":
-                btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
-                break;
-            case "Asignar":
-                btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
-                break;
-            case "Cancelar":
-                btnRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
-                break;
-            case "Guardar":
-                btnRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
+            case "Ver Detalles":
+                btnGradientRounded(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
         }
-        super.paint(g2d, c);
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(c.getFont());
+        String textBtn = ((AbstractButton) c).getText();
+        FontMetrics fm = g2d.getFontMetrics();
+        int textWidth = fm.stringWidth(textBtn);
+        int textHeight = fm.getAscent();
+        int x = (c.getWidth() - textWidth) / 2;
+        int y = (c.getHeight() + textHeight) / 2 - 3;
+        g2d.drawString(textBtn, x, y);
     }
 
     private void btnRoundRectangle(Graphics2D g2d, int width, int height, boolean isHover) {
@@ -101,6 +95,21 @@ public class ShapedButtons extends BasicButtonUI {
         g2d.setColor(new Color(135, 206, 235));
         g2d.setStroke(new BasicStroke(2));
         g2d.setColor(Color.WHITE);
+        g2d.draw(buttonShape);
+    }
+
+    private void btnGradientRounded(Graphics2D g2d, int width, int height, boolean isHover) {
+        Shape buttonShape = new RoundRectangle2D.Double(0, 0, width, height, 40, 40);
+
+        Color startColor = isHover ? new Color(110, 70, 190) : new Color(85, 60, 160);
+        Color endColor = isHover ? new Color(140, 100, 210) : new Color(105, 80, 185);
+
+        java.awt.GradientPaint gradient = new java.awt.GradientPaint(0, 0, startColor, width, height, endColor);
+        g2d.setPaint(gradient);
+        g2d.fill(buttonShape);
+
+        g2d.setColor(new Color(255, 255, 255, 80));
+        g2d.setStroke(new BasicStroke(1.5f));
         g2d.draw(buttonShape);
     }
 }

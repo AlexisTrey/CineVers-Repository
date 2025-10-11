@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import utilities.Utilities;
 
 /**
  *
@@ -82,33 +83,68 @@ public class HomePanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new java.awt.Insets(30, 30, 30, 30);
         gbc.gridy = 0;
-
-        // Tarjeta 1
         gbc.gridx = 0;
-        contentPanel.add(new MovieCardPanel(
-                "Orgullo y Prejuicio",
-                "Drama • Romance",
-                "2D ⭐VIP",
-                new ImageIcon(getClass().getResource("/resources/images/OrgulloyPrejuicio.png"))
-        ), gbc);
 
-        // Tarjeta 2
-        gbc.gridx = 1;
-        contentPanel.add(new MovieCardPanel(
-                "Venom 3",
-                "Acción",
-                "3D ⭐VIP",
-                new ImageIcon(getClass().getResource("/resources/images/Together.png"))
-        ), gbc);
+        MovieCardPanel[] movies = {
+            new MovieCardPanel("Orgullo y Prejuicio", "Drama • Romance", "2D - VIP",
+            new ImageIcon(getClass().getResource(Utilities.ORGULLO_PATH))),
+            new MovieCardPanel("Together: Juntos Hasta la Muerte", "Horror • 1h 42min", "2D",
+            new ImageIcon(getClass().getResource(Utilities.TOGETHER_PATH))),
+            new MovieCardPanel("Otro Viernes de Locos", "Comedia • Familiar • 2h 7min", "2D - VIP",
+            new ImageIcon(getClass().getResource(Utilities.VIERNES_PATH))),
+            new MovieCardPanel("Miraculous: Las Aventuras de Ladybug", "Animación • Aventura", "2D - VIP",
+            new ImageIcon(getClass().getResource(Utilities.MIRACULOUS_PATH))),
+            new MovieCardPanel("Demon Slayer: Infinity Castle", "Acción • Fantasía • 2h 54min", "2D - 3D - VIP",
+            new ImageIcon(getClass().getResource(Utilities.DEMON_PATH))),
+            new MovieCardPanel("Jurassic World Rebirth", "Aventura • Ciencia Ficción • 2h 7min", "3D - 2D",
+            new ImageIcon(getClass().getResource(Utilities.JURASSIC_PATH)))
+        };
 
-        // Tarjeta 3
-        gbc.gridx = 2;
-        contentPanel.add(new MovieCardPanel(
-                "Inside Out 2",
-                "Animación",
-                "2D",
-                new ImageIcon(getClass().getResource("/resources/images/OtroViernesDeLocos.png"))
-        ), gbc);
+        for (int i = 0; i < movies.length; i++) {
+            contentPanel.add(movies[i], gbc);
+
+            if ((i + 1) % 3 == 0) {
+                gbc.gridx = 0;
+                gbc.gridy++;
+            } else {
+                gbc.gridx++;
+            }
+        }
+
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.gridwidth = 3;
+        gbc.insets = new java.awt.Insets(60, 0, 20, 0);
+
+        JLabel lblUpcoming = new JLabel("PRÓXIMOS ESTRENOS", JLabel.CENTER);
+        lblUpcoming.setFont(new Font("Segoe UI", Font.BOLD, 34));
+        lblUpcoming.setForeground(new Color(0, 0, 0));
+        contentPanel.add(lblUpcoming, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.insets = new java.awt.Insets(20, 30, 50, 30);
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        MovieCardPanel[] upcoming = {
+            new MovieCardPanel("Pompoko - La Guerra de los Mapaches", "Tierna • Animado • 1h 06min ", "2D",
+            new ImageIcon(getClass().getResource(Utilities.POMPOKO_PATH))),
+            new MovieCardPanel("Zootopia 2", "Drama • Romance • 2h 54min", "2D - 3D - VIP",
+            new ImageIcon(getClass().getResource(Utilities.ZOOTOPIA_PATH))),
+            new MovieCardPanel("Avatar: Fuego y Ceniza", "Comedia • Accion • 2h 7min", "2D - 3D - VIP",
+            new ImageIcon(getClass().getResource(Utilities.AVATAR_PATH)))
+        };
+
+        for (int i = 0; i < upcoming.length; i++) {
+            contentPanel.add(upcoming[i], gbc);
+
+            if ((i + 1) % 3 == 0) {
+                gbc.gridx = 0;
+                gbc.gridy++;
+            } else {
+                gbc.gridx++;
+            }
+        }
     }
 
     public JPanel getContentPanel() {
