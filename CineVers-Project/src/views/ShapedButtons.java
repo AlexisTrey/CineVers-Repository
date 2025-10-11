@@ -42,6 +42,12 @@ public class ShapedButtons extends BasicButtonUI {
             case "Ver Detalles":
                 btnGradientRounded(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
+            case "<":
+                btnRound(g2d, c.getWidth(), c.getHeight());
+                break;
+            case ">":
+                btnRound(g2d, c.getWidth(), c.getHeight());
+                break;
         }
         g2d.setColor(Color.WHITE);
         g2d.setFont(c.getFont());
@@ -91,11 +97,12 @@ public class ShapedButtons extends BasicButtonUI {
 
     private void btnRound(Graphics2D g2d, int width, int height) {
         int diameter = Math.min(width, height);
-        Shape buttonShape = new Ellipse2D.Double(0, 0, diameter, diameter);
-        g2d.setColor(new Color(135, 206, 235));
+        int x = (width - diameter) / 2;
+        int y = (height - diameter) / 2;
+        Shape buttonShape = new Ellipse2D.Double(x, y, diameter, diameter); // ¡Usa x e y aquí!
+        g2d.setColor(new Color(102, 0, 161));
         g2d.setStroke(new BasicStroke(2));
-        g2d.setColor(Color.WHITE);
-        g2d.draw(buttonShape);
+        g2d.fill(buttonShape);
     }
 
     private void btnGradientRounded(Graphics2D g2d, int width, int height, boolean isHover) {
