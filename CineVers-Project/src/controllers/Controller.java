@@ -36,6 +36,12 @@ public class Controller implements ActionListener {
             case "HOME":
                 mainFrame.getMainPanel().showPanel(MainPanel.HOME);
                 break;
+            case "UPCOMING":
+                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                break;
+            case "ACCOUNT":
+                System.out.println("Abrir panel de cuenta (pendiente)");
+                break;
             case "EDITAR_SALAS":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;

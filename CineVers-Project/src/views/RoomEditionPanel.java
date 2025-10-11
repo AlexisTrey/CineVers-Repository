@@ -12,6 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,33 +34,33 @@ public class RoomEditionPanel extends JPanel {
     private JButton btnRooms;
     private JPanel contentPanel;
 
-    public RoomEditionPanel() {
+    public RoomEditionPanel(ActionListener listener) {
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
-        createMenuPanel();
+        createMenuPanel(listener);
         createContentPanel();
 
         add(menuPanel, BorderLayout.NORTH);
         add(contentPanel, BorderLayout.CENTER);
     }
 
-    private void createMenuPanel() {
+    private void createMenuPanel(ActionListener listener) {
         menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 40, 16));
         menuPanel.setBackground(new Color(122, 43, 191));
         menuPanel.setPreferredSize(new Dimension(0, 80));
         menuPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(98, 43, 160)));
 
-        btnFunctions = createStyledButton("Edición de Funciones");
-        btnBillboard = createStyledButton("Edición de Cartelera");
-        btnRooms = createStyledButton("Edición de Salas");
+        btnFunctions = createStyledButton("Edición de Funciones", "EDITAR_FUNCIONES", listener);
+        btnBillboard = createStyledButton("Edición de Cartelera", "EDITAR_CARTELERA", listener);
+        btnRooms = createStyledButton("Edición de Salas", "EDITAR_SALAS", listener);
 
         menuPanel.add(btnFunctions);
         menuPanel.add(btnBillboard);
         menuPanel.add(btnRooms);
     }
 
-    private JButton createStyledButton(String text) {
+    private JButton createStyledButton(String text, String actionCommand, ActionListener listener) {
         JButton button = new JButton(text);
         button.setUI(new ShapedButtons());
         button.setPreferredSize(new Dimension(230, 45));
@@ -70,6 +71,8 @@ public class RoomEditionPanel extends JPanel {
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setActionCommand(actionCommand);
+        button.addActionListener(listener);
         return button;
     }
 
