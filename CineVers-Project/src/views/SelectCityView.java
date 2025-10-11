@@ -19,19 +19,13 @@ import javax.swing.border.EmptyBorder;
  */
 public class SelectCityView extends JPanel {
 
-    private Header header;
     private Background background;
     private JButton btnSelectCity;
-
-    public SelectCityView() {
+    private ActionListener listener;
+    public SelectCityView(ActionListener listener) {
+        this.listener=listener;
         setLayout(new BorderLayout());
 
-        header = new Header(e -> {
-            System.out.println("Botón del header presionado: " + e.getActionCommand());
-        });
-        add(header, BorderLayout.NORTH);
-
-       
         background = new Background();
         background.setLayout(new GridBagLayout());
 
@@ -162,6 +156,9 @@ panel.setBorder(new EmptyBorder(30, 50, 30, 50));
             String ciudad = (String) cbCiudad.getSelectedItem();
             JOptionPane.showMessageDialog(dialog, "Has seleccionado: " + ciudad);
             dialog.dispose();
+              if (listener != null) {
+        listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "goHome"));
+    }
         
         });
 
@@ -264,4 +261,8 @@ private void estilizarCombo(JComboBox<String> combo) {
     }
  */
    
+public JButton getBtnSelectCity() {
+    return btnSelectCity;
+}
+
 }
