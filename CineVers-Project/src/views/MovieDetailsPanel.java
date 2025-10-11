@@ -29,7 +29,8 @@ import javax.swing.border.EmptyBorder;
  * @author Paola
  */
 public class MovieDetailsPanel extends JPanel {
-private BannerMoviePanel banner;
+
+    private BannerMoviePanel banner;
     private PosterMoviePanel poster;
     private ScheduleMoviePanel schedule;
     private SinopsisMovie sinopsis;
@@ -55,28 +56,26 @@ private BannerMoviePanel banner;
         // ---------- PANEL IZQUIERDO (Poster) ----------
         poster = new PosterMoviePanel();
         poster.setPreferredSize(new Dimension(250, 400));
-        
+
         // ---------- PANEL CENTRO (Sinopsis) ----------
         sinopsis = new SinopsisMovie();
-        sinopsis.setPreferredSize(new Dimension(400, 500));
+        sinopsis.setPreferredSize(new Dimension(400, 400));
 
         // ---------- PANEL DERECHO (Horarios) ----------
         schedule = new ScheduleMoviePanel();
-        schedule.setPreferredSize(new Dimension(300, 600)); // Aumenté la altura
+        schedule.setPreferredSize(new Dimension(550, 300));
 
-        // Usar GridLayout para distribución equitativa o ajustar proporciones
-        JPanel contentPanel = new JPanel(new GridLayout(1, 3, 20, 0));
+        JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.WHITE);
-        
-        // Paneles contenedores para mejor control
+
         JPanel leftContainer = new JPanel(new BorderLayout());
         leftContainer.setBackground(Color.WHITE);
         leftContainer.add(poster, BorderLayout.NORTH);
-        
+
         JPanel centerContainer = new JPanel(new BorderLayout());
         centerContainer.setBackground(Color.WHITE);
         centerContainer.add(sinopsis, BorderLayout.CENTER);
-        
+
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setBackground(Color.WHITE);
         rightContainer.add(schedule);
@@ -88,9 +87,6 @@ private BannerMoviePanel banner;
         centerPanel.add(contentPanel, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
 
-        // ---------- FOOTER ----------
-        footer = new Footer();
-        add(footer, BorderLayout.SOUTH);
     }
 
     public void setBannerImage(String path) {
@@ -111,12 +107,13 @@ private BannerMoviePanel banner;
         button.setFocusPainted(false);
         return button;
     }
+
     public static void main(String[] args) {
-          SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Horarios de Cine");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-             MovieDetailsPanel panel = new MovieDetailsPanel(null);
+            MovieDetailsPanel panel = new MovieDetailsPanel(null);
             frame.add(panel);
 
             frame.pack();
@@ -124,5 +121,4 @@ private BannerMoviePanel banner;
             frame.setVisible(true);
         });
     }
-    }
-
+}

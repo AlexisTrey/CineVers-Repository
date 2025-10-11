@@ -103,5 +103,4 @@ public class PosterMoviePanel extends JPanel {
         g2d.setColor(new Color(150, 150, 150));
         g2d.drawRoundRect(x, y, width, height, 5, 5);
     }
-
 }
