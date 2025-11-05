@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import views.MainFrame;
 import views.MainPanel;
+import views.ReservationConfirmationJDialog;
 
 /**
  *
@@ -21,14 +22,14 @@ public class Controller implements ActionListener {
     private MainFrame mainFrame;
 
     public Controller() {
-
         mainFrame = new MainFrame(this);
     }
 
     public void init() {
-        mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+        mainFrame.getMainPanel().showPanel(MainPanel.SELECT_CITY);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
@@ -36,29 +37,72 @@ public class Controller implements ActionListener {
             case "HOME":
                 mainFrame.getMainPanel().showPanel(MainPanel.HOME);
                 break;
-            case "UPCOMING":
+
+            case "LOGIN":
+                mainFrame.getMainPanel().showPanel(MainPanel.LOGIN);
+                break;
+
+            case "ABRIR_REGISTRO":
+                mainFrame.getMainPanel().showPanel(MainPanel.REGISTER);
+                break;
+
+            case "REGISTRAR":
                 mainFrame.getMainPanel().showPanel(MainPanel.HOME);
                 break;
-            case "ACCOUNT":
-                System.out.println("Abrir panel de cuenta (pendiente)");
-                break;
-            case "EDITAR_SALAS":
-                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
-                break;
-            case "EDITAR_CARTELERA":
-                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
-                break;
-            case "EDITAR_FUNCIONES":
-                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
-                break;
+
             case "VER_DETALLES":
                 mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
                 break;
-            case "AGREGAR_CARTELERA":
+
+            case "SELECCIONAR_HORA":
+                mainFrame.getMainPanel().showPanel(MainPanel.SELECT_SEATS);
+                break;
+
+            case "CONFIRMAR_RESERVA":
+                ReservationConfirmationJDialog confirmDialog = new ReservationConfirmationJDialog(mainFrame, true);
+                confirmDialog.setLocationRelativeTo(mainFrame);
+                confirmDialog.setVisible(true);
+                break;
+
+            case "SELECCIONAR_CIUDAD":
                 mainFrame.getMainPanel().showPanel(MainPanel.HOME);
                 break;
-            case "AGREGAR_PELICULA":
-                mainFrame.getMainPanel().showPanel(MainPanel.ADD_MOVIE_BILLBOARD);
+
+            //Flujos propios del Administrador
+            case "EDITAR_FUNCIONES":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
+                break;
+
+            case "EDITAR_CARTELERA":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                break;
+
+            case "EDITAR_SALAS":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
+                break;
+
+            case "AGREGAR_FUNCION":
+                mainFrame.getMainPanel().showPanel(MainPanel.ADD_FUNCTION);
+                break;
+
+            case "AGREGAR_CARTELERA":
+                mainFrame.getMainPanel().showPanel(MainPanel.ADD_BILLBOARD);
+                break;
+
+            case "AGREGAR_SALA":
+                mainFrame.getMainPanel().showPanel(MainPanel.ADD_ROOM);
+                break;
+
+            case "GUARDAR_FUNCION":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
+                break;
+
+            case "GUARDAR_CARTELERA":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                break;
+
+            case "GUARDAR_SALA":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
 
             default:
@@ -66,9 +110,4 @@ public class Controller implements ActionListener {
         }
     }
 
-
-    public static void main(String[] args) {
-        Controller controller = new Controller();
-        controller.init();
-    }
 }

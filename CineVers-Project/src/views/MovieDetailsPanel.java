@@ -29,7 +29,8 @@ import javax.swing.border.EmptyBorder;
  * @author Paola
  */
 public class MovieDetailsPanel extends JPanel {
-private BannerMoviePanel banner;
+
+    private BannerMoviePanel banner;
     private PosterMoviePanel poster;
     private ScheduleMoviePanel schedule;
     private SinopsisMovie sinopsis;
@@ -55,26 +56,26 @@ private BannerMoviePanel banner;
         // ---------- PANEL IZQUIERDO (Poster) ----------
         poster = new PosterMoviePanel();
         poster.setPreferredSize(new Dimension(250, 400));
-        
+
         // ---------- PANEL CENTRO (Sinopsis) ----------
         sinopsis = new SinopsisMovie();
         sinopsis.setPreferredSize(new Dimension(400, 400));
 
         // ---------- PANEL DERECHO (Horarios) ----------
         schedule = new ScheduleMoviePanel();
-        schedule.setPreferredSize(new Dimension(550, 300)); 
+        schedule.setPreferredSize(new Dimension(550, 300));
 
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.WHITE);
-        
+
         JPanel leftContainer = new JPanel(new BorderLayout());
         leftContainer.setBackground(Color.WHITE);
         leftContainer.add(poster, BorderLayout.NORTH);
-        
+
         JPanel centerContainer = new JPanel(new BorderLayout());
         centerContainer.setBackground(Color.WHITE);
         centerContainer.add(sinopsis, BorderLayout.CENTER);
-        
+
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setBackground(Color.WHITE);
         rightContainer.add(schedule);
@@ -106,18 +107,18 @@ private BannerMoviePanel banner;
         button.setFocusPainted(false);
         return button;
     }
-    public static void main(String[] args) {
-          SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Horarios de Cine");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-             MovieDetailsPanel panel = new MovieDetailsPanel(null);
-            frame.add(panel);
-
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
-    }
-
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Horarios de Cine");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//            MovieDetailsPanel panel = new MovieDetailsPanel(null);
+//            frame.add(panel);
+//
+//            frame.pack();
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//    }
+}
