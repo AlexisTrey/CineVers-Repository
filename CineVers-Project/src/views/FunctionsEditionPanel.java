@@ -87,6 +87,7 @@ public class FunctionsEditionPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
 
         AddCardButton btnAddFunction = new AddCardButton("Agregar Función");
+        btnAddFunction.setActionCommand("AGREGAR_PELICULA");
         contentPanel.add(btnAddFunction, gbc);
 
         gbc.gridy++;

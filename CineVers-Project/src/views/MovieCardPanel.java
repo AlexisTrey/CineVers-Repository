@@ -15,6 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -40,8 +41,10 @@ public class MovieCardPanel extends JPanel {
     private JLabel lblGenre;
     private JLabel lblTags;
     private JButton btnDetails;
+    private ActionListener listener;
 
-    public MovieCardPanel(String title, String genre, String tags, ImageIcon poster) {
+    public MovieCardPanel(String title, String genre, String tags, ImageIcon poster,  ActionListener listener) {
+        this.listener = listener;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(350, 570));
         setBackground(Color.WHITE);
@@ -93,6 +96,9 @@ public class MovieCardPanel extends JPanel {
         btnDetails.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnDetails.setMaximumSize(new Dimension(180, 45));
         btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnDetails.setActionCommand("VER_DETALLES");
+        btnDetails.addActionListener(listener);
+
 
         infoPanel.add(lblTitle);
         infoPanel.add(lblGenre);

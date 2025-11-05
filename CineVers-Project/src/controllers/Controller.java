@@ -21,14 +21,14 @@ public class Controller implements ActionListener {
     private MainFrame mainFrame;
 
     public Controller() {
+
         mainFrame = new MainFrame(this);
     }
 
     public void init() {
-        mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
+        mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
@@ -51,8 +51,24 @@ public class Controller implements ActionListener {
             case "EDITAR_FUNCIONES":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
                 break;
+            case "VER_DETALLES":
+                mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
+                break;
+            case "AGREGAR_CARTELERA":
+                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                break;
+            case "AGREGAR_PELICULA":
+                mainFrame.getMainPanel().showPanel(MainPanel.ADD_MOVIE_BILLBOARD);
+                break;
+
             default:
                 System.out.println("Acción no reconocida: " + command);
         }
+    }
+
+
+    public static void main(String[] args) {
+        Controller controller = new Controller();
+        controller.init();
     }
 }

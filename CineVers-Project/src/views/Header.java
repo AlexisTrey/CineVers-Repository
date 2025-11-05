@@ -105,7 +105,6 @@ public class Header extends JPanel {
         button.addActionListener(listener);
         return button;
     }
-
     private void createPanelBtns() {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 20));
         buttonsPanel.setOpaque(false);

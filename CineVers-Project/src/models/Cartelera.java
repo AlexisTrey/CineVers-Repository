@@ -67,7 +67,7 @@ public class Cartelera {
     public List<Function> searchByDate(String date){
             List<Function> result = new ArrayList<>();
             for (Function f : functions) {
-                if (f.getDateTime().equals(date)) {
+                if (f.getDateTime().toString().equalsIgnoreCase(date)) {
                     result.add(f);
                 }
             }

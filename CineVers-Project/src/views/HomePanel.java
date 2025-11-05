@@ -10,6 +10,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
+import java.net.http.WebSocket.Listener;
+
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -30,8 +33,10 @@ public class HomePanel extends JPanel {
     private JPanel topPanel;
     private JPanel contentPanel;
     private JScrollPane scrollPane;
+    private ActionListener listener;
 
-    public HomePanel() {
+    public HomePanel(ActionListener listener) {
+        this.listener = listener;
         setLayout(new BorderLayout());
         setBackground(new Color(44, 44, 84));
 
@@ -87,17 +92,17 @@ public class HomePanel extends JPanel {
 
         MovieCardPanel[] movies = {
             new MovieCardPanel("Orgullo y Prejuicio", "Drama • Romance", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.ORGULLO_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.ORGULLO_PATH)), listener),
             new MovieCardPanel("Together: Juntos Hasta la Muerte", "Horror • 1h 42min", "2D",
-            new ImageIcon(getClass().getResource(Utilities.TOGETHER_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.TOGETHER_PATH)), listener),
             new MovieCardPanel("Otro Viernes de Locos", "Comedia • Familiar • 2h 7min", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.VIERNES_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.VIERNES_PATH)), listener),
             new MovieCardPanel("Miraculous: Las Aventuras de Ladybug", "Animación • Aventura", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.MIRACULOUS_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.MIRACULOUS_PATH)), listener),
             new MovieCardPanel("Demon Slayer: Infinity Castle", "Acción • Fantasía • 2h 54min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.DEMON_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.DEMON_PATH)), listener),
             new MovieCardPanel("Jurassic World Rebirth", "Aventura • Ciencia Ficción • 2h 7min", "3D - 2D",
-            new ImageIcon(getClass().getResource(Utilities.JURASSIC_PATH)))
+            new ImageIcon(getClass().getResource(Utilities.JURASSIC_PATH)), listener)
         };
 
         for (int i = 0; i < movies.length; i++) {
@@ -128,11 +133,11 @@ public class HomePanel extends JPanel {
 
         MovieCardPanel[] upcoming = {
             new MovieCardPanel("Pompoko - La Guerra de los Mapaches", "Tierna • Animado • 1h 06min ", "2D",
-            new ImageIcon(getClass().getResource(Utilities.POMPOKO_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.POMPOKO_PATH)), listener),
             new MovieCardPanel("Zootopia 2", "Drama • Romance • 2h 54min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.ZOOTOPIA_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.ZOOTOPIA_PATH)), listener),
             new MovieCardPanel("Avatar: Fuego y Ceniza", "Comedia • Accion • 2h 7min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.AVATAR_PATH)))
+            new ImageIcon(getClass().getResource(Utilities.AVATAR_PATH)), listener)
         };
 
         for (int i = 0; i < upcoming.length; i++) {
