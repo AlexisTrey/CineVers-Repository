@@ -29,6 +29,7 @@ public class Header extends JPanel {
     private JButton btnBillboard;
     private JButton btnUpcomingReleases;
     private JButton btnAccount;
+    private JButton btnAdmin;
     private ActionListener listener;
 
     public Header(ActionListener listener) {
@@ -105,17 +106,20 @@ public class Header extends JPanel {
         button.addActionListener(listener);
         return button;
     }
+
     private void createPanelBtns() {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 20));
         buttonsPanel.setOpaque(false);
 
         btnBillboard = createBtn("Cartelera", "HOME", listener);
-        btnUpcomingReleases = createBtn("Próximos estrenos", "UPCOMING", listener);
-        btnAccount = createBtn("Mi Cuenta", "ACCOUNT", listener);
+        //btnUpcomingReleases = createBtn("Próximos estrenos", "UPCOMING", listener);
+        btnAccount = createBtn("Mi Cuenta", "LOGIN", listener);
+        btnAdmin = createBtn("Gestión", "EDITAR_FUNCIONES", listener);
 
         buttonsPanel.add(btnBillboard);
-        buttonsPanel.add(btnUpcomingReleases);
+        //buttonsPanel.add(btnUpcomingReleases);
         buttonsPanel.add(btnAccount);
+        buttonsPanel.add(btnAdmin);
 
         add(buttonsPanel, BorderLayout.CENTER);
     }
@@ -131,4 +135,9 @@ public class Header extends JPanel {
     public void btnAccountListener() {
         btnAccount.addActionListener(listener);
     }
+
+    public void btnAdminListener() {
+        btnAdmin.addActionListener(listener);
+    }
+
 }

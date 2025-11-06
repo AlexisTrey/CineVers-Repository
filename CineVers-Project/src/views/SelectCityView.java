@@ -151,7 +151,7 @@ public class SelectCityView extends JPanel {
             }
             dialog.dispose();
             if (listener != null) {
-                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "goHome"));
+                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "HOME"));
             }
 
         });

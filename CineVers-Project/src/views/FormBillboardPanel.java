@@ -111,7 +111,7 @@ public class FormBillboardPanel extends JPanel {
     add(createSeparator(), gbc);
     
     JButton botonContinuar = SurveryStyle.createStyledButton("Continuar");
-    botonContinuar.setActionCommand("AGREGAR_CARTELERA");
+    botonContinuar.setActionCommand("EDITAR_CARTELERA");
     botonContinuar.addActionListener(listener);
     gbc.gridy++;
     gbc.gridx = 0;

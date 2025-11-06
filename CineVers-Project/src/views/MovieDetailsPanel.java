@@ -62,7 +62,7 @@ public class MovieDetailsPanel extends JPanel {
         sinopsis.setPreferredSize(new Dimension(400, 400));
 
         // ---------- PANEL DERECHO (Horarios) ----------
-        schedule = new ScheduleMoviePanel();
+        schedule = new ScheduleMoviePanel(listener);
         schedule.setPreferredSize(new Dimension(550, 300));
 
         JPanel contentPanel = new JPanel();

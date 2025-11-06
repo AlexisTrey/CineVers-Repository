@@ -33,8 +33,10 @@ public class RoomEditionPanel extends JPanel {
     private JButton btnBillboard;
     private JButton btnRooms;
     private JPanel contentPanel;
+    private ActionListener listener;
 
     public RoomEditionPanel(ActionListener listener) {
+        this.listener = listener;
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
@@ -87,6 +89,8 @@ public class RoomEditionPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
 
         AddCardButton btnAddRoom = new AddCardButton("Agregar Sala");
+        btnAddRoom.setActionCommand("AGREGAR_SALA");
+        btnAddRoom.addActionListener(listener);
         contentPanel.add(btnAddRoom, gbc);
 
         gbc.gridy++;

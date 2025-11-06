@@ -34,8 +34,10 @@ public class BillboardEditionPanel extends JPanel {
     private JButton btnBillboard;
     private JButton btnRooms;
     private JPanel contentPanel;
+    private ActionListener listener;
 
     public BillboardEditionPanel(ActionListener listener) {
+        this.listener = listener;
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
@@ -90,6 +92,8 @@ public class BillboardEditionPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new java.awt.Insets(50, 0, 50, 0);
         AddCardButton btnAddBillboard = new AddCardButton("Agregar Cartelera");
+        btnAddBillboard.setActionCommand("AGREGAR_CARTELERA");
+        btnAddBillboard.addActionListener(listener);
         contentPanel.add(btnAddBillboard, gbc);
 
         gbc.gridwidth = 1;

@@ -33,8 +33,10 @@ public class FunctionsEditionPanel extends JPanel {
     private JButton btnBillboard;
     private JButton btnRooms;
     private JPanel contentPanel;
+    private ActionListener listener;
 
     public FunctionsEditionPanel(ActionListener listener) {
+        this.listener = listener;
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
@@ -87,7 +89,8 @@ public class FunctionsEditionPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
 
         AddCardButton btnAddFunction = new AddCardButton("Agregar Función");
-        btnAddFunction.setActionCommand("AGREGAR_PELICULA");
+        btnAddFunction.setActionCommand("AGREGAR_FUNCION");
+        btnAddFunction.addActionListener(listener);
         contentPanel.add(btnAddFunction, gbc);
 
         gbc.gridy++;

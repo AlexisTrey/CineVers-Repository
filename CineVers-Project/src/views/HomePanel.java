@@ -6,15 +6,18 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.net.http.WebSocket.Listener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,6 +37,7 @@ public class HomePanel extends JPanel {
     private JPanel contentPanel;
     private JScrollPane scrollPane;
     private ActionListener listener;
+    private JButton btnUpcoming;
 
     public HomePanel(ActionListener listener) {
         this.listener = listener;
@@ -121,10 +125,17 @@ public class HomePanel extends JPanel {
         gbc.gridwidth = 3;
         gbc.insets = new java.awt.Insets(60, 0, 20, 0);
 
-        JLabel lblUpcoming = new JLabel("PRÓXIMOS ESTRENOS", JLabel.CENTER);
-        lblUpcoming.setFont(new Font("Segoe UI", Font.BOLD, 34));
-        lblUpcoming.setForeground(new Color(0, 0, 0));
-        contentPanel.add(lblUpcoming, gbc);
+        btnUpcoming = new JButton("PRÓXIMOS ESTRENOS");
+        btnUpcoming.setFont(new Font("Segoe UI", Font.BOLD, 34));
+        btnUpcoming.setForeground(Color.BLACK);
+        btnUpcoming.setOpaque(false);
+        btnUpcoming.setContentAreaFilled(false);
+        btnUpcoming.setBorderPainted(false);
+        btnUpcoming.setFocusPainted(false);
+        btnUpcoming.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnUpcoming.setActionCommand("UPCOMING");
+        btnUpcoming.addActionListener(listener);
+        contentPanel.add(btnUpcoming, gbc);
 
         gbc.gridwidth = 1;
         gbc.insets = new java.awt.Insets(20, 30, 50, 30);
@@ -149,6 +160,18 @@ public class HomePanel extends JPanel {
             } else {
                 gbc.gridx++;
             }
+        }
+    }
+
+    public void scrollToUpcoming() {
+        if (scrollPane != null && btnUpcoming != null) {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                Rectangle rect = btnUpcoming.getBounds();
+                btnUpcoming.scrollRectToVisible(rect);
+                scrollPane.getViewport().setViewPosition(
+                        new java.awt.Point(0, rect.y - 50)
+                );
+            });
         }
     }
 

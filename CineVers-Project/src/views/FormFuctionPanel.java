@@ -125,7 +125,7 @@ public class FormFuctionPanel extends JPanel {
 
 
     JButton botonContinuar = SurveryStyle.createStyledButton("Continuar");
-    botonContinuar.setActionCommand("AGREGAR_FUNCION");
+    botonContinuar.setActionCommand("EDITAR_FUNCIONES");
     botonContinuar.addActionListener(listener);
     gbc.gridy++;
     gbc.gridx = 0;

@@ -80,7 +80,7 @@ public class RegisterView extends JPanel {
         chkTerminos.addActionListener(e -> btnRegistrar.setEnabled(chkTerminos.isSelected()));
         btnRegistrar.addActionListener(e -> {
             listener.actionPerformed(
-                    new java.awt.event.ActionEvent(this, 0, "ACCOUNT")
+                    new java.awt.event.ActionEvent(this, 0, "LOGIN")
             );
         });
 

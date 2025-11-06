@@ -108,6 +108,8 @@ public class LoginView extends JPanel {
         btnCrearCuenta.setContentAreaFilled(false);
 
         btnLogin.addActionListener(e -> JOptionPane.showMessageDialog(this, "Iniciando sesión..."));
+        btnLogin.setActionCommand("HOME");
+        btnLogin.addActionListener(listener);
         btnCrearCuenta.addActionListener(e -> System.out.println("Abrir pantalla de registro..."));
 
         GridBagConstraints gbc = new GridBagConstraints();

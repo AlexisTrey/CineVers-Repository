@@ -26,6 +26,19 @@ public class MainPanel extends JPanel {
     private Footer footer;
     private JPanel scrollContainer;
 
+    private HomePanel homePanel;
+    private SelectCityView selectCityView;
+    private LoginView loginView;
+    private RegisterView registerView;
+    private MovieDetailsPanel movieDetailsPanel;
+    private PanelAsientos panelAsientos;
+    private RoomEditionPanel roomEditionPanel;
+    private BillboardEditionPanel billboardEditionPanel;
+    private FunctionsEditionPanel functionsEditionPanel;
+    private AddRoomPanel addRoomPanel;
+    private AddMovieBillboard addMovieBillboard;
+    private AddFuctionPanel addFuctionPanel;
+
     public static final String SELECT_CITY = "select_city";
     public static final String HOME = "home";
     public static final String LOGIN = "login";
@@ -43,7 +56,7 @@ public class MainPanel extends JPanel {
     public MainPanel(ActionListener listener) {
         setLayout(new BorderLayout());
         this.listener = listener;
-        
+
         header = new Header(listener);
         footer = new Footer();
         //background = new Background();
@@ -56,7 +69,8 @@ public class MainPanel extends JPanel {
 
         // Agregación de vistas al CardLayout
         contentPanel.add(new SelectCityView(listener), SELECT_CITY);
-        contentPanel.add(new HomePanel(listener), HOME);
+        homePanel = new HomePanel(listener);
+        contentPanel.add(homePanel, HOME);
         contentPanel.add(new LoginView(listener), LOGIN);
         contentPanel.add(new RegisterView(listener), REGISTER);
         contentPanel.add(new MovieDetailsPanel(listener), MOVIE_DETAILS);
@@ -81,6 +95,10 @@ public class MainPanel extends JPanel {
 
     public void showPanel(String panelName) {
         cardLayout.show(contentPanel, panelName);
+    }
+
+    public HomePanel getHomePanel() {
+        return homePanel;
     }
 
 }

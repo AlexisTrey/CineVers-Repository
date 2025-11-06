@@ -40,6 +40,9 @@ public class ShapedButtons extends BasicButtonUI {
             case "Mi Cuenta":
                 btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;
+            case "Gestión":
+                btnRoundRectangle(g2d, c.getWidth(), c.getHeight(), isHover);
+                break;
             case "Ver Detalles":
                 btnGradientRounded(g2d, c.getWidth(), c.getHeight(), isHover);
                 break;

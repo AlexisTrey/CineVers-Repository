@@ -13,6 +13,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -42,7 +43,10 @@ public class ScheduleMoviePanel extends JPanel {
     private JLabel cinemaLabel;
     private JPanel timesPanel;
 
-    public ScheduleMoviePanel() {
+    private ActionListener listener;
+
+    public ScheduleMoviePanel(ActionListener listener) {
+        this.listener = listener;
         setBackground(backgroundColor);
         setLayout(new BorderLayout());
         initializeDays();
@@ -147,6 +151,11 @@ public class ScheduleMoviePanel extends JPanel {
                 button.setForeground(primaryColor);
             }
         });
+
+        if (listener != null) {
+            button.setActionCommand("SELECCIONAR_HORA");
+            button.addActionListener(listener);
+        }
 
         return button;
     }

@@ -105,6 +105,13 @@ public class Controller implements ActionListener {
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
 
+//            case "UPCOMING":
+//                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+//                javax.swing.SwingUtilities.invokeLater(() -> {
+//                    mainFrame.getMainPanel().getHomePanel().scrollToUpcoming();
+//                });
+//                break;
+
             default:
                 System.out.println("Acción no reconocida: " + command);
         }
