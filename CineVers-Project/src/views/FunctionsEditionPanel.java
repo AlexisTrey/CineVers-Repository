@@ -79,6 +79,9 @@ public class FunctionsEditionPanel extends JPanel {
     }
 
     private void createContentPanel() {
+        JPanel wrapperPanel = new JPanel(new BorderLayout());
+        wrapperPanel.setBackground(new Color(240, 240, 240));
+
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
 
@@ -113,6 +116,9 @@ public class FunctionsEditionPanel extends JPanel {
             contentPanel.add(function, gbc);
             gbc.gridy++;
         }
+        
+        wrapperPanel.add(contentPanel, BorderLayout.NORTH);
+        this.contentPanel = wrapperPanel;
     }
 
     public JPanel getContentPanel() {

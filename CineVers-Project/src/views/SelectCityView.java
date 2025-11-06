@@ -28,7 +28,7 @@ public class SelectCityView extends JPanel {
         setLayout(new BorderLayout());
 
         background = new Background();
-        background.setLayout(new GridBagLayout());
+        background.setLayout(new BorderLayout());
 
         btnSelectCity = new JButton("Seleccionar Ciudad") {
             @Override
@@ -54,11 +54,11 @@ public class SelectCityView extends JPanel {
 
         btnSelectCity.addActionListener(e -> showDialog());
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        background.add(btnSelectCity, gbc);
+        JPanel wrapperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 40)); // margen arriba
+        wrapperPanel.setOpaque(false);
+        wrapperPanel.add(btnSelectCity);
 
+        background.add(wrapperPanel, BorderLayout.NORTH);
         add(background, BorderLayout.CENTER);
     }
 
@@ -67,7 +67,7 @@ public class SelectCityView extends JPanel {
         dialog.setUndecorated(true);
         dialog.setBackground(new Color(0, 0, 0, 0));
         dialog.setSize(450, 300);
-        dialog.setLocationRelativeTo(this);
+        dialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
 
         JPanel panel = new JPanel(new GridBagLayout()) {
             @Override

@@ -157,11 +157,18 @@ public class LoginView extends JPanel {
 
         panelLogin.add(panelInferior, gbc);
 
-        GridBagConstraints center = new GridBagConstraints();
-        center.gridx = 0;
-        center.gridy = 0;
-        background.add(panelLogin, center);
+        GridBagConstraints top = new GridBagConstraints();
+        top.gridx = 0;
+        top.gridy = 0;
+        top.anchor = GridBagConstraints.NORTH;
+        top.weighty = 1;
 
+        JPanel wrapperPanel = new JPanel(new BorderLayout());
+        wrapperPanel.setOpaque(false);
+        wrapperPanel.setBorder(new EmptyBorder(110, 0, 0, 0));
+        wrapperPanel.add(panelLogin, BorderLayout.NORTH);
+
+        background.add(wrapperPanel, top);
         add(background, BorderLayout.CENTER);
     }
 
@@ -230,7 +237,7 @@ public class LoginView extends JPanel {
         JDialog dialog = new JDialog((Frame) parent, "Recuperar contraseña", true);
         dialog.setUndecorated(true);
         dialog.setSize(420, 320);
-        dialog.setLocationRelativeTo(this);
+        dialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
         dialog.setLayout(new BorderLayout());
         dialog.setBackground(new Color(0, 0, 0, 0));
 
