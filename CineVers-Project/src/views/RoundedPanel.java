@@ -13,7 +13,10 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author jhonnyd
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class RoundedPanel extends JPanel {
     private int cornerRadius = 15; // Radio de la esquina

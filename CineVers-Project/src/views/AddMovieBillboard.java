@@ -16,7 +16,10 @@ import views.Header;
 
 /**
  *
- * @author jhonnyd
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class AddMovieBillboard extends javax.swing.JPanel {
 

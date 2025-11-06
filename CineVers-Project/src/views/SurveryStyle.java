@@ -10,7 +10,10 @@ import java.awt.*;
 
 /**
  *
- * @author jhonnyd
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class SurveryStyle {
     

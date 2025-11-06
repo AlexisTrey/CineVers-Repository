@@ -26,7 +26,10 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Paola
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class ScheduleMoviePanel extends JPanel {
 
