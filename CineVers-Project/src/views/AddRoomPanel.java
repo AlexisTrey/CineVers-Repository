@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import views.Background;
 import views.Footer;
 import views.Header;
@@ -26,8 +27,6 @@ import views.Header;
 public class AddRoomPanel extends javax.swing.JPanel {
 
     private Background badground;
-    private Header header;
-    private Footer footer;
     private ActionListener listener;
     private GridBagConstraints gbc;
 
@@ -39,33 +38,30 @@ public class AddRoomPanel extends javax.swing.JPanel {
 
     private void initComponents2(ActionListener listener) {
         this.setLayout(new BorderLayout());
-        this.header = new Header(listener);
         this.badground = new Background();
-        this.footer = new Footer();
+        this.badground.setLayout(new GridBagLayout());
         JPanel centerWrapper = createCenterContainer();
-        this.badground.setLayout(new BorderLayout());
-        this.badground.add(header, BorderLayout.NORTH);
-        this.badground.add(centerWrapper, BorderLayout.CENTER);
-        this.badground.add(footer, BorderLayout.SOUTH);
-        this.add(this.badground);
+        
+        gbc= new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.weighty = 1;
+        
+
+        this.badground.add(centerWrapper, gbc);
+        this.add(this.badground , BorderLayout.CENTER);
 
     }
 
     private JPanel createCenterContainer() {
         gbc = new GridBagConstraints();
-        JPanel centerWrapper = new JPanel();
-        JPanel auxPanel = new JPanel();
-        auxPanel.setLayout(new GridBagLayout());
-        auxPanel.setBackground(Color.red);
-        auxPanel.setOpaque(false);
+        JPanel centerWrapper = new JPanel(new BorderLayout());
         centerWrapper.setOpaque(false);
+        centerWrapper.setBorder(new EmptyBorder(110, 0, 0, 0));
         FormAddRoomPanel formPanel = new FormAddRoomPanel(listener);
-        centerWrapper.add(formPanel);
-        gbc.ipadx = 350;
-        gbc.ipady = 100;
-        auxPanel.add(centerWrapper, gbc);
-
-        return auxPanel;
+        centerWrapper.add(formPanel, BorderLayout.NORTH);
+        return centerWrapper;
     }
 
 //    public static void main(String[] args) {

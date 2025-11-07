@@ -25,7 +25,6 @@ public class MainPanel extends JPanel {
     private Background background;
     private Footer footer;
     private JPanel scrollContainer;
-
     private HomePanel homePanel;
     private SelectCityView selectCityView;
     private LoginView loginView;
@@ -67,20 +66,31 @@ public class MainPanel extends JPanel {
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
 
-        // Agregación de vistas al CardLayout
-        contentPanel.add(new SelectCityView(listener), SELECT_CITY);
+        selectCityView = new SelectCityView(listener);
         homePanel = new HomePanel(listener);
+        loginView = new LoginView(listener);
+        registerView = new RegisterView(listener);
+        movieDetailsPanel = new MovieDetailsPanel(listener);
+        panelAsientos = new PanelAsientos(listener);
+        roomEditionPanel = new RoomEditionPanel(listener);
+        billboardEditionPanel = new BillboardEditionPanel(listener);
+        functionsEditionPanel = new FunctionsEditionPanel(listener);
+        addRoomPanel = new AddRoomPanel(listener);
+        addMovieBillboard = new AddMovieBillboard(listener);
+        addFuctionPanel = new AddFuctionPanel(listener);
+        
+        contentPanel.add(selectCityView, SELECT_CITY);
         contentPanel.add(homePanel, HOME);
-        contentPanel.add(new LoginView(listener), LOGIN);
-        contentPanel.add(new RegisterView(listener), REGISTER);
-        contentPanel.add(new MovieDetailsPanel(listener), MOVIE_DETAILS);
-        contentPanel.add(new PanelAsientos(listener), SELECT_SEATS);
-        contentPanel.add(new RoomEditionPanel(listener), EDIT_ROOMS);
-        contentPanel.add(new BillboardEditionPanel(listener), EDIT_BILLBOARD);
-        contentPanel.add(new FunctionsEditionPanel(listener), EDIT_FUNCTIONS);
-        contentPanel.add(new AddRoomPanel(listener), ADD_ROOM);
-        contentPanel.add(new AddMovieBillboard(listener), ADD_BILLBOARD);
-        contentPanel.add(new AddFuctionPanel(listener), ADD_FUNCTION);
+        contentPanel.add(loginView, LOGIN);
+        contentPanel.add(registerView, REGISTER);
+        contentPanel.add(movieDetailsPanel, MOVIE_DETAILS);
+        contentPanel.add(panelAsientos, SELECT_SEATS);
+        contentPanel.add(roomEditionPanel, EDIT_ROOMS);
+        contentPanel.add(billboardEditionPanel, EDIT_BILLBOARD);
+        contentPanel.add(functionsEditionPanel, EDIT_FUNCTIONS);
+        contentPanel.add(addRoomPanel, ADD_ROOM);
+        contentPanel.add(addMovieBillboard, ADD_BILLBOARD);
+        contentPanel.add(addFuctionPanel, ADD_FUNCTION); // Agregado
 
         scrollContainer.add(contentPanel);
         scrollContainer.add(footer);
@@ -100,5 +110,13 @@ public class MainPanel extends JPanel {
     public HomePanel getHomePanel() {
         return homePanel;
     }
-
+    
+    
+    public AddMovieBillboard getAddMovieBillboard() {
+        return addMovieBillboard;
+    }
+    
+        public AddFuctionPanel getAddFuctionPanel() {
+        return addFuctionPanel;
+    }
 }

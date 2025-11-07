@@ -24,11 +24,28 @@ public class FormAddRoomPanel extends JPanel {
 
     public FormAddRoomPanel(ActionListener listener) {
         this.listener = listener;
-        setBackground(Color.WHITE);
         setOpaque(false);
         setBorder(new EmptyBorder(30, 40, 30, 40));
         setLayout(new GridBagLayout());
         buildFormContent();
+    }
+    
+               @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        // El color del fondo del panel (blanco/gris claro)
+        g2.setColor(new Color(250, 250, 250)); // Puedes ajustar este color si quieres
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 40, 40); // 40px de radio para esquinas
+        
+        // Opcional: El borde sutil gris claro alrededor del panel
+        g2.setColor(new Color(0, 0, 0, 30)); // Un gris muy transparente
+        g2.setStroke(new BasicStroke(2f)); // Un borde de 2px
+        g2.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 40, 40);
+        
+        g2.dispose();
+        super.paintComponent(g); // Dibuja el resto de los componentes
     }
 
     private void buildFormContent() {
@@ -59,7 +76,7 @@ public class FormAddRoomPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 5);
         add(numberRoom, gbc);
 
-        JComboBox<String> comboActivo = SurveryStyle.createStyledComboBox(new String[]{"Activa", "Inactiva"});
+        JComboBox<String> comboActivo = SurveryStyle.createStyledComboBox(new String[]{"Estado de la sala:","Activa", "Inactiva"});
         gbc.gridx = 1;
         gbc.insets = new Insets(10, 5, 10, 0);
         add(comboActivo, gbc);
@@ -71,7 +88,7 @@ public class FormAddRoomPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 5);
         add(numberSillas, gbc);
 
-        JComboBox<String> comboCity = SurveryStyle.createStyledComboBox(new String[]{"Tunja", "Medellin"});
+        JComboBox<String> comboCity = SurveryStyle.createStyledComboBox(new String[]{"Selecionar ciudad :","Tunja", "Medellin"});
         gbc.gridx = 1;
         gbc.insets = new Insets(10, 5, 10, 0);
         add(comboCity, gbc);

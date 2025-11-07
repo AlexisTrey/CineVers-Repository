@@ -6,6 +6,10 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import models.CineVersSystem;
+import models.Movie;
+import models.User;
+import views.FormFuctionPanel;
 import views.MainFrame;
 import views.MainPanel;
 import views.ReservationConfirmationJDialog;
@@ -20,9 +24,11 @@ import views.ReservationConfirmationJDialog;
 public class Controller implements ActionListener {
 
     private MainFrame mainFrame;
+    private CineVersSystem cine;
 
     public Controller() {
-        mainFrame = new MainFrame(this);
+        this.mainFrame = new MainFrame(this);
+        this.cine = new CineVersSystem();
     }
 
     public void init() {
@@ -74,6 +80,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "EDITAR_CARTELERA":
+                
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 break;
 
@@ -82,6 +89,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "AGREGAR_FUNCION":
+
                 mainFrame.getMainPanel().showPanel(MainPanel.ADD_FUNCTION);
                 break;
 
@@ -98,11 +106,25 @@ public class Controller implements ActionListener {
                 break;
 
             case "GUARDAR_CARTELERA":
+                
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 break;
 
             case "GUARDAR_SALA":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
+                break;
+                
+            case "AGREGAR_FUNCION_FORM" :
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                FormFuctionPanel formPanel = this.mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
+                String title = formPanel.getCampoTitulo().getText();
+                String synopsis = formPanel.getCampoSinopsis().getText();
+                String gener = (String) formPanel.getComboGenero().getSelectedItem();
+                String classification = formPanel.getCampoClasificacion().getText();
+                int duration = Integer.parseInt(formPanel.getCampoDuracion().getText());
+                this.cine.addMovie(new User(true), new Movie("M004" , title, gener, duration, classification, synopsis, title));  
+
+                
                 break;
 
 //            case "UPCOMING":

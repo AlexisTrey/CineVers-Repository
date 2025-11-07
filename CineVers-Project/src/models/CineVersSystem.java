@@ -6,6 +6,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import utilities.Utilities;
 
 /**
  *
@@ -21,20 +22,24 @@ public class CineVersSystem {
     private List<Function> functions;
     private List<Reservation> reservations;
     private List<Cartelera> carteleras;
+    private GsonConverter gson;
 
     public CineVersSystem() {
         users = new ArrayList<>();
-        movies = new ArrayList<>();
+        movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
         functions = new ArrayList<>();
         reservations = new ArrayList<>();
         carteleras = new ArrayList<>();
+        System.out.println("se cargaron con exito");
     }
 
     //Acciones de Usuarios
     public void addUser(User user) {
         users.add(user);
     }
-
+    public void setMovies(List<Movie> movies){
+        this.movies=movies;
+    }
     public User findUserByEmail(String email) {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
@@ -56,6 +61,7 @@ public class CineVersSystem {
             return;
         }
         movies.add(movie);
+        this.gson.saveListToJson(movies, Utilities.MOVIES_PATH);
         System.out.println("Película agregada: " + movie.getTitle());
     }
 

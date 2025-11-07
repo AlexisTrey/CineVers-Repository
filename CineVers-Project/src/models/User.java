@@ -41,6 +41,9 @@ public class User {
 
     public User() {
     }
+     public User(boolean isAdmin) {
+         this.isAdmin = isAdmin;
+    }
 
     public String getId() {
         return id;
