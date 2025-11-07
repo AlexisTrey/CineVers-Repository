@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import utilities.Utilities;
 
 /**
@@ -84,6 +85,7 @@ public class RoomEditionPanel extends JPanel {
         
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
+        contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new java.awt.Insets(30, 0, 40, 0);

@@ -23,7 +23,7 @@ public class Utilities {
     public static final String FACEBOOK_PATH = "/resources/images/FaceBook.png";
     public static final String TELEGRAM_PATH = "/resources/images/Telegram.png";
 
-    public static final String ORGULLO_PATH = "/resources/images/Together.png";
+    public static final String PREJUICIO_PATH = "/resources/images/Prejuicio.png";
     public static final String TOGETHER_PATH = "/resources/images/Together.png";
     public static final String VIERNES_PATH = "/resources/images/OtroViernesDeLocos.png";
     public static final String MIRACULOUS_PATH = "/resources/images/Miraculous.png";

@@ -28,7 +28,7 @@ public class SelectCityView extends JPanel {
         setLayout(new BorderLayout());
 
         background = new Background();
-        background.setLayout(new BorderLayout());
+        background.setLayout(new GridBagLayout());
 
         btnSelectCity = new JButton("Seleccionar Ciudad") {
             @Override
@@ -54,11 +54,11 @@ public class SelectCityView extends JPanel {
 
         btnSelectCity.addActionListener(e -> showDialog());
 
-        JPanel wrapperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 40)); // margen arriba
-        wrapperPanel.setOpaque(false);
-        wrapperPanel.add(btnSelectCity);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        background.add(btnSelectCity, gbc);
 
-        background.add(wrapperPanel, BorderLayout.NORTH);
         add(background, BorderLayout.CENTER);
     }
 

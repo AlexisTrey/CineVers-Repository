@@ -58,7 +58,7 @@ public class AddRoomPanel extends javax.swing.JPanel {
         gbc = new GridBagConstraints();
         JPanel centerWrapper = new JPanel(new BorderLayout());
         centerWrapper.setOpaque(false);
-        centerWrapper.setBorder(new EmptyBorder(110, 0, 0, 0));
+        centerWrapper.setBorder(new EmptyBorder(110, 0, 120, 0));
         FormAddRoomPanel formPanel = new FormAddRoomPanel(listener);
         centerWrapper.add(formPanel, BorderLayout.NORTH);
         return centerWrapper;

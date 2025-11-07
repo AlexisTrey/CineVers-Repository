@@ -64,7 +64,7 @@ public class AddMovieBillboard extends javax.swing.JPanel {
         JPanel centerWrapper = new JPanel(new BorderLayout());
         centerWrapper.setBackground(Color.red);
         centerWrapper.setOpaque(false);
-        centerWrapper.setBorder(new EmptyBorder(110, 0, 0, 0));
+        centerWrapper.setBorder(new EmptyBorder(110, 0, 120, 0));
         formPanel = new FormFuctionPanel(listener);
         centerWrapper.add(formPanel, BorderLayout.NORTH);
         return centerWrapper;

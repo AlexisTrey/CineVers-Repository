@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import utilities.Utilities;
 
 /**
@@ -85,6 +86,7 @@ public class BillboardEditionPanel extends JPanel {
         
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
+        contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new java.awt.Insets(30, 30, 30, 30);
@@ -106,7 +108,7 @@ public class BillboardEditionPanel extends JPanel {
 
         BillboardCardPanel[] movies = {
             new BillboardCardPanel("Orgullo y Prejuicio", "Drama • Romance", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.ORGULLO_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.PREJUICIO_PATH))),
             new BillboardCardPanel("Together: Juntos Hasta la Muerte", "Horror • 1h 42min", "2D",
             new ImageIcon(getClass().getResource(Utilities.TOGETHER_PATH))),
             new BillboardCardPanel("Otro Viernes de Locos", "Comedia • Familiar • 2h 7min", "2D - VIP",

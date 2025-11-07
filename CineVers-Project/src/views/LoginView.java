@@ -25,7 +25,7 @@ public class LoginView extends JPanel {
     private JLabel lblOlvido, lblMensajeInferior, lblTitulo;
     private ActionListener listener;
 
-    public LoginView(ActionListener Listener) {
+    public LoginView(ActionListener listener) {
         this.listener = listener;
         setLayout(new BorderLayout());
 
@@ -157,18 +157,11 @@ public class LoginView extends JPanel {
 
         panelLogin.add(panelInferior, gbc);
 
-        GridBagConstraints top = new GridBagConstraints();
-        top.gridx = 0;
-        top.gridy = 0;
-        top.anchor = GridBagConstraints.NORTH;
-        top.weighty = 1;
+        GridBagConstraints center = new GridBagConstraints();
+        center.gridx = 0;
+        center.gridy = 0;
+        background.add(panelLogin, center);
 
-        JPanel wrapperPanel = new JPanel(new BorderLayout());
-        wrapperPanel.setOpaque(false);
-        wrapperPanel.setBorder(new EmptyBorder(110, 0, 0, 0));
-        wrapperPanel.add(panelLogin, BorderLayout.NORTH);
-
-        background.add(wrapperPanel, top);
         add(background, BorderLayout.CENTER);
     }
 
@@ -376,5 +369,5 @@ public class LoginView extends JPanel {
         dialog.setVisible(true);
 
         overlay.dispose();
-    }    
+    }
 }
