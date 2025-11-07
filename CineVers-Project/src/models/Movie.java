@@ -25,8 +25,8 @@ public class Movie {
     private String releaseDate;
 //    private Boolean incart; // si esta cartelera o no 
 
-    public Movie(String id, String title, String genre, int durationMinutes, String classification, String synopsis, String date) {
-//        this.id = id;
+    public Movie(String URL, String title, String genre, int durationMinutes, String classification, String synopsis, String date) {
+        this.id = URL;
         this.title = title;
         this.genre = genre;
         this.durationMinutes = durationMinutes;

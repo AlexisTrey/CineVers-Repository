@@ -121,11 +121,13 @@ public class Controller implements ActionListener {
                 String synopsis = formPanel.getCampoSinopsis().getText();
                 String gener = (String) formPanel.getComboGenero().getSelectedItem();
                 String classification = formPanel.getCampoClasificacion().getText();
+               String filePath = formPanel.getImagePath();
                 int duration = Integer.parseInt(formPanel.getCampoDuracion().getText());
-                this.cine.addMovie(new User(true), new Movie("M004" , title, gener, duration, classification, synopsis, title));  
+                this.cine.addMovie(new User(true), new Movie(filePath , title, gener, duration, classification, synopsis, title));  
 
                 
                 break;
+
 
 //            case "UPCOMING":
 //                mainFrame.getMainPanel().showPanel(MainPanel.HOME);

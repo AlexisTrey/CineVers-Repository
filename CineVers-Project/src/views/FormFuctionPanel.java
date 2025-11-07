@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  *
@@ -26,6 +27,7 @@ public class FormFuctionPanel extends JPanel {
     private JTextField campoEstreno;
     private JTextField campoFin;
     private JButton botonContinuar;
+    private String imagePath;
 
     public FormFuctionPanel(ActionListener listener) {
         this.listener = listener;
@@ -169,32 +171,78 @@ public class FormFuctionPanel extends JPanel {
         separator.setPreferredSize(new Dimension(FIELD_WIDTH * 2, 1));
         return separator;
     }
+    
+    private void openFileChooser(JPanel sourcePanel, JLabel iconLabel) {
+    JFileChooser fileChooser = new JFileChooser();
+    
+    // Filtro para solo permitir imágenes
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+            "Archivos de Imagen (JPG, PNG, GIF)", "jpg", "jpeg", "png", "gif"));
+    
+    // Muestra la ventana de diálogo
+    int result = fileChooser.showOpenDialog(sourcePanel);
+
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        this.imagePath = selectedFile.getAbsolutePath(); // Guarda la ruta
+        
+        // --- Lógica de Previsualización ---
+        ImageIcon originalIcon = new ImageIcon(this.imagePath);
+        
+        // Redimensionar la imagen para que encaje
+        Image scaledImage = originalIcon.getImage().getScaledInstance(
+            sourcePanel.getWidth(), sourcePanel.getHeight(), Image.SCALE_SMOOTH);
+        
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        
+        // Reemplaza el icono de la cámara con la imagen seleccionada
+        iconLabel.setIcon(scaledIcon);
+        iconLabel.setText(""); // Oculta el texto "Agregar imagen:" si el label lo contiene
+        iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        iconLabel.setVerticalAlignment(SwingConstants.CENTER);
+        
+        // Asegura que el contenedor se actualice
+        sourcePanel.revalidate();
+        sourcePanel.repaint();
+        
+        System.out.println("Imagen seleccionada: " + this.imagePath);
+    }
+}
 
 
     private JPanel createImagenPlaceholder(String text) {
-        JPanel panel = new RoundedPanel(15, new Color(245, 245, 245)); // Color más suave
+        JPanel panel = new RoundedPanel(15, new Color(245, 245, 245));
+        // ...
+        JLabel label = new JLabel(text, SwingConstants.CENTER); // Etiqueta "Agregar imagen:"
+        // ...
+        JLabel iconLabel = new JLabel("📷"); // Etiqueta del icono de la cámara
+
+        JLabel visualLabel = new JLabel("<html><center>📷<br>" + text + "</center></html>", SwingConstants.CENTER);
+        visualLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 24)); // Para el emoji
+        visualLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+        visualLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 1));
-        
-        JLabel label = new JLabel(text, SwingConstants.CENTER);
-        label.setFont(SurveryStyle.DEFAULT_FONT.deriveFont(Font.PLAIN, 12));
-        label.setForeground(new Color(150, 150, 150)); // Color más suave
-        
-        // Agregar icono de cámara (opcional)
-        JLabel iconLabel = new JLabel("📷");
-        iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 24));
-        iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setOpaque(false);
-        contentPanel.add(iconLabel, BorderLayout.CENTER);
-        contentPanel.add(label, BorderLayout.SOUTH);
-        
-        panel.add(contentPanel, BorderLayout.CENTER);
+        panel.add(visualLabel, BorderLayout.CENTER);
         panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
-        return panel;
-    }
+
+        // =======================================================
+        // AÑADIR EL ESCUCHADOR DE CLIC AL PANEL
+        // =======================================================
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // Pasamos el panel y la etiqueta visual para actualizar la imagen
+                openFileChooser(panel, visualLabel);
+            }
+        });
+
+    return panel;
+}
+    
+    public String getImagePath() {
+    return this.imagePath;
+}
     
 
     public JTextField getCampoTitulo() {
