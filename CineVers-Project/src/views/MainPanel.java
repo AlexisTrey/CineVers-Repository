@@ -62,7 +62,7 @@ public class MainPanel extends JPanel {
 
         scrollContainer = new JPanel();
         scrollContainer.setLayout(new BoxLayout(scrollContainer, BoxLayout.Y_AXIS));
-
+        
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
 

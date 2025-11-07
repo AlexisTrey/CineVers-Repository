@@ -41,5 +41,13 @@
     "classification": "18",
     "synopsis": "como vas perro",
     "releaseDate": "hola manito"
+  },
+  {
+    "title": "sapa",
+    "genre": "Drama",
+    "durationMinutes": 120,
+    "classification": "+",
+    "synopsis": "paola",
+    "releaseDate": "sapa"
   }
 ]

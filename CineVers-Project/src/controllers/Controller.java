@@ -49,6 +49,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "ABRIR_REGISTRO":
+                
                 mainFrame.getMainPanel().showPanel(MainPanel.REGISTER);
                 break;
 

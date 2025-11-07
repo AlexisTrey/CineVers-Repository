@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package views;
 
@@ -25,7 +25,7 @@ public class LoginView extends JPanel {
     private JLabel lblOlvido, lblMensajeInferior, lblTitulo;
     private ActionListener listener;
 
-    public LoginView(ActionListener listener) {
+    public LoginView(ActionListener Listener) {
         this.listener = listener;
         setLayout(new BorderLayout());
 
@@ -376,5 +376,5 @@ public class LoginView extends JPanel {
         dialog.setVisible(true);
 
         overlay.dispose();
-    }
+    }    
 }
