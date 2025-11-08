@@ -6,9 +6,12 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import models.CineVersSystem;
+import models.Function;
 import models.Movie;
 import models.User;
+import views.FormBillboardPanel;
 import views.FormFuctionPanel;
 import views.MainFrame;
 import views.MainPanel;
@@ -49,6 +52,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "ABRIR_REGISTRO":
+                
                 mainFrame.getMainPanel().showPanel(MainPanel.REGISTER);
                 break;
 
@@ -76,6 +80,7 @@ public class Controller implements ActionListener {
 
             //Flujos propios del Administrador
             case "EDITAR_FUNCIONES":
+
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
                 break;
 
@@ -89,6 +94,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "AGREGAR_FUNCION":
+                this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel().setJComboBox(this.cine.getMovieTitlesArray());
 
                 mainFrame.getMainPanel().showPanel(MainPanel.ADD_FUNCTION);
                 break;
@@ -114,20 +120,33 @@ public class Controller implements ActionListener {
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
                 
-            case "AGREGAR_FUNCION_FORM" :
+            case "AGREGAR_CARTELERA_FORM":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 FormFuctionPanel formPanel = this.mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
                 String title = formPanel.getCampoTitulo().getText();
                 String synopsis = formPanel.getCampoSinopsis().getText();
                 String gener = (String) formPanel.getComboGenero().getSelectedItem();
                 String classification = formPanel.getCampoClasificacion().getText();
-               String filePath = formPanel.getImagePath();
+                String filePath = formPanel.getImagePath();
                 int duration = Integer.parseInt(formPanel.getCampoDuracion().getText());
-                this.cine.addMovie(new User(true), new Movie(filePath , title, gener, duration, classification, synopsis, title));  
-
-                
+                this.cine.addMovie(new User(true), new Movie(filePath, title, gener, duration, classification, synopsis, title));
                 break;
 
+            case "AGREGAR_FUNCION_ FORM":
+                FormBillboardPanel formanPnale1 = this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel();
+                String titleserch = (String) formanPnale1.getCmbPeliculas().getSelectedItem();
+                
+                String id = formanPnale1.getTxtFunctionId().getText();
+//                Room rom1 = crear las salas 
+                String date=  formanPnale1.getTxtStartTime().getText();
+                this.cine.addFunction(new User(true),new Function(id, (this.cine.searchMovieByTitle(titleserch)),date ));
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                        
+                break;
+
+            case "AGREGAR_SALA_FORM":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
+                break;
 
 //            case "UPCOMING":
 //                mainFrame.getMainPanel().showPanel(MainPanel.HOME);

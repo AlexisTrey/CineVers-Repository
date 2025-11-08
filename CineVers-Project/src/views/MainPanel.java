@@ -1,10 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.event.ActionListener;
-
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -20,11 +17,10 @@ public class MainPanel extends JPanel {
     private ActionListener listener;
 
     private Header header;
-    private JPanel contentPanel;
-    private CardLayout cardLayout;
-    private Background background;
     private Footer footer;
-    private JPanel scrollContainer;
+    private JPanel contentContainer;
+    private JScrollPane scrollPane;
+
     private HomePanel homePanel;
     private SelectCityView selectCityView;
     private LoginView loginView;
@@ -60,11 +56,14 @@ public class MainPanel extends JPanel {
         footer = new Footer();
         //background = new Background();
 
-        scrollContainer = new JPanel();
-        scrollContainer.setLayout(new BoxLayout(scrollContainer, BoxLayout.Y_AXIS));
+        contentContainer = new JPanel(new BorderLayout());
 
-        cardLayout = new CardLayout();
-        contentPanel = new JPanel(cardLayout);
+        scrollPane = new JScrollPane(contentContainer);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+
+        add(header, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
 
         selectCityView = new SelectCityView(listener);
         homePanel = new HomePanel(listener);
@@ -78,45 +77,58 @@ public class MainPanel extends JPanel {
         addRoomPanel = new AddRoomPanel(listener);
         addMovieBillboard = new AddMovieBillboard(listener);
         addFuctionPanel = new AddFuctionPanel(listener);
-        
-        contentPanel.add(selectCityView, SELECT_CITY);
-        contentPanel.add(homePanel, HOME);
-        contentPanel.add(loginView, LOGIN);
-        contentPanel.add(registerView, REGISTER);
-        contentPanel.add(movieDetailsPanel, MOVIE_DETAILS);
-        contentPanel.add(panelAsientos, SELECT_SEATS);
-        contentPanel.add(roomEditionPanel, EDIT_ROOMS);
-        contentPanel.add(billboardEditionPanel, EDIT_BILLBOARD);
-        contentPanel.add(functionsEditionPanel, EDIT_FUNCTIONS);
-        contentPanel.add(addRoomPanel, ADD_ROOM);
-        contentPanel.add(addMovieBillboard, ADD_BILLBOARD);
-        contentPanel.add(addFuctionPanel, ADD_FUNCTION); // Agregado
 
-        scrollContainer.add(contentPanel);
-        scrollContainer.add(footer);
-
-        JScrollPane scrollPane = new JScrollPane(scrollContainer);
-        scrollPane.setBorder(null);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-
-        add(header, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
+        showPanel(SELECT_CITY);
     }
 
     public void showPanel(String panelName) {
-        cardLayout.show(contentPanel, panelName);
+        contentContainer.removeAll(); // Limpia el contenido anterior
+
+        JPanel newPanel = switch (panelName) {
+            case HOME ->
+                homePanel;
+            case LOGIN ->
+                loginView;
+            case REGISTER ->
+                registerView;
+            case SELECT_CITY ->
+                selectCityView;
+            case MOVIE_DETAILS ->
+                movieDetailsPanel;
+            case SELECT_SEATS ->
+                panelAsientos;
+            case EDIT_ROOMS ->
+                roomEditionPanel;
+            case EDIT_BILLBOARD ->
+                billboardEditionPanel;
+            case EDIT_FUNCTIONS ->
+                functionsEditionPanel;
+            case ADD_ROOM ->
+                addRoomPanel;
+            case ADD_BILLBOARD ->
+                addMovieBillboard;
+            case ADD_FUNCTION ->
+                addFuctionPanel;
+            default ->
+                new JPanel();
+        };
+
+        contentContainer.add(newPanel, BorderLayout.CENTER);
+        contentContainer.add(footer, BorderLayout.SOUTH);
+
+        contentContainer.revalidate();
+        contentContainer.repaint();
     }
 
     public HomePanel getHomePanel() {
         return homePanel;
     }
-    
-    
+
     public AddMovieBillboard getAddMovieBillboard() {
         return addMovieBillboard;
     }
-    
-        public AddFuctionPanel getAddFuctionPanel() {
+
+    public AddFuctionPanel getAddFuctionPanel() {
         return addFuctionPanel;
     }
 }

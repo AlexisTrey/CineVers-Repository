@@ -96,7 +96,7 @@ public class HomePanel extends JPanel {
 
         MovieCardPanel[] movies = {
             new MovieCardPanel("Orgullo y Prejuicio", "Drama • Romance", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.ORGULLO_PATH)), listener),
+            new ImageIcon(getClass().getResource(Utilities.PREJUICIO_PATH)), listener),
             new MovieCardPanel("Together: Juntos Hasta la Muerte", "Horror • 1h 42min", "2D",
             new ImageIcon(getClass().getResource(Utilities.TOGETHER_PATH)), listener),
             new MovieCardPanel("Otro Viernes de Locos", "Comedia • Familiar • 2h 7min", "2D - VIP",

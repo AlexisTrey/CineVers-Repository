@@ -59,7 +59,7 @@ public class AddFuctionPanel extends javax.swing.JPanel {
         JPanel centerWrapper = new JPanel();
         centerWrapper.setBackground(Color.red);
         centerWrapper.setOpaque(false);
-        centerWrapper.setBorder(new EmptyBorder(110, 0, 0, 0));
+        centerWrapper.setBorder(new EmptyBorder(110, 0, 120, 0));
         formPanel = new FormBillboardPanel(listener);
         centerWrapper.add(formPanel, BorderLayout.NORTH);
         return centerWrapper;

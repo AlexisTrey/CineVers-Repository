@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import utilities.Utilities;
 
 /**
@@ -84,6 +85,7 @@ public class FunctionsEditionPanel extends JPanel {
 
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
+        contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new java.awt.Insets(20, 0, 30, 0);
@@ -101,7 +103,7 @@ public class FunctionsEditionPanel extends JPanel {
 
         FunctionCardPanel[] functions = {
             new FunctionCardPanel("Orgullo y Prejuicio", "05", "33", "12:00", "VIP 3D",
-            new ImageIcon(getClass().getResource(Utilities.ORGULLO_PATH))),
+            new ImageIcon(getClass().getResource(Utilities.PREJUICIO_PATH))),
             new FunctionCardPanel("Zootopia 2", "02", "50", "15:30", "2D",
             new ImageIcon(getClass().getResource(Utilities.ZOOTOPIA_PATH))),
             new FunctionCardPanel("Demon Slayer: Infinity Castle", "03", "20", "18:00", "3D",

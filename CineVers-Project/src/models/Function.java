@@ -17,15 +17,14 @@ public class Function {
     private String id;
     private Movie movie;
     private Room room;
-    private LocalDateTime dateTime;
-    private double price;
+    private String dateTime;
 
-    public Function(String id, Movie movie, Room room, LocalDateTime dateTime, double price) {
+
+    public Function(String id, Movie movie, String dateTime) {
         this.id = id;
         this.movie = movie;
         this.room = room;
         this.dateTime = dateTime;
-        this.price = price;
     }
 
     public Function() {
@@ -49,18 +48,14 @@ public class Function {
     public void setRoom(Room room) {
         this.room = room;
     }
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
-    public double getPrice() {
-        return price;
-    }
-    public void setPrice(double price) {
-        this.price = price;
-    }
+
+    
     public int getAvailableSeats() {
          return room.getAvailableSeats();
     }
@@ -79,8 +74,8 @@ public class Function {
 
     @Override
     public String toString() {
-        return "Función: " + movie.getTitle() + " en sala " + room.getName() +
-                " | Fecha: " + dateTime + " | Precio: $" + price;
+        return "Función: " + movie.getTitle() + " en sala "  +
+                " | Fecha: " + dateTime ;
     }
    
 }

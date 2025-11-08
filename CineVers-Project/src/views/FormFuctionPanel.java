@@ -154,7 +154,7 @@ public class FormFuctionPanel extends JPanel {
 
         // ASIGNACIÓN AL ATRIBUTO DE CLASE
         botonContinuar = SurveryStyle.createStyledButton("Continuar");
-        botonContinuar.setActionCommand("AGREGAR_FUNCION_FORM");
+        botonContinuar.setActionCommand("AGREGAR_CARTELERA_FORM");
         botonContinuar.addActionListener(listener);
         gbc.gridy++;
         gbc.gridx = 0;

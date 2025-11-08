@@ -26,11 +26,10 @@ public class CineVersSystem {
 
     public CineVersSystem() {
         users = new ArrayList<>();
-        movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
-        functions = new ArrayList<>();
+        movies = gson.loadMovies(Utilities.MOVIES_PATH);
+        functions = gson.loadFunctions(Utilities.FUCTION_PATH);
         reservations = new ArrayList<>();
         carteleras = new ArrayList<>();
-        System.out.println("se cargaron con exito");
     }
 
     //Acciones de Usuarios
@@ -151,6 +150,39 @@ public class CineVersSystem {
             }
         }
         return result;
+    }
+        public Movie searchMovieByTitle(String name) {
+        Movie movieretur = new Movie();
+        for (Movie m : this.movies) {
+            if (m.getTitle().equalsIgnoreCase(name)) {
+                movieretur = m;
+            }
+        }
+        return movieretur;
+    }
+    
+    public String[] getMovieTitlesArray() {
+        
+        // 1. Verificar si la lista está vacía o es nula
+        if (this.movies == null || this.movies.isEmpty()) {
+            // Devuelve un array con solo el placeholder si no hay películas
+            return new String[]{"-- Sin Películas Disponibles --"};
+        }
+
+        // 2. Crear una lista temporal para recopilar los títulos (más fácil que un array fijo)
+        List<String> titlesList = new ArrayList<>();
+
+        // 3. Añadir el placeholder como primer elemento
+        titlesList.add("-- Seleccione una Película --");
+
+        // 4. Extraer los títulos de las películas
+        for (Movie movie : this.movies) {
+            titlesList.add(movie.getTitle());
+        }
+
+        // 5. Convertir la List<String> a un vector String[]
+        // El método toArray(new String[0]) es el estándar para esto.
+        return titlesList.toArray(new String[0]);
     }
 
 }

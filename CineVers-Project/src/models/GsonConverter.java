@@ -47,7 +47,7 @@ public static <T> void saveListToJson(List<T> list, String filePath) {
 }
 
 
-    public static List<Movie> loadPeliculas(String filePath) {
+    public static List<Movie> loadMovies(String filePath) {
         try (FileReader reader = new FileReader(filePath)) {
             
             // Define el TIPO de dato que esperas leer. Esto es crucial para Listas genéricas.
@@ -62,6 +62,18 @@ public static <T> void saveListToJson(List<T> list, String filePath) {
         } catch (IOException e) {
             System.out.println("Archivo no encontrado o vacío. Inicializando con lista vacía.");
             return new ArrayList<>(); // Devuelve una lista vacía para que la aplicación no falle.
+        }
+    }
+    
+public static List<Function> loadFunctions(String filePath) {
+        // ... (Tu método loadFunctions usando la instancia 'gson') ...
+        try (FileReader reader = new FileReader(filePath)) {
+            Type listType = new TypeToken<ArrayList<Function>>(){}.getType();
+            List<Function> functions = gson.fromJson(reader, listType); // Usa la instancia configurada
+            return functions != null ? functions : new ArrayList<>();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
     

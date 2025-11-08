@@ -37,6 +37,7 @@ public class RegisterView extends JPanel {
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setOpaque(false);
         formPanel.setPreferredSize(new Dimension(700, 700));
+        formPanel.setBorder(new EmptyBorder(0, 0, 120, 0));
         JLabel lblTitulo = new JLabel("Crea tu cuenta en CineVers", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 50));
         lblTitulo.setForeground(Color.WHITE);
