@@ -52,6 +52,11 @@ public class ShapedButtons extends BasicButtonUI {
             case ">":
                 btnRound(g2d, c.getWidth(), c.getHeight());
                 break;
+            case "Volver":
+            case "Confirmar":
+                btnGradientRounded(g2d, c.getWidth(), c.getHeight(), isHover);
+                break;
+
             case "Edición de Funciones":
             case "Edición de Cartelera":
             case "Edición de Salas":

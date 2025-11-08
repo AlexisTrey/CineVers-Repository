@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  */
 public class SinopsisMovie extends JPanel {
 
-    private Color titleColor = new Color(50, 50, 50);
+    private Color titleColor = new Color(102, 0, 161);
     private Color textColor = new Color(80, 80, 80);
 
     public SinopsisMovie() {

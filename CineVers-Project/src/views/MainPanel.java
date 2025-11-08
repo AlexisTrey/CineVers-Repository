@@ -33,6 +33,7 @@ public class MainPanel extends JPanel {
     private AddRoomPanel addRoomPanel;
     private AddMovieBillboard addMovieBillboard;
     private AddFuctionPanel addFuctionPanel;
+    private SelectSeats selectSeats;
 
     public static final String SELECT_CITY = "select_city";
     public static final String HOME = "home";
@@ -77,6 +78,7 @@ public class MainPanel extends JPanel {
         addRoomPanel = new AddRoomPanel(listener);
         addMovieBillboard = new AddMovieBillboard(listener);
         addFuctionPanel = new AddFuctionPanel(listener);
+        selectSeats = new SelectSeats();
 
         showPanel(SELECT_CITY);
     }
@@ -96,7 +98,7 @@ public class MainPanel extends JPanel {
             case MOVIE_DETAILS ->
                 movieDetailsPanel;
             case SELECT_SEATS ->
-                panelAsientos;
+                selectSeats;
             case EDIT_ROOMS ->
                 roomEditionPanel;
             case EDIT_BILLBOARD ->

@@ -66,33 +66,33 @@ public class PosterMoviePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+super.paintComponent(g);
+        if (posterImage == null) return;
+
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-        int padding = 40;
-        int contentWidth = getWidth() - 2 * padding;
-        int currentY = padding;
+        // Dibujar la imagen escalada al tamaño completo del panel
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
 
-        // Dibujar el poster centrado en la parte superior
-        drawPosterSection(g2d, contentWidth, padding, currentY);
-        currentY += 250; // Espacio después del poster
+        g2d.drawImage(posterImage, 0, 0, panelWidth, panelHeight, this);
 
     }
 
-    private void drawPosterSection(Graphics2D g2d, int contentWidth, int x, int y) {
-        if (posterImage != null) {
-            // Calcular dimensiones para mantener la proporción
-            int imgWidth = 150;
-            int imgHeight = 225; // Proporción 2:3
-
-            // Centrar la imagen horizontalmente
-            int xPos = (getWidth() - imgWidth) / 2;
-
-            // Dibujar la imagen con sombra
-            drawImageWithShadow(g2d, posterImage, xPos, y, imgWidth, imgHeight);
-        }
-    }
+//    private void drawPosterSection(Graphics2D g2d, int contentWidth, int x, int y) {
+//        if (posterImage != null) {
+//            // Calcular dimensiones para mantener la proporción
+//            int imgWidth = 150;
+//            int imgHeight = 225; // Proporción 2:3
+//
+//            // Centrar la imagen horizontalmente
+//            int xPos = (getWidth() - imgWidth) / 2;
+//
+//            // Dibujar la imagen con sombra
+//            drawImageWithShadow(g2d, posterImage, xPos, y, imgWidth, imgHeight);
+//        }
+//    }
 
     private void drawImageWithShadow(Graphics2D g2d, BufferedImage image, int x, int y, int width, int height) {
         // Dibujar sombra
