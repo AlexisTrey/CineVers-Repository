@@ -174,17 +174,17 @@ public class SeatState extends JPanel {
         g2d.drawString(text, tx, ty);
     }
     
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Estados de sillas");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            SeatState panel = new SeatState();
-            frame.add(panel);
-
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Estados de sillas");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//            SeatState panel = new SeatState();
+//            frame.add(panel);
+//
+//            frame.pack();
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//    }
 }

@@ -150,17 +150,17 @@ public class MovieDetailsPanel extends JPanel {
         return button;
     }
 
-   public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Horarios de Cine");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            MovieDetailsPanel panel = new MovieDetailsPanel(null);
-            frame.add(panel);
-
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
+//   public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Horarios de Cine");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//            MovieDetailsPanel panel = new MovieDetailsPanel(null);
+//            frame.add(panel);
+//
+//            frame.pack();
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//    }
 }
