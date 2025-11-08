@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import models.CineVersSystem;
 import models.Function;
 import models.Movie;
+import models.Room;
 import models.User;
 import views.FormBillboardPanel;
 import views.FormFuctionPanel;
@@ -141,15 +142,24 @@ public class Controller implements ActionListener {
                 }
                 break;
 
-            case "AGREGAR_FUNCION_ FORM":
+            case "AGREGAR_FUNCION_FORM":
                 FormBillboardPanel formanPnale1 = this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel();
                 String titleserch = (String) formanPnale1.getCmbPeliculas().getSelectedItem();
 
                 String id = formanPnale1.getTxtFunctionId().getText();
 //                Room rom1 = crear las salas 
                 String date = formanPnale1.getTxtStartTime().getText();
-                this.cine.addFunction(new User(true), new Function(id, (this.cine.searchMovieByTitle(titleserch)), date));
-                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                Room selectedRoom = this.cine.getRooms().get(0);
+                try {
+                    this.cine.addFunction(
+                            new User(true),
+                            new Function(id, this.cine.searchMovieByTitle(titleserch), selectedRoom, date)
+                    );
+                    System.out.println("Función agregada correctamente.");
+                    mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                } catch (IOException ex) {
+                    System.err.println("Error al guardar la función: " + ex.getMessage());
+                }
 
                 break;
 

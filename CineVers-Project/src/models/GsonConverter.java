@@ -17,12 +17,12 @@ import java.util.List;
  * @author meloc
  */
 public class GsonConverter {
+
     private static final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .create();
 
-
-   public static <T> void saveListToJson(List<T> list, String filePath) throws IOException {
+    public static <T> void saveListToJson(List<T> list, String filePath) throws IOException {
         File file = new File(filePath);
         File parentDir = file.getParentFile();
 
@@ -51,27 +51,53 @@ public class GsonConverter {
             return list != null ? list : new ArrayList<>();
         }
     }
-    
-     public static List<Movie> loadPeliculas(String filePath) {
+
+    public static List<Movie> loadPeliculas(String filePath) {
         try {
-            Type listType = new TypeToken<ArrayList<Movie>>() {}.getType();
+            Type listType = new TypeToken<ArrayList<Movie>>() {
+            }.getType();
             return loadListFromJson(filePath, listType);
         } catch (IOException e) {
             return new ArrayList<>();
         }
     }
-     
-     
-     
+
     public static List<Function> loadFunctions(String filePath) {
         // ... (Tu método loadFunctions usando la instancia 'gson') ...
         try (FileReader reader = new FileReader(filePath)) {
-            Type listType = new TypeToken<ArrayList<Function>>(){}.getType();
+            Type listType = new TypeToken<ArrayList<Function>>() {
+            }.getType();
             List<Function> functions = gson.fromJson(reader, listType); // Usa la instancia configurada
             return functions != null ? functions : new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
+        }
+    }
+
+    public static List<Room> loadRooms(String filePath) {
+        try {
+            Type listType = new TypeToken<ArrayList<Room>>() {
+            }.getType();
+            return loadListFromJson(filePath, listType);
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public static void saveFunctions(List<Function> list, String filePath) {
+        try {
+            saveListToJson(list, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveRooms(List<Room> list, String filePath) {
+        try {
+            saveListToJson(list, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
