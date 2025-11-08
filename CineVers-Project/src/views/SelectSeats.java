@@ -26,7 +26,7 @@ public class SelectSeats extends JPanel {
         this.setBackground(Color.WHITE);
         contentPanelMovieDetails = new MovieDetailsPanel(null); //revisar cómo quedaría bien porque la clase MovieDetailsPanel pide un listener por parámetro
         contentPanelAsientos = new PanelAsientos(null);
-        contentPanelSeatState = new SeatState();
+        contentPanelSeatState = new SeatState(null);
         buildPanel();
     }
     
