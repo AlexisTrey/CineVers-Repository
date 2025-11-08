@@ -6,6 +6,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDate;
 import models.CineVersSystem;
 import models.Function;
@@ -52,7 +53,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "ABRIR_REGISTRO":
-                
+
                 mainFrame.getMainPanel().showPanel(MainPanel.REGISTER);
                 break;
 
@@ -85,7 +86,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "EDITAR_CARTELERA":
-                
+
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 break;
 
@@ -112,14 +113,14 @@ public class Controller implements ActionListener {
                 break;
 
             case "GUARDAR_CARTELERA":
-                
+
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 break;
 
             case "GUARDAR_SALA":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
-                
+
             case "AGREGAR_CARTELERA_FORM":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 FormFuctionPanel formPanel = this.mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
@@ -129,19 +130,27 @@ public class Controller implements ActionListener {
                 String classification = formPanel.getCampoClasificacion().getText();
                 String filePath = formPanel.getImagePath();
                 int duration = Integer.parseInt(formPanel.getCampoDuracion().getText());
-                this.cine.addMovie(new User(true), new Movie(filePath, title, gener, duration, classification, synopsis, title));
+                try {
+                    this.cine.addMovie(
+                            new User(true),
+                            new Movie(filePath, title, gener, duration, classification, synopsis, title)
+                    );
+                    System.out.println("Película agregada correctamente.");
+                } catch (IOException ex) {
+                    System.err.println("Error al guardar la película: " + ex.getMessage());
+                }
                 break;
 
             case "AGREGAR_FUNCION_ FORM":
                 FormBillboardPanel formanPnale1 = this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel();
                 String titleserch = (String) formanPnale1.getCmbPeliculas().getSelectedItem();
-                
+
                 String id = formanPnale1.getTxtFunctionId().getText();
 //                Room rom1 = crear las salas 
-                String date=  formanPnale1.getTxtStartTime().getText();
-                this.cine.addFunction(new User(true),new Function(id, (this.cine.searchMovieByTitle(titleserch)),date ));
+                String date = formanPnale1.getTxtStartTime().getText();
+                this.cine.addFunction(new User(true), new Function(id, (this.cine.searchMovieByTitle(titleserch)), date));
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
-                        
+
                 break;
 
             case "AGREGAR_SALA_FORM":
@@ -154,7 +163,6 @@ public class Controller implements ActionListener {
 //                    mainFrame.getMainPanel().getHomePanel().scrollToUpcoming();
 //                });
 //                break;
-
             default:
                 System.out.println("Acción no reconocida: " + command);
         }
