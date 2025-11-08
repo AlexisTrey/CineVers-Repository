@@ -23,12 +23,16 @@ public class CineVersSystem {
     private List<Function> functions;
     private List<Reservation> reservations;
     private List<Cartelera> carteleras;
+    private List<Room> rooms;
     private GsonConverter gson;
 
     public CineVersSystem() {
+        gson = new GsonConverter();
+
         users = new ArrayList<>();
         movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
-        functions = gson.loadFunctions(Utilities.FUCTION_PATH);
+        functions = gson.loadFunctions(Utilities.FUNCTION_PATH);
+        rooms = gson.loadRooms(Utilities.ROOMS_PATH);
         reservations = new ArrayList<>();
         carteleras = new ArrayList<>();
     }
@@ -37,9 +41,11 @@ public class CineVersSystem {
     public void addUser(User user) {
         users.add(user);
     }
-    public void setMovies(List<Movie> movies){
-        this.movies=movies;
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
+
     public User findUserByEmail(String email) {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
@@ -65,12 +71,13 @@ public class CineVersSystem {
         System.out.println("Película agregada: " + movie.getTitle());
     }
 
-    public void removeMovie(User user, Movie movie) {
+    public void removeMovie(User user, Movie movie) throws IOException {
         if (!user.isAdmin()) {
             System.out.println("Solo un administrador puede eliminar películas.");
             return;
         }
         movies.remove(movie);
+        gson.saveListToJson(movies, Utilities.MOVIES_PATH);
         System.out.println("Película eliminada: " + movie.getTitle());
     }
 
@@ -78,26 +85,52 @@ public class CineVersSystem {
         return movies;
     }
 
-    public void addFunction(User user, Function function) {
+    public void addFunction(User user, Function function) throws IOException {
         if (!user.isAdmin()) {
             System.out.println("Solo un administrador puede crear funciones.");
             return;
         }
         functions.add(function);
+        gson.saveListToJson(functions, Utilities.FUNCTION_PATH);
         System.out.println("Función agregada: " + function.getMovie().getTitle());
     }
 
-    public void removeFunction(User user, Function function) {
+    public void removeFunction(User user, Function function) throws IOException {
         if (!user.isAdmin()) {
             System.out.println("Solo un administrador puede eliminar funciones.");
             return;
         }
         functions.remove(function);
-        System.out.println("Función eliminada.");
+        gson.saveListToJson(functions, Utilities.FUNCTION_PATH);
+        System.out.println("Función eliminada correctamente.");
     }
 
     public List<Function> getFunctions() {
         return functions;
+    }
+
+    public void addRoom(User user, Room room) throws IOException {
+        if (!user.isAdmin()) {
+            System.out.println("Solo un administrador puede crear salas.");
+            return;
+        }
+        rooms.add(room);
+        gson.saveListToJson(rooms, Utilities.ROOMS_PATH);
+        System.out.println("Sala agregada: " + room.getName());
+    }
+
+    public void removeRoom(User user, Room room) throws IOException {
+        if (!user.isAdmin()) {
+            System.out.println("Solo un administrador puede eliminar salas.");
+            return;
+        }
+        rooms.remove(room);
+        gson.saveListToJson(rooms, Utilities.ROOMS_PATH);
+        System.out.println("Sala eliminada: " + room.getName());
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
     }
 
     public void addReservation(User user, Reservation reservation) {
@@ -152,7 +185,8 @@ public class CineVersSystem {
         }
         return result;
     }
-        public Movie searchMovieByTitle(String name) {
+
+    public Movie searchMovieByTitle(String name) {
         Movie movieretur = new Movie();
         for (Movie m : this.movies) {
             if (m.getTitle().equalsIgnoreCase(name)) {
@@ -161,9 +195,9 @@ public class CineVersSystem {
         }
         return movieretur;
     }
-    
+
     public String[] getMovieTitlesArray() {
-        
+
         // 1. Verificar si la lista está vacía o es nula
         if (this.movies == null || this.movies.isEmpty()) {
             // Devuelve un array con solo el placeholder si no hay películas
