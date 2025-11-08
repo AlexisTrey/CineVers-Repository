@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -21,25 +22,26 @@ public class FormBillboardPanel extends JPanel {
     private final int FIELD_HEIGHT = 50;
     private ActionListener listener;
 
+  
+
 
     
     
-    private  JLabel titleLabel;
-    private  JTextField campoTitulo;
-    private JTextArea campoSinopsis;
-    private JComboBox<String> comboGenero;
-    private JTextField campoClasificacion;
-    private JTextField campoDuracion;
-    private JButton botonContinuar ;
+    private JLabel titleLabel;
+    private JComboBox<String> cmbPeliculas;
+    String[] titles = new String[0];
+    private JButton botonContinuar;
+    private JTextField txtFunctionId; // Nuevo: ID de la Función
+    private JComboBox<String> cmbRooms; // Sala (Nuevo JComboBox)
+    private JTextField txtStartTime; // Hora de inicio (LocalDateTime)
+
     
-    public FormBillboardPanel(ActionListener listener) {
+    public FormBillboardPanel(ActionListener listener ) {
         this.listener = listener;
         setOpaque(false);
         setBorder(new EmptyBorder(30, 40, 30, 40));
         setLayout(new GridBagLayout());
         buildFormContent();
-
- 
         }
            
     @Override
@@ -59,7 +61,37 @@ public class FormBillboardPanel extends JPanel {
         g2.dispose();
         super.paintComponent(g); // Dibuja el resto de los componentes
     }
-
+    
+    public void setJComboBox(String [] titles){
+        this.titles= titles;
+        this.updateMovieTitles(titles);
+    }
+    
+    public void updateMovieTitles(String[] newTitles) {
+        // Debes importar javax.swing.DefaultComboBoxModel si no lo has hecho
+        // para que esta línea funcione.
+        if (cmbPeliculas != null) {
+            // Reemplazar el modelo del ComboBox con los nuevos títulos.
+            cmbPeliculas.setModel(new DefaultComboBoxModel<>(newTitles));
+            
+            // Forzar el redibujado (revalidate/repaint) para que los cambios se muestren
+            cmbPeliculas.revalidate();
+            cmbPeliculas.repaint();
+            
+            // Si quieres que el panel completo se actualice, podrías incluir:
+             this.revalidate();
+             this.repaint();
+        }
+    }
+    
+    public void updateRoomNames(String[] newRoomNames) {
+        if (cmbRooms != null) {
+            cmbRooms.setModel(new DefaultComboBoxModel<>(newRoomNames));
+            cmbRooms.revalidate();
+            cmbRooms.repaint();
+        }
+    }
+    
     private void buildFormContent() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -74,16 +106,26 @@ public class FormBillboardPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 0, 30, 0); // Más espacio después del título
         add(titleLabel, gbc);
+        
+        txtFunctionId = SurveryStyle.createStyledTextField("ID de Función:");
+        txtFunctionId.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2; // Ocupa todo el ancho
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        add(txtFunctionId, gbc);
 
-         campoTitulo = SurveryStyle.createStyledTextField("Titulo:");
-        campoTitulo.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
+        //peliculas re escalables
+        cmbPeliculas = SurveryStyle.createStyledComboBox(titles);
+        cmbPeliculas.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
         gbc.gridy++;
         gbc.gridx = 0;
         gbc.gridwidth = 1;
         gbc.weightx = 0.7;
         gbc.insets = new Insets(10, 0, 10, 15); // Espacio derecho entre título e imagen
-        add(campoTitulo, gbc);
-
+        add(cmbPeliculas, gbc);
+        
         JPanel panelImagen = createImagenPlaceholder("Agregar imagen:");
         panelImagen.setPreferredSize(new Dimension(FIELD_WIDTH / 2, FIELD_HEIGHT * 2));
         gbc.gridx = 1;
@@ -95,48 +137,33 @@ public class FormBillboardPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 0, 10, 0); // Más espacio arriba para separar sección
         add(createSeparator(), gbc);
-
-        campoSinopsis = SurveryStyle.createStyledTextArea("Sinopsis:");
-        campoSinopsis.setRows(4);
-        campoSinopsis.setPreferredSize(new Dimension(FIELD_WIDTH * 2, 100));
-        campoSinopsis.setBorder(BorderFactory.createEmptyBorder());
-
-        gbc.gridy++;
-        gbc.insets = new Insets(10, 0, 10, 0); // Espacio después de sinopsis
-        add(campoSinopsis, gbc);
         
-        comboGenero = SurveryStyle.createStyledComboBox(new String[]{"Comedia", "Drama", "Acción", "Romance"});
-        comboGenero.setPreferredSize(new Dimension(FIELD_WIDTH * 2, FIELD_HEIGHT));
+//        cmbRooms = SurveryStyle.createStyledComboBox(null);
+//        cmbRooms.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
+//        gbc.gridy++;
+//        gbc.gridx = 0;
+//        gbc.gridwidth = 2; 
+//        gbc.insets = new Insets(10, 0, 10, 0);
+//        add(cmbRooms, gbc);
 
-        gbc.gridy++;
-        gbc.insets = new Insets(10, 0, 10, 0);
-        add(comboGenero, gbc);
-
-         campoClasificacion = SurveryStyle.createStyledTextField("Clasificación:");
-        campoClasificacion.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
-        gbc.gridy++;
-        gbc.gridx = 0;
-        gbc.gridwidth = 1;
-        gbc.weightx = 0.5;
-        gbc.insets = new Insets(10, 0, 10, 10); // Espacio derecho
-        add(campoClasificacion, gbc);
-
-         campoDuracion = SurveryStyle.createStyledTextField("Duración (min):");
-        campoDuracion.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
-        gbc.gridx = 1;
-        gbc.insets = new Insets(10, 10, 10, 0); // Espacio izquierdo
-        add(campoDuracion, gbc);
-
-        // --- SECCIÓN 4: Fechas ---
-        // Separador antes de fechas
+        // --- Separador ---
         gbc.gridy++;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 0, 10, 0);
         add(createSeparator(), gbc);
+        
+        txtStartTime = SurveryStyle.createStyledTextField("FechaFin::");
+        txtStartTime.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.5;
+        gbc.insets = new Insets(10, 0, 10, 10);
+        add(txtStartTime, gbc);
 
         botonContinuar = SurveryStyle.createStyledButton("Continuar");
-        botonContinuar.setActionCommand("EDITAR_CARTELERA");
+        botonContinuar.setActionCommand("AGREGAR_FUNCION_ FORM");
         botonContinuar.addActionListener(listener);
         gbc.gridy++;
         gbc.gridx = 0;
@@ -191,52 +218,67 @@ public class FormBillboardPanel extends JPanel {
         this.titleLabel = titleLabel;
     }
 
-    public JTextField getCampoTitulo() {
-        return campoTitulo;
+    public JComboBox getCampoTitulo() {
+        return cmbPeliculas;
     }
 
-    public void setCampoTitulo(JTextField campoTitulo) {
-        this.campoTitulo = campoTitulo;
+    public void setCampoTitulo(JComboBox campoTitulo) {
+        this.cmbPeliculas = campoTitulo;
     }
-
-    public JTextArea getCampoSinopsis() {
-        return campoSinopsis;
-    }
-
-    public void setCampoSinopsis(JTextArea campoSinopsis) {
-        this.campoSinopsis = campoSinopsis;
-    }
-
-    public JComboBox<String> getComboGenero() {
-        return comboGenero;
-    }
-
-    public void setComboGenero(JComboBox<String> comboGenero) {
-        this.comboGenero = comboGenero;
-    }
-
-    public JTextField getCampoClasificacion() {
-        return campoClasificacion;
-    }
-
-    public void setCampoClasificacion(JTextField campoClasificacion) {
-        this.campoClasificacion = campoClasificacion;
-    }
-
-    public JTextField getCampoDuracion() {
-        return campoDuracion;
-    }
-
-    public void setCampoDuracion(JTextField campoDuracion) {
-        this.campoDuracion = campoDuracion;
-    }
-
     public JButton getBotonContinuar() {
         return botonContinuar;
     }
 
     public void setBotonContinuar(JButton botonContinuar) {
         this.botonContinuar = botonContinuar;
+    }
+    
+      public ActionListener getListener() {
+        return listener;
+    }
+
+    public void setListener(ActionListener listener) {
+        this.listener = listener;
+    }
+
+    public JComboBox<String> getCmbPeliculas() {
+        return cmbPeliculas;
+    }
+
+    public void setCmbPeliculas(JComboBox<String> cmbPeliculas) {
+        this.cmbPeliculas = cmbPeliculas;
+    }
+
+    public String[] getTitles() {
+        return titles;
+    }
+
+    public void setTitles(String[] titles) {
+        this.titles = titles;
+    }
+
+    public JTextField getTxtFunctionId() {
+        return txtFunctionId;
+    }
+
+    public void setTxtFunctionId(JTextField txtFunctionId) {
+        this.txtFunctionId = txtFunctionId;
+    }
+
+    public JComboBox<String> getCmbRooms() {
+        return cmbRooms;
+    }
+
+    public void setCmbRooms(JComboBox<String> cmbRooms) {
+        this.cmbRooms = cmbRooms;
+    }
+
+    public JTextField getTxtStartTime() {
+        return txtStartTime;
+    }
+
+    public void setTxtStartTime(JTextField txtStartTime) {
+        this.txtStartTime = txtStartTime;
     }
         
 //        public static void main(String[] args) {

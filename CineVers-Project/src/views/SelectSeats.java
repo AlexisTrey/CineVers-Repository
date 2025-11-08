@@ -42,18 +42,18 @@ public class SelectSeats extends JPanel {
     add(contentCenterPanel, BorderLayout.CENTER);
     }
     
-    public static void main(String[] args) {
-            SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Sillas selecionadas");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            SelectSeats panel = new SelectSeats();
-            frame.add(panel);
-
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//            SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Sillas selecionadas");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//            SelectSeats panel = new SelectSeats();
+//            frame.add(panel);
+//
+//            frame.pack();
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//    }
 }
  

@@ -97,17 +97,17 @@ public class PanelAsientos extends JPanel {
         System.out.println("Sillas seleccionadas: " + sillasSeleccionadas);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Demo Cineverso");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1024, 768);
-            frame.setLocationRelativeTo(null);
-
-            // Aquí agregás tu panel principal completo
-            frame.add(new PanelAsientos(null));
-
-            frame.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Demo Cineverso");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            frame.setSize(1024, 768);
+//            frame.setLocationRelativeTo(null);
+//
+//            // Aquí agregás tu panel principal completo
+//            frame.add(new PanelAsientos(null));
+//
+//            frame.setVisible(true);
+//        });
+//    }
 }
