@@ -34,6 +34,7 @@ public class MainPanel extends JPanel {
     private AddMovieBillboard addMovieBillboard;
     private AddFuctionPanel addFuctionPanel;
     private SelectSeats selectSeats;
+    private SeatState seatState;
 
     public static final String SELECT_CITY = "select_city";
     public static final String HOME = "home";
@@ -72,6 +73,8 @@ public class MainPanel extends JPanel {
         registerView = new RegisterView(listener);
         movieDetailsPanel = new MovieDetailsPanel(listener);
         panelAsientos = new PanelAsientos(listener);
+        panelAsientos.setSeatState(seatState);
+        SeatState seatState = new SeatState(listener);
         roomEditionPanel = new RoomEditionPanel(listener);
         billboardEditionPanel = new BillboardEditionPanel(listener);
         functionsEditionPanel = new FunctionsEditionPanel(listener);

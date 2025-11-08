@@ -7,6 +7,8 @@ package views;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,8 +27,10 @@ public class PanelAsientos extends JPanel {
 
     Icon ICONO_SILLA_BASE = new ImageIcon(getClass().getResource("/resources/images/silladesocupada.png"));
 
-    // Si usas íconos diferentes para el estado seleccionado y base
     Icon ICONO_SILLA_SELECCIONADA = new ImageIcon(getClass().getResource("/resources/images/sillaocupada.png"));
+
+    private Set<String> sillasSeleccionadas = new HashSet<>();
+    private SeatState seatState;
 
     public PanelAsientos(ActionListener listener) {
         // Establecer el diseño a null (absolute positioning)
@@ -38,6 +42,10 @@ public class PanelAsientos extends JPanel {
         // Agregar las sillas
         generarAsientos();
     }
+    
+    public void setSeatState(SeatState seatState) {
+    this.seatState = seatState;
+}
 
     private void generarAsientos() {
         int T_SILLA = 40;
@@ -73,17 +81,20 @@ public class PanelAsientos extends JPanel {
     }
 
     private void alternarSeleccion(JButton silla, Icon baseIcon, Icon seleccionadoIcon) {
-        if (silla.getIcon().equals(baseIcon)) {
-            // Estado base -> Cambiar a seleccionado
-            silla.setIcon(seleccionadoIcon);
-            // Opcional: podrías cambiar el ToolTipText para indicar el estado
-            silla.setToolTipText("Asiento Seleccionado");
+        String nombre = silla.getName();
+        if (silla.getIcon().equals(ICONO_SILLA_BASE)) {
+            silla.setIcon(ICONO_SILLA_SELECCIONADA);
+            sillasSeleccionadas.add(nombre);
         } else {
-            // Estado seleccionado -> Cambiar a base
-            silla.setIcon(baseIcon);
-            silla.setToolTipText("Asiento Disponible");
+            silla.setIcon(ICONO_SILLA_BASE);
+            sillasSeleccionadas.remove(nombre);
         }
-        System.out.println("Silla " + silla.getName() + " estado cambiado.");
+        // Actualizar en SeatState
+        if (seatState != null) {
+            seatState.actualizarSillasSeleccionadas(sillasSeleccionadas);
+        }
+
+        System.out.println("Sillas seleccionadas: " + sillasSeleccionadas);
     }
 
 //    public static void main(String[] args) {
@@ -94,10 +105,9 @@ public class PanelAsientos extends JPanel {
 //            frame.setLocationRelativeTo(null);
 //
 //            // Aquí agregás tu panel principal completo
-//            frame.add(new PanelAsientos());
+//            frame.add(new PanelAsientos(null));
 //
 //            frame.setVisible(true);
 //        });
 //    }
-
 }
