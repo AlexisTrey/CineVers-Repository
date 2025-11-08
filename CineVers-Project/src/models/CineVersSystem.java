@@ -4,6 +4,7 @@
  */
 package models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import utilities.Utilities;
@@ -26,7 +27,7 @@ public class CineVersSystem {
 
     public CineVersSystem() {
         users = new ArrayList<>();
-        movies = gson.loadMovies(Utilities.MOVIES_PATH);
+        movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
         functions = gson.loadFunctions(Utilities.FUCTION_PATH);
         reservations = new ArrayList<>();
         carteleras = new ArrayList<>();
@@ -54,7 +55,7 @@ public class CineVersSystem {
     }
 
     //Acciones de Administrador
-    public void addMovie(User user, Movie movie) {
+    public void addMovie(User user, Movie movie) throws IOException {
         if (!user.isAdmin()) {
             System.out.println("Solo un administrador puede agregar películas.");
             return;

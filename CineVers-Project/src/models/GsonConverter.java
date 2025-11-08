@@ -3,16 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package models;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken; // ¡Nueva importación clave!
+import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
- * @author jhonnyd
+ * @author meloc
  */
 public class GsonConverter {
     private static final Gson gson = new GsonBuilder()
@@ -20,52 +22,48 @@ public class GsonConverter {
             .create();
 
 
-public static <T> void saveListToJson(List<T> list, String filePath) {
-    
-    // --- NUEVO CÓDIGO CLAVE PARA GESTIONAR LA RUTA ---
-    File file = new File(filePath);
-    File parentDir = file.getParentFile();
-    
-    if (parentDir != null && !parentDir.exists()) {
-        // Crea las carpetas necesarias (persistence/) si no existen.
-        if (parentDir.mkdirs()) { 
-            System.out.println("Carpeta creada: " + parentDir.getAbsolutePath());
-        } else {
-            System.err.println("❌ Error: No se pudo crear la carpeta: " + parentDir.getAbsolutePath());
-            return; // Detiene el guardado si falla la creación de la carpeta
+   public static <T> void saveListToJson(List<T> list, String filePath) throws IOException {
+        File file = new File(filePath);
+        File parentDir = file.getParentFile();
+
+        // Crea carpeta si no existe
+        if (parentDir != null && !parentDir.exists()) {
+            if (!parentDir.mkdirs()) {
+                throw new IOException("No se pudo crear el directorio: " + parentDir.getAbsolutePath());
+            }
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            gson.toJson(list, writer);
         }
     }
-    // ----------------------------------------------------
 
-    try (FileWriter writer = new FileWriter(file)) {
-        gson.toJson(list, writer);
-        System.out.println("✅ Lista guardada en: " + filePath);
-    } catch (IOException e) {
-        // Este error solo ocurriría si el nombre del archivo es inválido o hay permisos.
-        System.err.println("❌ Error al guardar la lista JSON: " + e.getMessage());
+    public static <T> List<T> loadListFromJson(String filePath, Type typeToken) throws IOException {
+        File file = new File(filePath);
+
+        // Si el archivo no existe, devuelve lista vacía sin error
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+
+        try (FileReader reader = new FileReader(file)) {
+            List<T> list = gson.fromJson(reader, typeToken);
+            return list != null ? list : new ArrayList<>();
+        }
     }
-}
-
-
-    public static List<Movie> loadMovies(String filePath) {
-        try (FileReader reader = new FileReader(filePath)) {
-            
-            // Define el TIPO de dato que esperas leer. Esto es crucial para Listas genéricas.
-            Type listType = new TypeToken<ArrayList<Movie>>(){}.getType();
-            
-            // Convierte el JSON de vuelta a la lista
-            List<Movie> peliculas = gson.fromJson(reader, listType);
-            
-            // Si el archivo no existe o está vacío, devuelve una lista vacía
-            return peliculas != null ? peliculas : new ArrayList<>();
-            
+    
+     public static List<Movie> loadPeliculas(String filePath) {
+        try {
+            Type listType = new TypeToken<ArrayList<Movie>>() {}.getType();
+            return loadListFromJson(filePath, listType);
         } catch (IOException e) {
-            System.out.println("Archivo no encontrado o vacío. Inicializando con lista vacía.");
-            return new ArrayList<>(); // Devuelve una lista vacía para que la aplicación no falle.
+            return new ArrayList<>();
         }
     }
-    
-public static List<Function> loadFunctions(String filePath) {
+     
+     
+     
+    public static List<Function> loadFunctions(String filePath) {
         // ... (Tu método loadFunctions usando la instancia 'gson') ...
         try (FileReader reader = new FileReader(filePath)) {
             Type listType = new TypeToken<ArrayList<Function>>(){}.getType();
@@ -76,5 +74,4 @@ public static List<Function> loadFunctions(String filePath) {
             return new ArrayList<>();
         }
     }
-    
 }

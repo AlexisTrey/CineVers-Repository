@@ -1,0 +1,42 @@
+[
+    {
+        "id": "F001",
+        "movie": {
+            "id": "M001",
+            "title": "Orgullo y Prejuicio",
+            "genre": "Comedia",
+            "durationMinutes": 180,
+            "classification": "A",
+            "synopsis": "Una historia clásica de Jane Austen sobre la familia Bennett.",
+            "releaseDate": "2025-11-07"
+        },
+        "room": {
+            "id": "R05",
+            "name": "Sala 05",
+            "capacity": 33,
+            "type": "VIP 3D",
+            "price": 12.50
+        },
+        "dateTime": "12:55"
+    },
+    {
+        "id": "F002",
+        "movie": {
+            "id": "M002",
+            "title": "Zootopia 2",
+            "genre": "Animación",
+            "durationMinutes": 228,
+            "classification": "B",
+            "synopsis": "Los animales detectives Nick y Judy vuelven a la acción.",
+            "releaseDate": "2024-12-19"
+        },
+        "room": {
+            "id": "R02",
+            "name": "Sala 02",
+            "capacity": 50,
+            "type": "2D",
+            "price": 8.99
+        },
+        "dateTime": "18:45"
+    }
+]
