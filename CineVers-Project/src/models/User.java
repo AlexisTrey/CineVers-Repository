@@ -22,10 +22,9 @@ public class User {
     private String phone;
     private String password;
     private boolean isAdmin;
-    private Role role;
     private City city;
 
-    public User(String id, String firstName, String lastName, String documentType, String documentNumber, String email, String phone, String password, boolean isAdmin, Role role, City city) {
+    public User(String id, String firstName, String lastName, String documentType, String documentNumber, String email, String phone, String password, boolean isAdmin, City city) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,14 +34,14 @@ public class User {
         this.phone = phone;
         this.password = password;
         this.isAdmin = isAdmin;
-        this.role = role;
         this.city = city;
     }
 
     public User() {
     }
-     public User(boolean isAdmin) {
-         this.isAdmin = isAdmin;
+
+    public User(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getId() {
@@ -121,14 +120,6 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public City getCity() {
         return city;
     }
@@ -156,6 +147,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "Usuario: " + getFullName() + " | Email: " + email;
+        return firstName + " " + lastName + " (" + getRoleLabel() + ")";
     }
+
+    private String getRoleLabel() {
+        if (isAdmin) {
+            return "Administrador";
+        } else {
+            return "Cliente";
+        }
+    }
+
 }

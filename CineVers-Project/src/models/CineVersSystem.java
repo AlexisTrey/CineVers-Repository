@@ -19,55 +19,175 @@ import utilities.Utilities;
 public class CineVersSystem {
 
     private List<User> users;
+    private List<User> admins;
     private List<Movie> movies;
     private List<Function> functions;
     private List<Reservation> reservations;
     private List<Cartelera> carteleras;
     private List<Room> rooms;
     private GsonConverter gson;
+    private City selectedCity;
+    private User activeUser;
 
     public CineVersSystem() {
         gson = new GsonConverter();
-
-        users = new ArrayList<>();
+ users = new ArrayList<>();
+        admins = new ArrayList<>();
         movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
         functions = gson.loadFunctions(Utilities.FUNCTION_PATH);
         rooms = gson.loadRooms(Utilities.ROOMS_PATH);
         reservations = new ArrayList<>();
         carteleras = new ArrayList<>();
+
+        loadUsers();
+       
+ }
+
+    public User getActiveUser() {
+        return activeUser;
     }
 
-    //Acciones de Usuarios
-    public void addUser(User user) {
-        users.add(user);
+
+    public void setActiveUser(User user) {
+        this.activeUser = user;
     }
+
+    public void logout() {
+        this.activeUser = null;
+    }
+
+    
+    public void loadUsers() {
+        List<User> allUsers = gson.loadUsers(Utilities.USERS_PATH);
+        if (allUsers != null) {
+            for (User u : allUsers) {
+                if (u.isAdmin()) {
+                    admins.add(u);
+                } else {
+                    users.add(u);
+                }
+            }
+        }
+    }
+
+   
+    public void saveUsers() {
+        List<User> allUsers = new ArrayList<>();
+        allUsers.addAll(admins);
+        allUsers.addAll(users);
+        try {
+            gson.saveListToJson(allUsers, Utilities.USERS_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+ 
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
-
-    public User findUserByEmail(String email) {
+public User findUserByEmail(String email) {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
                 return u;
             }
         }
+        for (User a : admins) {
+            if (a.getEmail().equalsIgnoreCase(email)) {
+                return a;
+            }
+        }
         return null;
     }
 
-    public boolean login(String email, String password) {
-        User user = findUserByEmail(email);
-        return user != null && user.login(email, password);
+   
+    public boolean registerUser(User user) {
+        if (findUserByEmail(user.getEmail()) != null) {
+            return false; 
+        }
+
+        if (user.getEmail().toLowerCase().contains("@admin")) {
+            user.setAdmin(true);
+            admins.add(user);
+        } else {
+            user.setAdmin(false);
+            users.add(user);
+        }
+
+        saveUsers();
+        return true;
     }
 
-    //Acciones de Administrador
+
+    public User loginUser(String email, String password) {
+        User user = findUserByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            if (selectedCity != null) {
+                user.setCity(selectedCity);
+                saveUsers();
+
+            }
+            this.activeUser = user;
+           
+            return user;
+        }
+        return null;
+    }
+
+    
+    public boolean deleteUser(String email) {
+        for (User u : users) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                users.remove(u);
+                saveUsers();
+                return true;
+            }
+        }
+        for (User a : admins) {
+            if (a.getEmail().equalsIgnoreCase(email)) {
+                admins.remove(a);
+                saveUsers();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<User> getAdmins() {
+        return admins;
+    }
+
+    public void setSelectedCity(String cityName) {
+        if (cityName != null && !cityName.isEmpty()) {
+            String id = "C" + cityName.hashCode();
+            this.selectedCity = new City(id, cityName);
+        }
+    }
+
+    public City getSelectedCity() {
+        return selectedCity;
+    }
+
+
+
+
     public void addMovie(User user, Movie movie) throws IOException {
+
         if (!user.isAdmin()) {
             System.out.println("Solo un administrador puede agregar películas.");
             return;
         }
         movies.add(movie);
-        this.gson.saveListToJson(movies, Utilities.MOVIES_PATH);
+        try {
+            this.gson.saveListToJson(movies, Utilities.MOVIES_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("Película agregada: " + movie.getTitle());
     }
 
@@ -185,6 +305,8 @@ public class CineVersSystem {
         }
         return result;
     }
+   
+
 
     public Movie searchMovieByTitle(String name) {
         Movie movieretur = new Movie();

@@ -17,6 +17,13 @@ import views.FormBillboardPanel;
 import views.FormFuctionPanel;
 import views.MainFrame;
 import views.MainPanel;
+import views.LoginView;
+import views.RegisterView;
+import models.City;
+import javax.swing.Timer;
+import javax.swing.JDialog;
+import java.awt.Frame;
+import views.LoginPromptDialog;
 import views.ReservationConfirmationJDialog;
 
 /**
@@ -30,7 +37,8 @@ public class Controller implements ActionListener {
 
     private MainFrame mainFrame;
     private CineVersSystem cine;
-
+    private Timer loginPromptTimer;
+    private boolean loginPromptShown = false; 
     public Controller() {
         this.mainFrame = new MainFrame(this);
         this.cine = new CineVersSystem();
@@ -47,6 +55,7 @@ public class Controller implements ActionListener {
         switch (command) {
             case "HOME":
                 mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                startLoginPromptTimer(15_000);
                 break;
 
             case "LOGIN":
@@ -59,7 +68,49 @@ public class Controller implements ActionListener {
                 break;
 
             case "REGISTRAR":
-                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                RegisterView regView = mainFrame.getMainPanel().getRegisterView();
+
+                String nombres = regView.getNombres();
+                String apellidos = regView.getApellidos();
+                String correo = regView.getCorreo();
+                String contrasena = regView.getContrasena();
+                String tipoDocumento = regView.getDocumento();
+                String numeroDocumento = regView.getNumeroDocumento();
+                String telefono = regView.getTelefono();
+                String ciudad = regView.getCiudad();
+
+                if (nombres.isEmpty() || apellidos.isEmpty() || correo.isEmpty()
+                        || contrasena.isEmpty() || tipoDocumento.isEmpty() || numeroDocumento.isEmpty() || ciudad.isEmpty()) {
+                    regView.showMessage("Por favor completa todos los campos obligatorios.");
+                    break;
+                }
+
+                if (correo.toLowerCase().contains("@admin")) {
+                    regView.showMessage("No puedes registrar una cuenta con correo de administrador.");
+                    break;
+                }
+
+                User nuevo = new User();
+                nuevo.setFirstName(nombres);
+                nuevo.setLastName(apellidos);
+                nuevo.setEmail(correo);
+                nuevo.setPassword(contrasena);
+                nuevo.setDocumentType(tipoDocumento);
+                nuevo.setDocumentNumber(numeroDocumento);
+                nuevo.setPhone(telefono);
+                nuevo.setAdmin(false); 
+
+                cine.setSelectedCity(ciudad);
+                nuevo.setCity(cine.getSelectedCity());
+
+                boolean registrado = cine.registerUser(nuevo);
+
+                if (registrado) {
+                    regView.showMessage("Usuario registrado correctamente.");
+                    mainFrame.getMainPanel().showPanel(MainPanel.LOGIN);
+                } else {
+                    regView.showMessage("Ya existe un usuario con ese correo.");
+                }
                 break;
 
             case "VER_DETALLES":
@@ -77,10 +128,54 @@ public class Controller implements ActionListener {
                 break;
 
             case "SELECCIONAR_CIUDAD":
-                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                String ciudadSeleccionada = mainFrame
+                        .getMainPanel()
+                        .getSelectCityView()
+                        .getSelectedCity();
+
+                if (ciudadSeleccionada != null && !ciudadSeleccionada.isEmpty()) {
+                    cine.setSelectedCity(ciudadSeleccionada);
+                    mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+        startLoginPromptTimer(10_000);
+                }
                 break;
 
-            //Flujos propios del Administrador
+            case "INICIAR_SESION":
+                String email = mainFrame.getMainPanel()
+                        .getLoginView()
+                        .getEmail();
+                String password = mainFrame.getMainPanel()
+                        .getLoginView()
+                        .getPassword();
+
+                User user = cine.loginUser(email, password);
+
+                if (user != null) {
+                    cancelLoginPromptIfRunning();
+                    mainFrame.getMainPanel().getHeader().setUserVisible(true);
+                    mainFrame.getMainPanel().getHeader().updateUserInfo(user);
+
+                    if (user.isAdmin()) {
+                        mainFrame.getMainPanel().getHeader().setAdminVisible(true);
+                        mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                    } else {
+                        mainFrame.getMainPanel().getHeader().setAdminVisible(false);
+                        mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                    }
+                } else {
+                    mainFrame.getMainPanel().getLoginView().showError("Correo o contraseña incorrectos");
+                }
+
+                break;
+
+            case "CERRAR_SESION":
+                cine.logout();
+                mainFrame.getMainPanel().getHeader().setUserVisible(false);
+                mainFrame.getMainPanel().showPanel(MainPanel.LOGIN);
+                mainFrame.getMainPanel().getHeader().updateUserInfo(null);
+
+                break;
+
             case "EDITAR_FUNCIONES":
 
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
@@ -121,8 +216,8 @@ public class Controller implements ActionListener {
             case "GUARDAR_SALA":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
+ case "AGREGAR_CARTELERA_FORM":
 
-            case "AGREGAR_CARTELERA_FORM":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 FormFuctionPanel formPanel = this.mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
                 String title = formPanel.getCampoTitulo().getText();
@@ -131,6 +226,7 @@ public class Controller implements ActionListener {
                 String classification = formPanel.getCampoClasificacion().getText();
                 String filePath = formPanel.getImagePath();
                 int duration = Integer.parseInt(formPanel.getCampoDuracion().getText());
+
                 try {
                     this.cine.addMovie(
                             new User(true),
@@ -165,6 +261,7 @@ public class Controller implements ActionListener {
 
             case "AGREGAR_SALA_FORM":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
+
                 break;
 
 //            case "UPCOMING":
@@ -177,5 +274,67 @@ public class Controller implements ActionListener {
                 System.out.println("Acción no reconocida: " + command);
         }
     }
+    
+    
+
+    private void startLoginPromptTimer(int delayMillis) {
+        if (loginPromptTimer != null && loginPromptTimer.isRunning()) {
+            loginPromptTimer.stop();
+        }
+        if (loginPromptShown) return;
+
+        loginPromptTimer = new Timer(delayMillis, (e) -> {
+            loginPromptTimer.stop();
+            if (isUserLoggedIn()) return;
+            if (loginPromptShown) return;
+
+            loginPromptShown = true; 
+            javax.swing.SwingUtilities.invokeLater(() -> {
+    Frame owner = mainFrame; 
+    System.out.println("[DEBUG] Timer disparado: mostrando LoginPromptDialog...");
+    LoginPromptDialog prompt = new LoginPromptDialog(owner, this::handlePromptAction);
+    prompt.setVisible(true);
+});
+
+        });
+
+        loginPromptTimer.setRepeats(false);
+        loginPromptTimer.start();
+    }
+
+    private void cancelLoginPromptIfRunning() {
+        if (loginPromptTimer != null && loginPromptTimer.isRunning()) {
+            loginPromptTimer.stop();
+        }
+        loginPromptShown = true;
+    }
+
+   
+    private void handlePromptAction(java.awt.event.ActionEvent evt) {
+        String cmd = evt.getActionCommand();
+        if (LoginPromptDialog.ACTION_GO_LOGIN.equals(cmd)) {
+            
+            mainFrame.getMainPanel().showPanel(MainPanel.LOGIN);
+           
+            cancelLoginPromptIfRunning();
+        
+        }
+    }
+
+   
+    private boolean isUserLoggedIn() {
+    try {
+        User current = cine.getActiveUser();
+        return current != null;
+    } catch (Exception ex) {
+        try {
+            java.lang.reflect.Method m2 = mainFrame.getMainPanel().getHeader().getClass().getMethod("isUserVisible");
+            Object visible = m2.invoke(mainFrame.getMainPanel().getHeader());
+            if (visible instanceof Boolean) return (Boolean) visible;
+        } catch (Exception ex2) {
+        }
+        return false;
+    }
+}
 
 }

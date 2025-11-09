@@ -22,12 +22,12 @@ public class GsonConverter {
             .setPrettyPrinting()
             .create();
 
-    public static <T> void saveListToJson(List<T> list, String filePath) throws IOException {
+    
+   public static <T> void saveListToJson(List<T> list, String filePath) throws IOException {
         File file = new File(filePath);
         File parentDir = file.getParentFile();
 
-        // Crea carpeta si no existe
-        if (parentDir != null && !parentDir.exists()) {
+ if (parentDir != null && !parentDir.exists()) {
             if (!parentDir.mkdirs()) {
                 throw new IOException("No se pudo crear el directorio: " + parentDir.getAbsolutePath());
             }
@@ -40,9 +40,7 @@ public class GsonConverter {
 
     public static <T> List<T> loadListFromJson(String filePath, Type typeToken) throws IOException {
         File file = new File(filePath);
-
-        // Si el archivo no existe, devuelve lista vacía sin error
-        if (!file.exists()) {
+ if (!file.exists()) {
             return new ArrayList<>();
         }
 
@@ -52,15 +50,25 @@ public class GsonConverter {
         }
     }
 
+
     public static List<Movie> loadPeliculas(String filePath) {
         try {
             Type listType = new TypeToken<ArrayList<Movie>>() {
             }.getType();
+
             return loadListFromJson(filePath, listType);
         } catch (IOException e) {
             return new ArrayList<>();
         }
     }
+public static List<User> loadUsers(String filePath) {
+        try {
+            Type listType = new TypeToken<ArrayList<User>>() {}.getType();
+            return loadListFromJson(filePath, listType);
+        } catch (IOException e) {
+            System.out.println("Error al cargar usuarios: " + e.getMessage());
+            return new ArrayList<>();
+
 
     public static List<Function> loadFunctions(String filePath) {
         // ... (Tu método loadFunctions usando la instancia 'gson') ...
@@ -98,6 +106,7 @@ public class GsonConverter {
             saveListToJson(list, filePath);
         } catch (IOException e) {
             e.printStackTrace();
+
         }
     }
 }

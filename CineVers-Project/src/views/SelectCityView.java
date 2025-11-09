@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -22,6 +23,7 @@ public class SelectCityView extends JPanel {
     private Background background;
     private JButton btnSelectCity;
     private ActionListener listener;
+    private String selectedCity;
 
     public SelectCityView(ActionListener listener) {
         this.listener = listener;
@@ -149,10 +151,12 @@ public class SelectCityView extends JPanel {
                 JOptionPane.showMessageDialog(dialog, "Selecciona un país primero.");
                 return;
             }
+            selectedCity = (String) cbCiudad.getSelectedItem(); // <- Guardamos la ciudad
+       
             dialog.dispose();
             if (listener != null) {
-                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "HOME"));
-            }
+           listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "SELECCIONAR_CIUDAD"));
+ }
 
         });
 
@@ -174,6 +178,9 @@ public class SelectCityView extends JPanel {
 
         dialog.setVisible(true);
     }
+    public String getSelectedCity() {
+    return selectedCity;
+}
 
     private void estilizarCombo(JComboBox<String> combo) {
         combo.setBackground(Color.WHITE);

@@ -34,6 +34,10 @@ public class Utilities {
     public static final String AVATAR_PATH = "/resources/images/Avatar2.png";
     
     public static final String MOVIES_PATH = "src/persistence/movies.json";
+    public static final String USERS_PATH = "src/persistence/users.json";
+
+
     public static final String FUNCTION_PATH = "src/persistence/functions.json";
     public static final String ROOMS_PATH = "src/persistence/rooms.json";
+
 }
