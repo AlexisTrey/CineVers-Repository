@@ -32,6 +32,9 @@ public class MainFrame extends JFrame {
 
         this.setVisible(true);
     }
+ public SelectCityView getSelectCityView() {
+    return mainPanel.getSelectCityView();
+}
 
     public MainPanel getMainPanel() {
         return mainPanel;

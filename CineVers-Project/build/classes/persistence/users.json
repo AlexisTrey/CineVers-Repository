@@ -1,0 +1,64 @@
+[
+  {
+    "id": "U001",
+    "firstName": "Camila",
+    "lastName": "Pérez",
+    "documentType": "CC",
+    "documentNumber": "1022334455",
+    "email": "camila@admin.com",
+    "phone": "3001122334",
+    "password": "12345",
+    "isAdmin": true,
+    "city": {
+      "id": "C-839479718",
+      "name": "Medellín",
+      "country": "Colombia"
+    }
+  },
+  {
+    "id": "U002",
+    "firstName": "Juan",
+    "lastName": "Rodríguez",
+    "documentType": "TI",
+    "documentNumber": "1156789012",
+    "email": "juan.rodriguez@example.com",
+    "phone": "3102233445",
+    "password": "abcde",
+    "isAdmin": false,
+    "city": {
+      "id": "C2092667",
+      "name": "Cali",
+      "country": "Colombia"
+    }
+  },
+  {
+    "firstName": "dana",
+    "lastName": "martinez",
+    "documentType": "cc",
+    "documentNumber": "147852",
+    "email": "dana@gmail.com",
+    "phone": "123456",
+    "password": "mnop",
+    "isAdmin": false,
+    "city": {
+      "id": "C985789520",
+      "name": "Pereira",
+      "country": "Colombia"
+    }
+  },
+  {
+    "firstName": "Ana",
+    "lastName": "Fernandez",
+    "documentType": "CC",
+    "documentNumber": "147852",
+    "email": "fernandez@gmail.com",
+    "phone": "123456789",
+    "password": "15948",
+    "isAdmin": false,
+    "city": {
+      "id": "C925702077",
+      "name": "Armenia",
+      "country": "Colombia"
+    }
+  }
+]

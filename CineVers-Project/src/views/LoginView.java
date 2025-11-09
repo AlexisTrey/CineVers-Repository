@@ -59,8 +59,7 @@ public class LoginView extends JPanel {
         lblSub.setForeground(Color.BLACK);
 
         txtCorreo = crearCampoTexto("Correo Electrónico");
-        txtContrasena = new JPasswordField();
-        estilizarCampo(txtContrasena, "Contraseña");
+        txtContrasena = crearCampoContrasena("Contraseña");
 
         btnLogin = new JButton("Iniciar Sesión") {
             @Override
@@ -107,9 +106,9 @@ public class LoginView extends JPanel {
         btnCrearCuenta.setFocusPainted(false);
         btnCrearCuenta.setContentAreaFilled(false);
 
-        btnLogin.addActionListener(e -> JOptionPane.showMessageDialog(this, "Iniciando sesión..."));
-        btnLogin.setActionCommand("HOME");
+        btnLogin.setActionCommand("INICIAR_SESION");
         btnLogin.addActionListener(listener);
+
         btnCrearCuenta.addActionListener(e -> System.out.println("Abrir pantalla de registro..."));
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -370,4 +369,68 @@ public class LoginView extends JPanel {
 
         overlay.dispose();
     }
+
+    public String getEmail() {
+        return txtCorreo.getText().trim();
+    }
+
+    public String getPassword() {
+        return new String(txtContrasena.getPassword()).trim();
+    }
+
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private JPasswordField crearCampoContrasena(String placeholder) {
+        JPasswordField campo = new JPasswordField(20);
+        campo.setPreferredSize(new Dimension(300, 40));
+        campo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        campo.setForeground(Color.WHITE);
+        campo.setBackground(new Color(200, 160, 230));
+        campo.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
+
+        campo.setOpaque(false);
+        campo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(200, 160, 230), 0),
+                BorderFactory.createEmptyBorder(10, 15, 10, 15)
+        ));
+
+        campo.setUI(new javax.swing.plaf.basic.BasicPasswordFieldUI() {
+            @Override
+            protected void paintSafely(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(campo.getBackground());
+                g2.fillRoundRect(0, 0, campo.getWidth(), campo.getHeight(), 25, 25);
+                super.paintSafely(g);
+                g2.dispose();
+            }
+        });
+
+        campo.setEchoChar((char) 0);
+        campo.setText(placeholder);
+        campo.setForeground(Color.WHITE);
+
+        campo.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (String.valueOf(campo.getPassword()).equals(placeholder)) {
+                    campo.setText("");
+                    campo.setEchoChar('•');
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (campo.getPassword().length == 0) {
+                    campo.setText(placeholder);
+                    campo.setEchoChar((char) 0);
+                }
+            }
+        });
+
+        return campo;
+    }
+
 }

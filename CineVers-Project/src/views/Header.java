@@ -13,6 +13,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
 import javax.swing.JButton;
+import javax.swing.*;
+import models.User;
 
 import javax.swing.JPanel;
 
@@ -31,6 +33,10 @@ public class Header extends JPanel {
     private JButton btnAccount;
     private JButton btnAdmin;
     private ActionListener listener;
+    private JButton btnUserProfile;
+    private UserMenuPanel userMenu;
+
+    private JLabel lblName, lblEmail, lblRole;
 
     public Header(ActionListener listener) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -69,8 +75,8 @@ public class Header extends JPanel {
 
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        Font bigFont = customFont.deriveFont(Font.BOLD, 70f);  // Para letras grandes
-        Font normalFont = customFont.deriveFont(Font.BOLD, 50f); // Para el resto
+        Font bigFont = customFont.deriveFont(Font.BOLD, 70f);  
+        Font normalFont = customFont.deriveFont(Font.BOLD, 50f); 
 
         int x = 50;
         int y = 85;
@@ -107,23 +113,6 @@ public class Header extends JPanel {
         return button;
     }
 
-    private void createPanelBtns() {
-        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 20));
-        buttonsPanel.setOpaque(false);
-
-        btnBillboard = createBtn("Cartelera", "HOME", listener);
-        //btnUpcomingReleases = createBtn("Próximos estrenos", "UPCOMING", listener);
-        btnAccount = createBtn("Mi Cuenta", "LOGIN", listener);
-        btnAdmin = createBtn("Gestión", "EDITAR_FUNCIONES", listener);
-
-        buttonsPanel.add(btnBillboard);
-        //buttonsPanel.add(btnUpcomingReleases);
-        buttonsPanel.add(btnAccount);
-        buttonsPanel.add(btnAdmin);
-
-        add(buttonsPanel, BorderLayout.CENTER);
-    }
-
     public void btnBillboardListener() {
         btnBillboard.addActionListener(listener);
     }
@@ -138,6 +127,113 @@ public class Header extends JPanel {
 
     public void btnAdminListener() {
         btnAdmin.addActionListener(listener);
+    }
+
+    public void setAdminVisible(boolean visible) {
+        if (btnAdmin != null) {
+            btnAdmin.setVisible(visible);
+        }
+    }
+
+    private void createPanelBtns() {
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 20));
+        buttonsPanel.setOpaque(false);
+
+        btnBillboard = createBtn("Cartelera", "HOME", listener);
+        btnAccount = createBtn("Mi Cuenta", "LOGIN", listener);
+        btnAdmin = createBtn("Gestión", "EDITAR_FUNCIONES", listener);
+
+        btnUserProfile = new JButton("");
+        userMenu = new UserMenuPanel(listener);
+
+        btnUserProfile.setPreferredSize(new Dimension(60, 60));
+        btnUserProfile.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        btnUserProfile.setBackground(new Color(70, 67, 133));
+        btnUserProfile.setForeground(Color.WHITE);
+        btnUserProfile.setFocusPainted(false);
+        btnUserProfile.setVisible(false); 
+        btnUserProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        btnUserProfile.setBorderPainted(false);
+        btnUserProfile.setContentAreaFilled(false);
+
+        btnUserProfile.setOpaque(true);
+        btnUserProfile.setBorder(BorderFactory.createEmptyBorder());
+        btnUserProfile.setBackground(new Color(70, 67, 133)); 
+
+
+        btnUserProfile.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(btnUserProfile.getBackground());
+                g2.fillOval(0, 0, c.getWidth(), c.getHeight());
+                super.paint(g, c);
+                g2.dispose();
+            }
+        });
+
+        btnUserProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                btnUserProfile.setBackground(new Color(123, 44, 191)); 
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                btnUserProfile.setBackground(new Color(70, 67, 133)); 
+            }
+        });
+
+        btnUserProfile.addActionListener(e -> {
+            if (userMenu != null) {
+                userMenu.show(btnUserProfile, 0, btnUserProfile.getHeight());
+            }
+        });
+
+        btnUserProfile.addActionListener(e -> {
+            if (userMenu != null) {
+                userMenu.show(btnUserProfile, 0, btnUserProfile.getHeight());
+            }
+        });
+
+        buttonsPanel.add(btnBillboard);
+        buttonsPanel.add(btnAccount);
+        buttonsPanel.add(btnAdmin);
+        buttonsPanel.add(btnUserProfile);
+        add(buttonsPanel, BorderLayout.CENTER);
+
+    }
+
+    public void setUserVisible(boolean visible) {
+        btnUserProfile.setVisible(visible);
+
+        btnAccount.setVisible(!visible); 
+
+        if (!visible && btnAdmin != null) {
+            btnAdmin.setVisible(false); 
+        }
+    }
+
+    public void updateUserInfo(User user) {
+        if (user != null) {
+            String initial = user.getFullName().substring(0, 1).toUpperCase();
+            btnUserProfile.setText(initial);
+            userMenu.updateUserInfo(
+                    user.getFullName(),
+                    user.getEmail(),
+                    user.isAdmin() ? "Administrador" : "Cliente"
+            );
+            btnUserProfile.setVisible(true);
+            btnAccount.setVisible(false);
+            setAdminVisible(user.isAdmin()); 
+        } else {
+            btnUserProfile.setVisible(false);
+            btnAccount.setVisible(true);
+            setAdminVisible(false);
+        }
+
     }
 
 }

@@ -53,6 +53,8 @@ public class MainPanel extends JPanel {
         this.listener = listener;
 
         header = new Header(listener);
+        header.setAdminVisible(false);
+
         footer = new Footer();
         //background = new Background();
 
@@ -131,4 +133,21 @@ public class MainPanel extends JPanel {
     public AddFuctionPanel getAddFuctionPanel() {
         return addFuctionPanel;
     }
+
+    public SelectCityView getSelectCityView() {
+        return selectCityView;
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    public LoginView getLoginView() {
+        return loginView;
+    }
+    public RegisterView getRegisterView() {
+    return registerView;
+}
+
+
 }
