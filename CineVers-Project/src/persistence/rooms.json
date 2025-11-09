@@ -1,0 +1,23 @@
+[
+    {
+        "id": "R01",
+        "name": "Sala 01",
+        "capacity": 40,
+        "type": "2D",
+        "price": 8.5
+    },
+    {
+        "id": "R02",
+        "name": "Sala 02",
+        "capacity": 50,
+        "type": "3D",
+        "price": 10.0
+    },
+    {
+        "id": "R03",
+        "name": "Sala 03",
+        "capacity": 35,
+        "type": "VIP 3D",
+        "price": 12.5
+    }
+]

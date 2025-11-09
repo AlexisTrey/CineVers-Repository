@@ -33,6 +33,8 @@ public class MainPanel extends JPanel {
     private AddRoomPanel addRoomPanel;
     private AddMovieBillboard addMovieBillboard;
     private AddFuctionPanel addFuctionPanel;
+    private SelectSeats selectSeats;
+    private SeatState seatState;
 
     public static final String SELECT_CITY = "select_city";
     public static final String HOME = "home";
@@ -73,12 +75,15 @@ public class MainPanel extends JPanel {
         registerView = new RegisterView(listener);
         movieDetailsPanel = new MovieDetailsPanel(listener);
         panelAsientos = new PanelAsientos(listener);
+        panelAsientos.setSeatState(seatState);
+        SeatState seatState = new SeatState(listener);
         roomEditionPanel = new RoomEditionPanel(listener);
         billboardEditionPanel = new BillboardEditionPanel(listener);
         functionsEditionPanel = new FunctionsEditionPanel(listener);
         addRoomPanel = new AddRoomPanel(listener);
         addMovieBillboard = new AddMovieBillboard(listener);
         addFuctionPanel = new AddFuctionPanel(listener);
+        selectSeats = new SelectSeats();
 
         showPanel(SELECT_CITY);
     }
@@ -98,7 +103,7 @@ public class MainPanel extends JPanel {
             case MOVIE_DETAILS ->
                 movieDetailsPanel;
             case SELECT_SEATS ->
-                panelAsientos;
+                selectSeats;
             case EDIT_ROOMS ->
                 roomEditionPanel;
             case EDIT_BILLBOARD ->

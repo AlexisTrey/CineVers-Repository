@@ -17,6 +17,15 @@ public class Room {
     private String name;
     private int capacity;
     private String type; // Ej: 2D, 3D, IMAX
+    private double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
     private Seat[][] seats;
 
     public Room(String id, String name, int capacity, String type, Seat[][] seats) {

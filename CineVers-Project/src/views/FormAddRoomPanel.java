@@ -101,7 +101,7 @@ public class FormAddRoomPanel extends JPanel {
         add(tipeRoom, gbc);
 
         JButton botonContinuar = SurveryStyle.createStyledButton("Guardar Sala");
-        botonContinuar.setActionCommand("EDITAR_SALAS");
+        botonContinuar.setActionCommand("AGREGAR_SALA_FORM");
         botonContinuar.addActionListener(listener);
 
         gbc.gridy = 5;
