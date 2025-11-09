@@ -38,7 +38,8 @@ public class Controller implements ActionListener {
     private MainFrame mainFrame;
     private CineVersSystem cine;
     private Timer loginPromptTimer;
-    private boolean loginPromptShown = false; 
+    private boolean loginPromptShown = false;
+
     public Controller() {
         this.mainFrame = new MainFrame(this);
         this.cine = new CineVersSystem();
@@ -98,7 +99,7 @@ public class Controller implements ActionListener {
                 nuevo.setDocumentType(tipoDocumento);
                 nuevo.setDocumentNumber(numeroDocumento);
                 nuevo.setPhone(telefono);
-                nuevo.setAdmin(false); 
+                nuevo.setAdmin(false);
 
                 cine.setSelectedCity(ciudad);
                 nuevo.setCity(cine.getSelectedCity());
@@ -136,7 +137,7 @@ public class Controller implements ActionListener {
                 if (ciudadSeleccionada != null && !ciudadSeleccionada.isEmpty()) {
                     cine.setSelectedCity(ciudadSeleccionada);
                     mainFrame.getMainPanel().showPanel(MainPanel.HOME);
-        startLoginPromptTimer(10_000);
+                    startLoginPromptTimer(10_000);
                 }
                 break;
 
@@ -216,7 +217,7 @@ public class Controller implements ActionListener {
             case "GUARDAR_SALA":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
- case "AGREGAR_CARTELERA_FORM":
+            case "AGREGAR_CARTELERA_FORM":
 
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 FormFuctionPanel formPanel = this.mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
@@ -274,27 +275,31 @@ public class Controller implements ActionListener {
                 System.out.println("Acción no reconocida: " + command);
         }
     }
-    
-    
 
     private void startLoginPromptTimer(int delayMillis) {
         if (loginPromptTimer != null && loginPromptTimer.isRunning()) {
             loginPromptTimer.stop();
         }
-        if (loginPromptShown) return;
+        if (loginPromptShown) {
+            return;
+        }
 
         loginPromptTimer = new Timer(delayMillis, (e) -> {
             loginPromptTimer.stop();
-            if (isUserLoggedIn()) return;
-            if (loginPromptShown) return;
+            if (isUserLoggedIn()) {
+                return;
+            }
+            if (loginPromptShown) {
+                return;
+            }
 
-            loginPromptShown = true; 
+            loginPromptShown = true;
             javax.swing.SwingUtilities.invokeLater(() -> {
-    Frame owner = mainFrame; 
-    System.out.println("[DEBUG] Timer disparado: mostrando LoginPromptDialog...");
-    LoginPromptDialog prompt = new LoginPromptDialog(owner, this::handlePromptAction);
-    prompt.setVisible(true);
-});
+                Frame owner = mainFrame;
+                System.out.println("[DEBUG] Timer disparado: mostrando LoginPromptDialog...");
+                LoginPromptDialog prompt = new LoginPromptDialog(owner, this::handlePromptAction);
+                prompt.setVisible(true);
+            });
 
         });
 
@@ -309,32 +314,32 @@ public class Controller implements ActionListener {
         loginPromptShown = true;
     }
 
-   
     private void handlePromptAction(java.awt.event.ActionEvent evt) {
         String cmd = evt.getActionCommand();
         if (LoginPromptDialog.ACTION_GO_LOGIN.equals(cmd)) {
-            
+
             mainFrame.getMainPanel().showPanel(MainPanel.LOGIN);
-           
+
             cancelLoginPromptIfRunning();
-        
+
         }
     }
 
-   
     private boolean isUserLoggedIn() {
-    try {
-        User current = cine.getActiveUser();
-        return current != null;
-    } catch (Exception ex) {
         try {
-            java.lang.reflect.Method m2 = mainFrame.getMainPanel().getHeader().getClass().getMethod("isUserVisible");
-            Object visible = m2.invoke(mainFrame.getMainPanel().getHeader());
-            if (visible instanceof Boolean) return (Boolean) visible;
-        } catch (Exception ex2) {
+            User current = cine.getActiveUser();
+            return current != null;
+        } catch (Exception ex) {
+            try {
+                java.lang.reflect.Method m2 = mainFrame.getMainPanel().getHeader().getClass().getMethod("isUserVisible");
+                Object visible = m2.invoke(mainFrame.getMainPanel().getHeader());
+                if (visible instanceof Boolean) {
+                    return (Boolean) visible;
+                }
+            } catch (Exception ex2) {
+            }
+            return false;
         }
-        return false;
     }
-}
 
 }

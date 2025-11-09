@@ -7,7 +7,6 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -34,8 +33,6 @@ public class AddMovieBillboard extends javax.swing.JPanel {
     private GridBagConstraints gbc;
     private FormFuctionPanel formPanel;
 
-
-
     public AddMovieBillboard(ActionListener listener) {
         this.listener = listener;
         initComponents2();
@@ -46,16 +43,15 @@ public class AddMovieBillboard extends javax.swing.JPanel {
         this.badground = new Background();
         this.badground.setLayout(new GridBagLayout());
         JPanel centerWrapper = createCenterContainer();
-        
-        gbc= new GridBagConstraints();
+
+        gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.weighty = 1;
-        
 
         this.badground.add(centerWrapper, gbc);
-        this.add(this.badground , BorderLayout.CENTER);
+        this.add(this.badground, BorderLayout.CENTER);
 
     }
 
@@ -73,5 +69,5 @@ public class AddMovieBillboard extends javax.swing.JPanel {
     public FormFuctionPanel getFormPanel() {
         return formPanel;
     }
-    
+
 }

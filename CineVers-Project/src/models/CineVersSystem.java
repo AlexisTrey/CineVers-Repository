@@ -31,7 +31,7 @@ public class CineVersSystem {
 
     public CineVersSystem() {
         gson = new GsonConverter();
- users = new ArrayList<>();
+        users = new ArrayList<>();
         admins = new ArrayList<>();
         movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
         functions = gson.loadFunctions(Utilities.FUNCTION_PATH);
@@ -40,13 +40,12 @@ public class CineVersSystem {
         carteleras = new ArrayList<>();
 
         loadUsers();
-       
- }
+
+    }
 
     public User getActiveUser() {
         return activeUser;
     }
-
 
     public void setActiveUser(User user) {
         this.activeUser = user;
@@ -56,7 +55,6 @@ public class CineVersSystem {
         this.activeUser = null;
     }
 
-    
     public void loadUsers() {
         List<User> allUsers = gson.loadUsers(Utilities.USERS_PATH);
         if (allUsers != null) {
@@ -70,7 +68,6 @@ public class CineVersSystem {
         }
     }
 
-   
     public void saveUsers() {
         List<User> allUsers = new ArrayList<>();
         allUsers.addAll(admins);
@@ -82,12 +79,11 @@ public class CineVersSystem {
         }
     }
 
- 
-
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
-public User findUserByEmail(String email) {
+
+    public User findUserByEmail(String email) {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
                 return u;
@@ -101,10 +97,9 @@ public User findUserByEmail(String email) {
         return null;
     }
 
-   
     public boolean registerUser(User user) {
         if (findUserByEmail(user.getEmail()) != null) {
-            return false; 
+            return false;
         }
 
         if (user.getEmail().toLowerCase().contains("@admin")) {
@@ -119,7 +114,6 @@ public User findUserByEmail(String email) {
         return true;
     }
 
-
     public User loginUser(String email, String password) {
         User user = findUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
@@ -129,13 +123,12 @@ public User findUserByEmail(String email) {
 
             }
             this.activeUser = user;
-           
+
             return user;
         }
         return null;
     }
 
-    
     public boolean deleteUser(String email) {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
@@ -172,9 +165,6 @@ public User findUserByEmail(String email) {
     public City getSelectedCity() {
         return selectedCity;
     }
-
-
-
 
     public void addMovie(User user, Movie movie) throws IOException {
 
@@ -305,8 +295,6 @@ public User findUserByEmail(String email) {
         }
         return result;
     }
-   
-
 
     public Movie searchMovieByTitle(String name) {
         Movie movieretur = new Movie();

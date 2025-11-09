@@ -42,10 +42,10 @@ public class PanelAsientos extends JPanel {
         // Agregar las sillas
         generarAsientos();
     }
-    
+
     public void setSeatState(SeatState seatState) {
-    this.seatState = seatState;
-}
+        this.seatState = seatState;
+    }
 
     private void generarAsientos() {
         int T_SILLA = 40;

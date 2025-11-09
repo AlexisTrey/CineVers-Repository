@@ -118,7 +118,7 @@ public class FunctionsEditionPanel extends JPanel {
             contentPanel.add(function, gbc);
             gbc.gridy++;
         }
-        
+
         wrapperPanel.add(contentPanel, BorderLayout.NORTH);
         this.contentPanel = wrapperPanel;
     }

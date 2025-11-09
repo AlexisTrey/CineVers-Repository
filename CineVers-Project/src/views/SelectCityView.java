@@ -152,11 +152,11 @@ public class SelectCityView extends JPanel {
                 return;
             }
             selectedCity = (String) cbCiudad.getSelectedItem(); // <- Guardamos la ciudad
-       
+
             dialog.dispose();
             if (listener != null) {
-           listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "SELECCIONAR_CIUDAD"));
- }
+                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "SELECCIONAR_CIUDAD"));
+            }
 
         });
 
@@ -178,9 +178,10 @@ public class SelectCityView extends JPanel {
 
         dialog.setVisible(true);
     }
+
     public String getSelectedCity() {
-    return selectedCity;
-}
+        return selectedCity;
+    }
 
     private void estilizarCombo(JComboBox<String> combo) {
         combo.setBackground(Color.WHITE);
@@ -253,4 +254,3 @@ public class SelectCityView extends JPanel {
     }
 
 }
-

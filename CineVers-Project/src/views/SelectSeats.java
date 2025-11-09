@@ -13,14 +13,17 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Paola
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class SelectSeats extends JPanel {
-    
+
     private MovieDetailsPanel contentPanelMovieDetails;
-    private PanelAsientos contentPanelAsientos; 
+    private PanelAsientos contentPanelAsientos;
     private SeatState contentPanelSeatState;
-    
+
     public SelectSeats() {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
@@ -29,19 +32,19 @@ public class SelectSeats extends JPanel {
         contentPanelSeatState = new SeatState(null);
         buildPanel();
     }
-    
-    private void buildPanel(){
-    JPanel contentCenterPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0)); // 40 px de espacio horizontal entre los paneles
-    contentCenterPanel.setBackground(Color.WHITE);
 
-    add(contentPanelMovieDetails , BorderLayout.NORTH);
-  
-    contentCenterPanel.add(contentPanelSeatState);
-    contentCenterPanel.add(contentPanelAsientos);
-    
-    add(contentCenterPanel, BorderLayout.CENTER);
+    private void buildPanel() {
+        JPanel contentCenterPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0)); // 40 px de espacio horizontal entre los paneles
+        contentCenterPanel.setBackground(Color.WHITE);
+
+        add(contentPanelMovieDetails, BorderLayout.NORTH);
+
+        contentCenterPanel.add(contentPanelSeatState);
+        contentCenterPanel.add(contentPanelAsientos);
+
+        add(contentCenterPanel, BorderLayout.CENTER);
     }
-    
+
 //    public static void main(String[] args) {
 //            SwingUtilities.invokeLater(() -> {
 //            JFrame frame = new JFrame("Sillas selecionadas");
@@ -56,4 +59,3 @@ public class SelectSeats extends JPanel {
 //        });
 //    }
 }
- 

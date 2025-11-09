@@ -15,6 +15,7 @@ import java.util.List;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Cartelera {
+
     private String id;
     private City city;
     private List<Function> functions;
@@ -24,28 +25,34 @@ public class Cartelera {
         this.city = city;
         this.functions = functions;
     }
+
     public Cartelera() {
     }
 
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public City getCity() {
         return city;
     }
+
     public void setCity(City city) {
         this.city = city;
     }
+
     public List<Function> getFunctions() {
         return functions;
     }
+
     public void setFunctions(List<Function> functions) {
         this.functions = functions;
     }
-    
+
     public void addFunction(Function function) {
         functions.add(function);
     }
@@ -63,41 +70,41 @@ public class Cartelera {
         }
         return result;
     }
-    
-    public List<Function> searchByDate(String date){
-            List<Function> result = new ArrayList<>();
-            for (Function f : functions) {
-                if (f.getDateTime().toString().equalsIgnoreCase(date)) {
-                    result.add(f);
-                }
+
+    public List<Function> searchByDate(String date) {
+        List<Function> result = new ArrayList<>();
+        for (Function f : functions) {
+            if (f.getDateTime().toString().equalsIgnoreCase(date)) {
+                result.add(f);
             }
-            return result;
+        }
+        return result;
     }
-    
-    public List <Movie> getMovies(){
-                  List<Movie> result = new ArrayList<>();
-                  for (Function f : functions) {
-                      //tiene que devolver solo las peliculas que estan en cartelera, sin importar la cantidad de funciones que tengan 
-                        if (!result.contains(f.getMovie())) {
-                            result.add(f.getMovie());
-                        }
-                  }
-                  return result;
+
+    public List<Movie> getMovies() {
+        List<Movie> result = new ArrayList<>();
+        for (Function f : functions) {
+            //tiene que devolver solo las peliculas que estan en cartelera, sin importar la cantidad de funciones que tengan 
+            if (!result.contains(f.getMovie())) {
+                result.add(f.getMovie());
+            }
+        }
+        return result;
     }
-    
-    public int countFunctionByMovie(String title){
+
+    public int countFunctionByMovie(String title) {
         int count = 0;
         for (Function f : functions) {
-                   if (f.getMovie().getTitle().equalsIgnoreCase(title)) {
-                           count ++;
-                   }
+            if (f.getMovie().getTitle().equalsIgnoreCase(title)) {
+                count++;
+            }
         }
-        return  count;
+        return count;
     }
 
     @Override
     public String toString() {
         return "Cartelera en " + city.getName() + " con " + functions.size() + " funciones.";
     }
-    
+
 }

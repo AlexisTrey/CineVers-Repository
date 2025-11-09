@@ -25,7 +25,6 @@ public class AddFuctionPanel extends javax.swing.JPanel {
 
     private Background badground;
 
-
     private ActionListener listener;
     private GridBagConstraints gbc;
     private FormBillboardPanel formPanel;
@@ -41,16 +40,15 @@ public class AddFuctionPanel extends javax.swing.JPanel {
         this.badground = new Background();
         this.badground.setLayout(new GridBagLayout());
         JPanel centerWrapper = createCenterContainer();
-        
-        gbc= new GridBagConstraints();
+
+        gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.weighty = 1;
-        
 
         this.badground.add(centerWrapper, gbc);
-        this.add(this.badground , BorderLayout.CENTER);
+        this.add(this.badground, BorderLayout.CENTER);
 
     }
 
@@ -64,8 +62,8 @@ public class AddFuctionPanel extends javax.swing.JPanel {
         centerWrapper.add(formPanel, BorderLayout.NORTH);
         return centerWrapper;
     }
-    
-        public Background getBadground() {
+
+    public Background getBadground() {
         return badground;
     }
 

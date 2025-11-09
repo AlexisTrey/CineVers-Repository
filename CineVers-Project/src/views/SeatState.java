@@ -23,7 +23,10 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Paola
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class SeatState extends JPanel {
 
@@ -211,7 +214,7 @@ public class SeatState extends JPanel {
         g2d.setFont(new Font("Arial", Font.BOLD, 12));
         g2d.drawString(text, x + 8, y + 15);
     }
-    
+
 //      public static void main(String[] args) {
 //            SwingUtilities.invokeLater(() -> {
 //            JFrame frame = new JFrame("Estados de sillas");

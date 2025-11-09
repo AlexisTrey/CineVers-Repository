@@ -63,7 +63,7 @@ public class AddCardButton extends JButton {
 
         int arc = 40;
         Shape shape = new RoundRectangle2D.Double(5, 5, getWidth() - 10, getHeight() - 10, arc, arc);
-        
+
         g2d.setColor(new Color(0, 0, 0, 40));
         g2d.fillRoundRect(8, 8, getWidth() - 16, getHeight() - 16, arc, arc);
 

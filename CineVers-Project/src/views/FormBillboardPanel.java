@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -18,15 +17,11 @@ import java.awt.event.ActionListener;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class FormBillboardPanel extends JPanel {
+
     private final int FIELD_WIDTH = 400;
     private final int FIELD_HEIGHT = 50;
     private ActionListener listener;
 
-  
-
-
-    
-    
     private JLabel titleLabel;
     private JComboBox<String> cmbPeliculas;
     String[] titles = new String[0];
@@ -35,55 +30,54 @@ public class FormBillboardPanel extends JPanel {
     private JComboBox<String> cmbRooms; // Sala (Nuevo JComboBox)
     private JTextField txtStartTime; // Hora de inicio (LocalDateTime)
 
-    
-    public FormBillboardPanel(ActionListener listener ) {
+    public FormBillboardPanel(ActionListener listener) {
         this.listener = listener;
         setOpaque(false);
         setBorder(new EmptyBorder(30, 40, 30, 40));
         setLayout(new GridBagLayout());
         buildFormContent();
-        }
-           
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         // El color del fondo del panel (blanco/gris claro)
         g2.setColor(new Color(250, 250, 250)); // Puedes ajustar este color si quieres
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 40, 40); // 40px de radio para esquinas
-        
+
         // Opcional: El borde sutil gris claro alrededor del panel
         g2.setColor(new Color(0, 0, 0, 30)); // Un gris muy transparente
         g2.setStroke(new BasicStroke(2f)); // Un borde de 2px
         g2.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 40, 40);
-        
+
         g2.dispose();
         super.paintComponent(g); // Dibuja el resto de los componentes
     }
-    
-    public void setJComboBox(String [] titles){
-        this.titles= titles;
+
+    public void setJComboBox(String[] titles) {
+        this.titles = titles;
         this.updateMovieTitles(titles);
     }
-    
+
     public void updateMovieTitles(String[] newTitles) {
         // Debes importar javax.swing.DefaultComboBoxModel si no lo has hecho
         // para que esta línea funcione.
         if (cmbPeliculas != null) {
             // Reemplazar el modelo del ComboBox con los nuevos títulos.
             cmbPeliculas.setModel(new DefaultComboBoxModel<>(newTitles));
-            
+
             // Forzar el redibujado (revalidate/repaint) para que los cambios se muestren
             cmbPeliculas.revalidate();
             cmbPeliculas.repaint();
-            
+
             // Si quieres que el panel completo se actualice, podrías incluir:
-             this.revalidate();
-             this.repaint();
+            this.revalidate();
+            this.repaint();
         }
     }
-    
+
     public void updateRoomNames(String[] newRoomNames) {
         if (cmbRooms != null) {
             cmbRooms.setModel(new DefaultComboBoxModel<>(newRoomNames));
@@ -91,13 +85,13 @@ public class FormBillboardPanel extends JPanel {
             cmbRooms.repaint();
         }
     }
-    
+
     private void buildFormContent() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        
+
         // Título
-         titleLabel = new JLabel("Agregar Funcion");
+        titleLabel = new JLabel("Agregar Funcion");
         titleLabel.setFont(SurveryStyle.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -106,7 +100,7 @@ public class FormBillboardPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 0, 30, 0); // Más espacio después del título
         add(titleLabel, gbc);
-        
+
         txtFunctionId = SurveryStyle.createStyledTextField("ID de Función:");
         txtFunctionId.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
         gbc.gridy++;
@@ -125,19 +119,19 @@ public class FormBillboardPanel extends JPanel {
         gbc.weightx = 0.7;
         gbc.insets = new Insets(10, 0, 10, 15); // Espacio derecho entre título e imagen
         add(cmbPeliculas, gbc);
-        
+
         JPanel panelImagen = createImagenPlaceholder("Agregar imagen:");
         panelImagen.setPreferredSize(new Dimension(FIELD_WIDTH / 2, FIELD_HEIGHT * 2));
         gbc.gridx = 1;
         gbc.weightx = 0.3;
         gbc.insets = new Insets(10, 15, 10, 0); // Espacio izquierdo
         add(panelImagen, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 0, 10, 0); // Más espacio arriba para separar sección
         add(createSeparator(), gbc);
-        
+
 //        cmbRooms = SurveryStyle.createStyledComboBox(null);
 //        cmbRooms.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
 //        gbc.gridy++;
@@ -145,14 +139,13 @@ public class FormBillboardPanel extends JPanel {
 //        gbc.gridwidth = 2; 
 //        gbc.insets = new Insets(10, 0, 10, 0);
 //        add(cmbRooms, gbc);
-
         // --- Separador ---
         gbc.gridy++;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 0, 10, 0);
         add(createSeparator(), gbc);
-        
+
         txtStartTime = SurveryStyle.createStyledTextField("FechaFin::");
         txtStartTime.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
         gbc.gridy++;
@@ -172,7 +165,7 @@ public class FormBillboardPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0); // Espacio arriba del botón
         add(botonContinuar, gbc);
     }
-    
+
     /**
      * Crea un separador visual entre secciones
      */
@@ -182,7 +175,7 @@ public class FormBillboardPanel extends JPanel {
         separator.setPreferredSize(new Dimension(FIELD_WIDTH * 2, 1));
         return separator;
     }
-    
+
     /**
      * Mejorado: Placeholder para imagen más estilizado
      */
@@ -210,7 +203,8 @@ public class FormBillboardPanel extends JPanel {
 
         return panel;
     }
-            public JLabel getTitleLabel() {
+
+    public JLabel getTitleLabel() {
         return titleLabel;
     }
 
@@ -225,6 +219,7 @@ public class FormBillboardPanel extends JPanel {
     public void setCampoTitulo(JComboBox campoTitulo) {
         this.cmbPeliculas = campoTitulo;
     }
+
     public JButton getBotonContinuar() {
         return botonContinuar;
     }
@@ -232,8 +227,8 @@ public class FormBillboardPanel extends JPanel {
     public void setBotonContinuar(JButton botonContinuar) {
         this.botonContinuar = botonContinuar;
     }
-    
-      public ActionListener getListener() {
+
+    public ActionListener getListener() {
         return listener;
     }
 
@@ -280,7 +275,7 @@ public class FormBillboardPanel extends JPanel {
     public void setTxtStartTime(JTextField txtStartTime) {
         this.txtStartTime = txtStartTime;
     }
-        
+
 //        public static void main(String[] args) {
 //        SwingUtilities.invokeLater(() -> {
 //            JFrame frame = new JFrame("Demo Cineverso");
@@ -294,6 +289,4 @@ public class FormBillboardPanel extends JPanel {
 //            frame.setVisible(true);
 //        });
 //    }
-        
-    
 }

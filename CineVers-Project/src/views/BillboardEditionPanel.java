@@ -83,7 +83,7 @@ public class BillboardEditionPanel extends JPanel {
     private void createContentPanel() {
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setBackground(new Color(240, 240, 240));
-        
+
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
         contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
@@ -165,7 +165,7 @@ public class BillboardEditionPanel extends JPanel {
                 gbc.gridx++;
             }
         }
-        
+
         wrapperPanel.add(contentPanel, BorderLayout.NORTH);
         this.contentPanel = wrapperPanel;
     }
