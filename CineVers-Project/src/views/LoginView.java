@@ -159,13 +159,13 @@ public class LoginView extends JPanel {
         GridBagConstraints top = new GridBagConstraints();
         top.gridx = 0;
         top.gridy = 0;
-        top.anchor = GridBagConstraints.NORTH;
+        top.anchor = GridBagConstraints.CENTER;
         top.weighty = 1;
 
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setOpaque(false);
-        wrapperPanel.setBorder(new EmptyBorder(110, 0, 0, 0));
-        wrapperPanel.add(panelLogin, BorderLayout.NORTH);
+        wrapperPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+        wrapperPanel.add(panelLogin, BorderLayout.CENTER);
 
         background.add(wrapperPanel, top);
         add(background, BorderLayout.CENTER);
