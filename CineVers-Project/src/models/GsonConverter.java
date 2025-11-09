@@ -68,6 +68,8 @@ public static List<User> loadUsers(String filePath) {
         } catch (IOException e) {
             System.out.println("Error al cargar usuarios: " + e.getMessage());
             return new ArrayList<>();
+        }
+}
 
 
     public static List<Function> loadFunctions(String filePath) {
