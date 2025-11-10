@@ -330,4 +330,16 @@ public class CineVersSystem {
         return titlesList.toArray(new String[0]);
     }
 
+    public void refreshMovies() {
+        this.movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
+    }
+
+    public void refreshFunctions() {
+        this.functions = gson.loadFunctions(Utilities.FUNCTION_PATH);
+    }
+
+    public void refreshRooms() {
+        this.rooms = gson.loadRooms(Utilities.ROOMS_PATH);
+    }
+
 }

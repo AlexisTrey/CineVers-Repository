@@ -7,6 +7,7 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -24,12 +25,12 @@ public class SelectSeats extends JPanel {
     private PanelAsientos contentPanelAsientos;
     private SeatState contentPanelSeatState;
 
-    public SelectSeats() {
+    public SelectSeats(ActionListener listener) {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
-        contentPanelMovieDetails = new MovieDetailsPanel(null); //revisar cómo quedaría bien porque la clase MovieDetailsPanel pide un listener por parámetro
-        contentPanelAsientos = new PanelAsientos(null);
-        contentPanelSeatState = new SeatState(null);
+        contentPanelMovieDetails = new MovieDetailsPanel(listener); //revisar cómo quedaría bien porque la clase MovieDetailsPanel pide un listener por parámetro
+        contentPanelAsientos = new PanelAsientos(listener);
+        contentPanelSeatState = new SeatState(listener);
         buildPanel();
     }
 

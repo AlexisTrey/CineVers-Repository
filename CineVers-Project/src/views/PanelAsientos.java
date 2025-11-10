@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import utilities.Utilities;
 
 /**
  *
@@ -25,9 +26,9 @@ import javax.swing.SwingUtilities;
  */
 public class PanelAsientos extends JPanel {
 
-    Icon ICONO_SILLA_BASE = new ImageIcon(getClass().getResource("/resources/images/silladesocupada.png"));
+    Icon ICONO_SILLA_BASE = new ImageIcon(getClass().getResource(Utilities.EMPTY_SEAT_PATH));
 
-    Icon ICONO_SILLA_SELECCIONADA = new ImageIcon(getClass().getResource("/resources/images/sillaocupada.png"));
+    Icon ICONO_SILLA_SELECCIONADA = new ImageIcon(getClass().getResource(Utilities.SEAT_OCCUPIED_PATH));
 
     private Set<String> sillasSeleccionadas = new HashSet<>();
     private SeatState seatState;

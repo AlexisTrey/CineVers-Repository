@@ -257,12 +257,10 @@ public class Controller implements ActionListener {
                 } catch (IOException ex) {
                     System.err.println("Error al guardar la función: " + ex.getMessage());
                 }
-
                 break;
 
             case "AGREGAR_SALA_FORM":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
-
                 break;
 
 //            case "UPCOMING":

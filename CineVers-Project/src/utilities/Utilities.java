@@ -16,6 +16,8 @@ public class Utilities {
     //Rutas
     public static final String CHECK_PATH = "/resources/images/check.png";
     public static final String ICON_ROOM_PATH = "/resources/images/IconRoom.png";
+    public static final String EMPTY_SEAT_PATH = "/resources/images/silladesocupada.png";
+    public static final String SEAT_OCCUPIED_PATH = "/resources/images/sillaocupada.png";
 
     public static final String LOGO_FOOTER_PATH = "/resources/images/LogoFooter.png";
     public static final String INSTAGRAM_PATH = "/resources/images/Instagram.png";
@@ -35,8 +37,44 @@ public class Utilities {
 
     public static final String MOVIES_PATH = "src/persistence/movies.json";
     public static final String USERS_PATH = "src/persistence/users.json";
-
     public static final String FUNCTION_PATH = "src/persistence/functions.json";
     public static final String ROOMS_PATH = "src/persistence/rooms.json";
+
+    public static String getImageForMovieTitle(String title) {
+        if (title == null) {
+            return PREJUICIO_PATH;
+        }
+        title = title.toLowerCase();
+
+        if (title.contains("orgullo")) {
+            return PREJUICIO_PATH;
+        }
+        if (title.contains("zootopia")) {
+            return ZOOTOPIA_PATH;
+        }
+        if (title.contains("demon")) {
+            return DEMON_PATH;
+        }
+        if (title.contains("miraculous")) {
+            return MIRACULOUS_PATH;
+        }
+        if (title.contains("jurassic")) {
+            return JURASSIC_PATH;
+        }
+        if (title.contains("together")) {
+            return TOGETHER_PATH;
+        }
+        if (title.contains("viernes")) {
+            return VIERNES_PATH;
+        }
+        if (title.contains("pompoko")) {
+            return POMPOKO_PATH;
+        }
+        if (title.contains("avatar")) {
+            return AVATAR_PATH;
+        }
+
+        return PREJUICIO_PATH;
+    }
 
 }

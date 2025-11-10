@@ -93,6 +93,7 @@ public class SeatState extends JPanel {
         btnVolver.setBackground(new Color(100, 0, 160));
         btnVolver.setFocusPainted(false);
         btnVolver.setBounds(20, 520, 110, 40);
+        btnVolver.setActionCommand("HOME");
         btnVolver.addActionListener(listener);
         add(btnVolver);
 
@@ -103,6 +104,7 @@ public class SeatState extends JPanel {
         btnConfirmar.setBackground(new Color(0, 180, 0));
         btnConfirmar.setFocusPainted(false);
         btnConfirmar.setBounds(150, 520, 120, 40);
+        btnConfirmar.setActionCommand("CONFIRMAR_RESERVA");
         btnConfirmar.addActionListener(listener);
         add(btnConfirmar);
     }
