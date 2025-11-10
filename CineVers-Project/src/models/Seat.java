@@ -12,12 +12,12 @@ package models;
  */
 public class Seat {
     private String id;
-    private int row;
+    private String row;
     private int number;
     private boolean available;
 
-    public Seat(String id, int row, int number, boolean available) {
-        this.id = id;
+    public Seat( String row, int number, boolean available) {
+        this.id = row + number;
         this.row = row;
         this.number = number;
         this.available = available;
@@ -32,13 +32,13 @@ public class Seat {
     public void setId(String id) {
         this.id = id;
     }
-    public int getRow() {
+    public String getRow() {
         return row;
     }
-    public void setRow(int row) {
-        if (row < 0) throw new IllegalArgumentException("Row cannot be negative");
-        this.row = row;
-    }
+    // public void setRow(int row) {
+    //     if (row < 0) throw new IllegalArgumentException("Row cannot be negative");
+    //     this.row = row;
+    // }
     public int getNumber() {
         return number;
     }

@@ -11,7 +11,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import javax.swing.JPanel;
+import javax.swing.JPanel;  
 
 /**
  *
@@ -24,6 +24,7 @@ public class SinopsisMovie extends JPanel {
 
     private Color titleColor = new Color(102, 0, 161);
     private Color textColor = new Color(80, 80, 80);
+    private String[][] info;
 
     public SinopsisMovie() {
         setPreferredSize(new Dimension(20, 20));
@@ -68,11 +69,11 @@ public class SinopsisMovie extends JPanel {
         int currentY = y;
 
         // Información de la película en formato simple
-        String[][] info = {
-            {"Nombre original:", "TOGETHER"},
-            {"Clasificación:", "Para mayores de 15 años"},
-            {"Reparto:", "Dave Franco, Alison Brie, Damon Herriman"},
-            {"Director:", "Michael Shanks"}
+        info = new String[][] {
+                { "Nombre original:", "TOGETHER" },
+                { "Clasificación:", "Para mayores de 15 años" },
+                { "Reparto:", "Dave Franco, Alison Brie, Damon Herriman" },
+                { "Director:", "Michael Shanks" } 
         };
 
         g2d.setFont(new Font("Arial", Font.BOLD, 12));
@@ -128,5 +129,9 @@ public class SinopsisMovie extends JPanel {
         }
 
         return currentY + lineHeight;
+    }
+
+    public String[][] getInfo() {
+        return info;
     }
 }

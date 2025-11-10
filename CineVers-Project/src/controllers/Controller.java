@@ -8,21 +8,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Set;
+
 import models.CineVersSystem;
 import models.Function;
 import models.Movie;
 import models.Room;
 import models.User;
+import models.Seat;
+import views.ConfirmReservation;
 import views.FormBillboardPanel;
 import views.FormFuctionPanel;
 import views.MainFrame;
 import views.MainPanel;
+import views.PanelAsientos;
 import views.LoginView;
 import views.RegisterView;
+import utilities.Utilities;
 import models.City;
 import javax.swing.Timer;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import java.awt.Frame;
+import java.util.List;
+
 import views.LoginPromptDialog;
 import views.ReservationConfirmationJDialog;
 
@@ -38,7 +47,8 @@ public class Controller implements ActionListener {
     private MainFrame mainFrame;
     private CineVersSystem cine;
     private Timer loginPromptTimer;
-    private boolean loginPromptShown = false; 
+    private boolean loginPromptShown = false;
+
     public Controller() {
         this.mainFrame = new MainFrame(this);
         this.cine = new CineVersSystem();
@@ -80,7 +90,8 @@ public class Controller implements ActionListener {
                 String ciudad = regView.getCiudad();
 
                 if (nombres.isEmpty() || apellidos.isEmpty() || correo.isEmpty()
-                        || contrasena.isEmpty() || tipoDocumento.isEmpty() || numeroDocumento.isEmpty() || ciudad.isEmpty()) {
+                        || contrasena.isEmpty() || tipoDocumento.isEmpty() || numeroDocumento.isEmpty()
+                        || ciudad.isEmpty()) {
                     regView.showMessage("Por favor completa todos los campos obligatorios.");
                     break;
                 }
@@ -98,7 +109,7 @@ public class Controller implements ActionListener {
                 nuevo.setDocumentType(tipoDocumento);
                 nuevo.setDocumentNumber(numeroDocumento);
                 nuevo.setPhone(telefono);
-                nuevo.setAdmin(false); 
+                nuevo.setAdmin(false);
 
                 cine.setSelectedCity(ciudad);
                 nuevo.setCity(cine.getSelectedCity());
@@ -136,7 +147,7 @@ public class Controller implements ActionListener {
                 if (ciudadSeleccionada != null && !ciudadSeleccionada.isEmpty()) {
                     cine.setSelectedCity(ciudadSeleccionada);
                     mainFrame.getMainPanel().showPanel(MainPanel.HOME);
-        startLoginPromptTimer(10_000);
+                    startLoginPromptTimer(10_000);
                 }
                 break;
 
@@ -191,7 +202,8 @@ public class Controller implements ActionListener {
                 break;
 
             case "AGREGAR_FUNCION":
-                this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel().setJComboBox(this.cine.getMovieTitlesArray());
+                this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel()
+                        .setJComboBox(this.cine.getMovieTitlesArray());
 
                 mainFrame.getMainPanel().showPanel(MainPanel.ADD_FUNCTION);
                 break;
@@ -216,7 +228,7 @@ public class Controller implements ActionListener {
             case "GUARDAR_SALA":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
- case "AGREGAR_CARTELERA_FORM":
+            case "AGREGAR_CARTELERA_FORM":
 
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 FormFuctionPanel formPanel = this.mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
@@ -230,8 +242,7 @@ public class Controller implements ActionListener {
                 try {
                     this.cine.addMovie(
                             new User(true),
-                            new Movie(filePath, title, gener, duration, classification, synopsis, title)
-                    );
+                            new Movie(filePath, title, gener, duration, classification, synopsis, title));
                     System.out.println("Película agregada correctamente.");
                 } catch (IOException ex) {
                     System.err.println("Error al guardar la película: " + ex.getMessage());
@@ -243,14 +254,13 @@ public class Controller implements ActionListener {
                 String titleserch = (String) formanPnale1.getCmbPeliculas().getSelectedItem();
 
                 String id = formanPnale1.getTxtFunctionId().getText();
-//                Room rom1 = crear las salas 
+                // Room rom1 = crear las salas
                 String date = formanPnale1.getTxtStartTime().getText();
                 Room selectedRoom = this.cine.getRooms().get(0);
                 try {
                     this.cine.addFunction(
                             new User(true),
-                            new Function(id, this.cine.searchMovieByTitle(titleserch), selectedRoom, date)
-                    );
+                            new Function(id, this.cine.searchMovieByTitle(titleserch), selectedRoom, date));
                     System.out.println("Función agregada correctamente.");
                     mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 } catch (IOException ex) {
@@ -264,37 +274,62 @@ public class Controller implements ActionListener {
 
                 break;
 
-//            case "UPCOMING":
-//                mainFrame.getMainPanel().showPanel(MainPanel.HOME);
-//                javax.swing.SwingUtilities.invokeLater(() -> {
-//                    mainFrame.getMainPanel().getHomePanel().scrollToUpcoming();
-//                });
-//                break;
+            case "SELECTED_SEAT":
+                //hacer el llamado del cambio de icono
+                JButton clickedSeat = (JButton) e.getSource();
+                PanelAsientos panelAsientos = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
+                panelAsientos.alternarSeleccion(clickedSeat, Utilities.BASE_ICON_SEAT_PATH,
+                Utilities.SELECTED_ICON_SEAT_PATH);
+                break;
+
+            case "CONFIRM_SEATS" :
+                PanelAsientos panelAsientos2 = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
+                Set<String> setsleceted = panelAsientos2.getSillasSeleccionadas();
+                String newIdReservation = String.valueOf(cine.createIdReservation());
+               // Function fuctionreservation = this.cine.getFuctionReservation(this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
+               // List<Seat> seatsreservation = this.cine.filterChairsByName(setsleceted);
+                
+                ConfirmReservation dialog = new ConfirmReservation(mainFrame, this);
+                dialog.setVisible(true);
+                break;
+
+                
+
+            // case "UPCOMING":
+            // mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+            // javax.swing.SwingUtilities.invokeLater(() -> {
+            // mainFrame.getMainPanel().getHomePanel().scrollToUpcoming();
+            // });
+            // break;
             default:
                 System.out.println("Acción no reconocida: " + command);
         }
     }
-    
-    
 
     private void startLoginPromptTimer(int delayMillis) {
         if (loginPromptTimer != null && loginPromptTimer.isRunning()) {
             loginPromptTimer.stop();
         }
-        if (loginPromptShown) return;
+        if (loginPromptShown) {
+            return;
+        }
 
         loginPromptTimer = new Timer(delayMillis, (e) -> {
             loginPromptTimer.stop();
-            if (isUserLoggedIn()) return;
-            if (loginPromptShown) return;
+            if (isUserLoggedIn()) {
+                return;
+            }
+            if (loginPromptShown) {
+                return;
+            }
 
-            loginPromptShown = true; 
+            loginPromptShown = true;
             javax.swing.SwingUtilities.invokeLater(() -> {
-    Frame owner = mainFrame; 
-    System.out.println("[DEBUG] Timer disparado: mostrando LoginPromptDialog...");
-    LoginPromptDialog prompt = new LoginPromptDialog(owner, this::handlePromptAction);
-    prompt.setVisible(true);
-});
+                Frame owner = mainFrame;
+                System.out.println("[DEBUG] Timer disparado: mostrando LoginPromptDialog...");
+                LoginPromptDialog prompt = new LoginPromptDialog(owner, this::handlePromptAction);
+                prompt.setVisible(true);
+            });
 
         });
 
@@ -309,32 +344,32 @@ public class Controller implements ActionListener {
         loginPromptShown = true;
     }
 
-   
     private void handlePromptAction(java.awt.event.ActionEvent evt) {
         String cmd = evt.getActionCommand();
         if (LoginPromptDialog.ACTION_GO_LOGIN.equals(cmd)) {
-            
+
             mainFrame.getMainPanel().showPanel(MainPanel.LOGIN);
-           
+
             cancelLoginPromptIfRunning();
-        
+
         }
     }
 
-   
     private boolean isUserLoggedIn() {
-    try {
-        User current = cine.getActiveUser();
-        return current != null;
-    } catch (Exception ex) {
         try {
-            java.lang.reflect.Method m2 = mainFrame.getMainPanel().getHeader().getClass().getMethod("isUserVisible");
-            Object visible = m2.invoke(mainFrame.getMainPanel().getHeader());
-            if (visible instanceof Boolean) return (Boolean) visible;
-        } catch (Exception ex2) {
+            User current = cine.getActiveUser();
+            return current != null;
+        } catch (Exception ex) {
+            try {
+                java.lang.reflect.Method m2 = mainFrame.getMainPanel().getHeader().getClass()
+                        .getMethod("isUserVisible");
+                Object visible = m2.invoke(mainFrame.getMainPanel().getHeader());
+                if (visible instanceof Boolean)
+                    return (Boolean) visible;
+            } catch (Exception ex2) {
+            }
+            return false;
         }
-        return false;
     }
-}
 
 }

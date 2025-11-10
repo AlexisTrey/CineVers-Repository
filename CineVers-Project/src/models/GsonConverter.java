@@ -22,12 +22,11 @@ public class GsonConverter {
             .setPrettyPrinting()
             .create();
 
-    
-   public static <T> void saveListToJson(List<T> list, String filePath) throws IOException {
+    public static <T> void saveListToJson(List<T> list, String filePath) throws IOException {
         File file = new File(filePath);
         File parentDir = file.getParentFile();
 
- if (parentDir != null && !parentDir.exists()) {
+        if (parentDir != null && !parentDir.exists()) {
             if (!parentDir.mkdirs()) {
                 throw new IOException("No se pudo crear el directorio: " + parentDir.getAbsolutePath());
             }
@@ -40,7 +39,7 @@ public class GsonConverter {
 
     public static <T> List<T> loadListFromJson(String filePath, Type typeToken) throws IOException {
         File file = new File(filePath);
- if (!file.exists()) {
+        if (!file.exists()) {
             return new ArrayList<>();
         }
 
@@ -49,7 +48,6 @@ public class GsonConverter {
             return list != null ? list : new ArrayList<>();
         }
     }
-
 
     public static List<Movie> loadPeliculas(String filePath) {
         try {
@@ -61,16 +59,17 @@ public class GsonConverter {
             return new ArrayList<>();
         }
     }
-public static List<User> loadUsers(String filePath) {
+
+    public static List<User> loadUsers(String filePath) {
         try {
-            Type listType = new TypeToken<ArrayList<User>>() {}.getType();
+            Type listType = new TypeToken<ArrayList<User>>() {
+            }.getType();
             return loadListFromJson(filePath, listType);
         } catch (IOException e) {
             System.out.println("Error al cargar usuarios: " + e.getMessage());
             return new ArrayList<>();
         }
-}
-
+    }
 
     public static List<Function> loadFunctions(String filePath) {
         // ... (Tu método loadFunctions usando la instancia 'gson') ...
@@ -109,6 +108,27 @@ public static List<User> loadUsers(String filePath) {
         } catch (IOException e) {
             e.printStackTrace();
 
+        }
+    }
+
+    public static List<Reservation> loadReservations(String filePath) {
+        try {
+            Type listType = new TypeToken<ArrayList<Reservation>>() {
+            }.getType();
+            return loadListFromJson(filePath, listType);
+        } catch (IOException e) {
+            System.out.println("Error al cargar reservaciones: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    
+
+    public static void saveReservations(List<Reservation> list, String filePath) {
+        try {
+            saveListToJson(list, filePath);
+        } catch (IOException e) {
+            System.out.println("Error al guardar reservaciones: " + e.getMessage());
         }
     }
 }

@@ -38,5 +38,26 @@
             "price": 8.99
         },
         "dateTime": "18:45"
+    },
+
+    {
+        "id": "F003",
+        "movie": {
+            "id": "M002",
+            "title": "TOGETHER",
+            "genre": "Drama",
+            "durationMinutes": 115,
+            "classification": "h",
+            "synopsis": "Amor sin compacion",
+            "releaseDate": "2024-12-19"
+        },
+        "room": {
+            "id": "R01",
+            "name": "Sala 03",
+            "capacity": 50,
+            "type": "2D",
+            "price": 8.99
+        },
+        "dateTime": "18:45"
     }
 ]

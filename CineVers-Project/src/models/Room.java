@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.util.List;
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -18,6 +20,7 @@ public class Room {
     private int capacity;
     private String type; // Ej: 2D, 3D, IMAX
     private double price;
+    private List<Seat> allSeats;
 
     public double getPrice() {
         return price;
@@ -26,14 +29,14 @@ public class Room {
     public void setPrice(double price) {
         this.price = price;
     }
-    private Seat[][] seats;
 
-    public Room(String id, String name, int capacity, String type, Seat[][] seats) {
+
+    public Room(String id, String name, int capacity, String type, List<Seat> seats) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
         this.type = type;
-        this.seats = seats;
+        this.allSeats = seats;
     }
 
     public Room() {
@@ -63,37 +66,33 @@ public class Room {
     public void setType(String type) {
         this.type = type;
     }
-    public Seat[][] getSeats() {
-        return seats;
+    public List<Seat> getAllSeats() {
+        return allSeats;
     }
-    public void setSeats(Seat[][] seats) {
-        this.seats = seats;
+    public void setAllSeats(List<Seat> seats) {
+        this.allSeats = seats;
     }
 
     public int getAvailableSeats() {
         int count = 0;
-        for (Seat[] row : seats) {
-            for (Seat seat : row) {
+        for (Seat seat : allSeats) {
                 if (seat.isAvailable()) {
                     count++;
                 }
-            }
         }
         return count;
     }
 
-    public Seat findSeat(int row, int number) {
-        for (Seat[] fila : seats) {
-            for (Seat seat : fila) {
-                if (seat.getRow() == row && seat.getNumber() == number) {
+    public Seat findSeat(String row, int number) {
+        for (Seat seat : allSeats) {
+                if (seat.getRow().equalsIgnoreCase(row) && seat.getNumber() == number) {
                     return seat;
                 }
-            }
         }
         return null;
     }
 
-    public boolean reserveSeat(int row, int number) {
+    public boolean reserveSeat(String row, int number) {
         Seat seat = findSeat(row, number);
         if (seat != null && seat.isAvailable()) {
             seat.reserve();
@@ -103,13 +102,24 @@ public class Room {
     }
 
     public void showSeatMap() {
-        for (Seat[] fila : seats) {
-            for (Seat seat : fila) {
-                System.out.print(seat.isAvailable() ? "[L]" : "[X]");
+    //Mostrar las filas ordenadas por letra 
+    char currentRow = 0;
+
+    for (Seat seat : allSeats) {
+        // Si cambiamos de fila 
+        if (seat.getRow().charAt(0) != currentRow) {
+            if (currentRow != 0) { // salto de línea menos en la primera fila
+                System.out.println();
             }
-            System.out.println();
+            // Actualizar fila actual y mostrar la letra
+            currentRow = seat.getRow().charAt(0);
+            System.out.print(currentRow + " ");
         }
+        // Mostrar el asiento: [L] = libre, [X] = ocupado
+        System.out.print(seat.isAvailable() ? "[L]" : "[X]");
     }
+    System.out.println();  // Salto de línea final al terminar el mapa
+    } 
 
     @Override
     public String toString() {

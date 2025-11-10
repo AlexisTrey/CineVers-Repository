@@ -41,6 +41,10 @@ public class SelectSeats extends JPanel {
     
     add(contentCenterPanel, BorderLayout.CENTER);
     }
+
+    public PanelAsientos getPanelAsientos(){
+        return contentPanelAsientos;
+    }
     
 //    public static void main(String[] args) {
 //            SwingUtilities.invokeLater(() -> {

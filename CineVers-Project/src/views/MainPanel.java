@@ -153,6 +153,9 @@ public class MainPanel extends JPanel {
     public RegisterView getRegisterView() {
     return registerView;
 }
+    public SelectSeats getSelectSeatsPanel(){
+        return selectSeats; 
+    }
 
 
 }

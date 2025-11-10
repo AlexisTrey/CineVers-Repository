@@ -7,6 +7,8 @@ package models;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import models.Room;
 
 /**
  *
@@ -20,23 +22,40 @@ public class Reservation {
     private String id;
     private User user;
     private Function function;
-    private List<Seat> seats;
+    private List<Seat> selectSeats;
     private LocalDateTime reservationDate;
     private boolean status;
     private double price;
+    private Room roomReservation;
 
-    public Reservation(String id, User user, Function function, List<Seat> seats, LocalDateTime reservationDate, boolean status, double price) {
+
+	public Reservation(String id, User user, Function function, List<Seat> seats, LocalDateTime reservationDate,
+            boolean status, double price, Room roomReservation) {
         this.id = id;
         this.user = user;
         this.function = function;
-        this.seats = new ArrayList<>();
+        this.selectSeats = new ArrayList<>();
         this.reservationDate = reservationDate;
         this.status = status;
         this.price = price;
+        this.roomReservation= roomReservation;
     }
 
+    public boolean maxSeats(int numberSeats, String[] seatsSelects) {
+        boolean reserv = false;
+        if (numberSeats == seatsSelects.length) {
+            reserv = true;
+        }
+        return reserv;
+    }
+
+    //metodo que devuelve la lista de asientos seleccionados
+
+
+
+
     public Reservation() {
-        this.seats = new ArrayList<>();
+        this.selectSeats = new ArrayList<>();
     }
 
     public String getId() {
@@ -63,12 +82,12 @@ public class Reservation {
         this.function = function;
     }
 
-    public List<Seat> getSeats() {
-        return seats;
+    public List<Seat> getSelectSeats() {
+        return selectSeats;
     }
 
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
+    public void setSelectSeats(List<Seat> seats) {
+        this.selectSeats = seats;
     }
 
     public boolean isStatus() {
@@ -112,21 +131,31 @@ public class Reservation {
     }
 
     public void addSeat(Seat seat) {
-        seats.add(seat);
+        selectSeats.add(seat);
     }
 
     public void removeSeat(Seat seat) {
-        seats.remove(seat);
+        selectSeats.remove(seat);
     }
 
     public double getTotalPrice() {
-        return price * seats.size();
+        return price * selectSeats.size();
     }
+
+    
+    public Room getRoomReservation() {
+		return roomReservation;
+	}
+
+	public void setRoomReservation(Room rommReservation) {
+		this.roomReservation = rommReservation;
+	}
+
 
     public String getReservationDetails() {
         return "Reserva: " + id + " | Usuario: " + user.getFullName()
                 + " | Función: " + function.getMovie().getTitle()
-                + " | Asientos: " + seats.size()
+                + " | Asientos: " + selectSeats.size()
                 + " | Total: $" + getTotalPrice();
     }
 }

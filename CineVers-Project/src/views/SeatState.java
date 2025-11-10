@@ -101,6 +101,7 @@ public class SeatState extends JPanel {
         btnConfirmar.setFocusPainted(false);
         btnConfirmar.setBounds(150, 520, 120, 40);
         btnConfirmar.addActionListener(listener);
+        btnConfirmar.setActionCommand("CONFIRM_SEATS");
         add(btnConfirmar);
     }
 

@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import utilities.Utilities;
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -25,25 +27,23 @@ import javax.swing.SwingUtilities;
  */
 public class PanelAsientos extends JPanel {
 
-    Icon ICONO_SILLA_BASE = new ImageIcon(getClass().getResource("/resources/images/silladesocupada.png"));
-
-    Icon ICONO_SILLA_SELECCIONADA = new ImageIcon(getClass().getResource("/resources/images/sillaocupada.png"));
-
     private Set<String> sillasSeleccionadas = new HashSet<>();
     private SeatState seatState;
+    private ActionListener listener;
 
     public PanelAsientos(ActionListener listener) {
         setLayout(null);
+        this.listener = listener;
         // Establecer un tamaño para el panel
         setPreferredSize(new Dimension(800, 1000));
         setBackground(Color.WHITE);
         // Agregar las sillas
         generarAsientos();
     }
-    
+
     public void setSeatState(SeatState seatState) {
-    this.seatState = seatState;
-}
+        this.seatState = seatState;
+    }
 
     private void generarAsientos() {
         int T_SILLA = 40;
@@ -53,38 +53,41 @@ public class PanelAsientos extends JPanel {
         int OFFSET_Y = 100;
 
         // Define las filas y el número de asientos por fila
-        String[] filas = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"};
-        int[] asientosPorFila = {9, 9, 9, 9, 11, 11, 11, 11, 11, 11, 11, 11, 11, 13};
+        String[] filas = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
+        int[] asientosPorFila = { 9, 9, 9, 9, 11, 11, 11, 11, 11, 11, 11, 11, 11, 13 };
 
         for (int i = 0; i < filas.length; i++) {
             for (int j = 0; j < asientosPorFila[i]; j++) {
 
-                //  Cálculo de Coordenadas
+                // Cálculo de Coordenadas
                 int x = OFFSET_X + j * (T_SILLA + ESPACIO_X);
                 int y = OFFSET_Y + i * (T_SILLA + ESPACIO_Y);
 
-                //  Creación y Configuración del Botón
+                // Creación y Configuración del Botón
                 JButton silla = new JButton(); // ¡Ya no necesita texto!
                 silla.setName(filas[i] + (j + 1));
                 silla.setBounds(x, y, T_SILLA, T_SILLA);
                 silla.setBackground(Color.WHITE);
-                silla.setIcon(ICONO_SILLA_BASE);
+                silla.setIcon(Utilities.BASE_ICON_SEAT_PATH);
+                silla.addActionListener(listener);
+                silla.setActionCommand("SELECTED_SEAT");
 
                 // Agregar el Listener para el Clic
-                silla.addActionListener(e -> alternarSeleccion(silla, ICONO_SILLA_BASE, ICONO_SILLA_SELECCIONADA));
+                // silla.addActionListener(e -> alternarSeleccion(silla, ICONO_SILLA_BASE,
+                // ICONO_SILLA_SELECCIONADA));
 
                 add(silla);
             }
         }
     }
 
-    private void alternarSeleccion(JButton silla, Icon baseIcon, Icon seleccionadoIcon) {
+    public void alternarSeleccion(JButton silla, Icon baseIcon, Icon seleccionadoIcon) {
         String nombre = silla.getName();
-        if (silla.getIcon().equals(ICONO_SILLA_BASE)) {
-            silla.setIcon(ICONO_SILLA_SELECCIONADA);
+        if (silla.getIcon().equals(Utilities.BASE_ICON_SEAT_PATH)) {
+            silla.setIcon(Utilities.SELECTED_ICON_SEAT_PATH);
             sillasSeleccionadas.add(nombre);
         } else {
-            silla.setIcon(ICONO_SILLA_BASE);
+            silla.setIcon(Utilities.BASE_ICON_SEAT_PATH);
             sillasSeleccionadas.remove(nombre);
         }
         // Actualizar en SeatState
@@ -94,22 +97,29 @@ public class PanelAsientos extends JPanel {
 
         System.out.println("Sillas seleccionadas: " + sillasSeleccionadas);
     }
-    
-        public Set<String> getSillasSeleccionadas() {
+
+    public Set<String> getSillasSeleccionadas() {
         return sillasSeleccionadas;
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Demo Cineverso");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            frame.setSize(1024, 768);
-//            frame.setLocationRelativeTo(null);
-//
-//            // Aquí agregás tu panel principal completo
-//            frame.add(new PanelAsientos(null));
-//
-//            frame.setVisible(true);
-//        });
-//    }
+   public static void main(String[] args) {
+    SwingUtilities.invokeLater(() -> {
+        JFrame frame = new JFrame("Demo Cineverso");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1024, 768);
+        frame.setLocationRelativeTo(null);
+
+        // Creamos un ActionListener de prueba
+        ActionListener listener = e -> {
+            JButton clickedSeat = (JButton) e.getSource();
+            System.out.println("Asiento presionado: " + clickedSeat.getName());
+        };
+
+        // Agregamos el panel de asientos con el listener
+        frame.add(new PanelAsientos(listener));
+
+        frame.setVisible(true);
+    });
+}
+
 }

@@ -7,6 +7,8 @@ package models;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import utilities.Utilities;
 
 /**
@@ -31,22 +33,25 @@ public class CineVersSystem {
 
     public CineVersSystem() {
         gson = new GsonConverter();
- users = new ArrayList<>();
+        users = new ArrayList<>();
         admins = new ArrayList<>();
         movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
         functions = gson.loadFunctions(Utilities.FUNCTION_PATH);
         rooms = gson.loadRooms(Utilities.ROOMS_PATH);
-        reservations = new ArrayList<>();
+        reservations = gson.loadReservations(Utilities.RESERVATION_PATH);
         carteleras = new ArrayList<>();
 
         loadUsers();
-       
- }
+
+    }
+
+    public int createIdReservation() {
+        return reservations.size() + 1;
+    }
 
     public User getActiveUser() {
         return activeUser;
     }
-
 
     public void setActiveUser(User user) {
         this.activeUser = user;
@@ -56,7 +61,17 @@ public class CineVersSystem {
         this.activeUser = null;
     }
 
-    
+    public Function getFuctionReservation(String name) {
+        for (Function f : functions) {
+            if (f.getId().equals(name)) {
+                System.out.println("Función encontrada para el nombre: " + name);
+                return f;
+            }
+        }
+        System.out.println("Función no encontrada para el nombre: " + name);
+        return null;
+    }
+
     public void loadUsers() {
         List<User> allUsers = gson.loadUsers(Utilities.USERS_PATH);
         if (allUsers != null) {
@@ -70,7 +85,18 @@ public class CineVersSystem {
         }
     }
 
-   
+//    public static List<Seat> filterChairsByName(Set<String> nombresSillas,  ) {
+//        List<Seat> resultado = new ArrayList<>();
+//
+//        for (Seat seat : this.roomReservation.getAllSeats()) {
+//            if (nombresSillas.contains(seat.getId())) {
+//                resultado.add(seat);
+//            }
+//        }
+//
+//        return resultado;
+//    }
+
     public void saveUsers() {
         List<User> allUsers = new ArrayList<>();
         allUsers.addAll(admins);
@@ -82,12 +108,11 @@ public class CineVersSystem {
         }
     }
 
- 
-
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
-public User findUserByEmail(String email) {
+
+    public User findUserByEmail(String email) {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
                 return u;
@@ -101,10 +126,9 @@ public User findUserByEmail(String email) {
         return null;
     }
 
-   
     public boolean registerUser(User user) {
         if (findUserByEmail(user.getEmail()) != null) {
-            return false; 
+            return false;
         }
 
         if (user.getEmail().toLowerCase().contains("@admin")) {
@@ -119,7 +143,6 @@ public User findUserByEmail(String email) {
         return true;
     }
 
-
     public User loginUser(String email, String password) {
         User user = findUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
@@ -129,13 +152,12 @@ public User findUserByEmail(String email) {
 
             }
             this.activeUser = user;
-           
+
             return user;
         }
         return null;
     }
 
-    
     public boolean deleteUser(String email) {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
@@ -172,9 +194,6 @@ public User findUserByEmail(String email) {
     public City getSelectedCity() {
         return selectedCity;
     }
-
-
-
 
     public void addMovie(User user, Movie movie) throws IOException {
 
@@ -305,8 +324,6 @@ public User findUserByEmail(String email) {
         }
         return result;
     }
-   
-
 
     public Movie searchMovieByTitle(String name) {
         Movie movieretur = new Movie();
@@ -323,10 +340,11 @@ public User findUserByEmail(String email) {
         // 1. Verificar si la lista está vacía o es nula
         if (this.movies == null || this.movies.isEmpty()) {
             // Devuelve un array con solo el placeholder si no hay películas
-            return new String[]{"-- Sin Películas Disponibles --"};
+            return new String[] { "-- Sin Películas Disponibles --" };
         }
 
-        // 2. Crear una lista temporal para recopilar los títulos (más fácil que un array fijo)
+        // 2. Crear una lista temporal para recopilar los títulos (más fácil que un
+        // array fijo)
         List<String> titlesList = new ArrayList<>();
 
         // 3. Añadir el placeholder como primer elemento

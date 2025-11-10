@@ -65,18 +65,18 @@ public class Function {
     public int getAvailableSeats() {
         return room.getAvailableSeats();
     }
-
-    public boolean reserveSeat(int row, int number) {
-        Seat[][] seats = room.getSeats();
-        if (row >= 0 && row < seats.length && number >= 0 && number < seats[row].length) {
-            Seat seat = seats[row][number];
-            if (seat.isAvailable()) {
-                seat.reserve();
-                return true;
-            }
-        }
-        return false;
-    }
+ //Cambiar para que funcione ahora con una lista de sillas, porque se cambió en Room
+//    public boolean reserveSeat(int row, int number) {
+//        Seat[][] seats = room.getAllSeats();
+//        if (row >= 0 && row < seats.length && number >= 0 && number < seats[row].length) {
+//            Seat seat = seats[row][number];
+//            if (seat.isAvailable()) {
+//                seat.reserve();
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     @Override
     public String toString() {

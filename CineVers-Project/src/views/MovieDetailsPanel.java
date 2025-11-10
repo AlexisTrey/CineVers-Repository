@@ -26,6 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import utilities.Utilities;
+
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -35,14 +37,14 @@ import javax.swing.border.EmptyBorder;
  */
 public class MovieDetailsPanel extends JPanel {
 
- private BannerMoviePanel banner;
+    private BannerMoviePanel banner;
     private PosterMoviePanel poster;
     private ScheduleMoviePanel schedule;
     private SinopsisMovie sinopsis;
+
     private Footer footer;
     private ActionListener listener;
 
-    // Tamaño preferido razonable para evitar estiramientos verticales
     private static final Dimension PREFERRED = new Dimension(1200, 800);
 
     public MovieDetailsPanel(ActionListener listener) {
@@ -53,7 +55,7 @@ public class MovieDetailsPanel extends JPanel {
         // ---------- BANNER ----------
         banner = new BannerMoviePanel();
         banner.setPreferredSize(new Dimension(800, 250));
-        setBannerImage("/resources/images/banner_together.jpg");
+        setBannerImage(Utilities.BANNER_TOGETHER_PATH);
         add(banner, BorderLayout.NORTH);
 
         // ---------- PANEL CENTRAL PRINCIPAL ----------
@@ -127,7 +129,8 @@ public class MovieDetailsPanel extends JPanel {
         // Permitimos ancho ilimitado (para que se ajuste al ancho del scroll),
         // pero fijamos la altura al preferred para no estirar verticalmente.
         Dimension pref = getPreferredSize();
-        if (pref == null) return new Dimension(Integer.MAX_VALUE, 800);
+        if (pref == null)
+            return new Dimension(Integer.MAX_VALUE, 800);
         return new Dimension(Integer.MAX_VALUE, pref.height);
     }
 
@@ -150,17 +153,21 @@ public class MovieDetailsPanel extends JPanel {
         return button;
     }
 
-//   public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Horarios de Cine");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//            MovieDetailsPanel panel = new MovieDetailsPanel(null);
-//            frame.add(panel);
-//
-//            frame.pack();
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        });
-//    }
+    public SinopsisMovie getSinopsis() {
+        return sinopsis;
+    }
+
+    // public static void main(String[] args) {
+    // SwingUtilities.invokeLater(() -> {
+    // JFrame frame = new JFrame("Horarios de Cine");
+    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //
+    // MovieDetailsPanel panel = new MovieDetailsPanel(null);
+    // frame.add(panel);
+    //
+    // frame.pack();
+    // frame.setLocationRelativeTo(null);
+    // frame.setVisible(true);
+    // });
+    // }
 }
