@@ -33,10 +33,8 @@ public class PanelAsientos extends JPanel {
     private SeatState seatState;
 
     public PanelAsientos(ActionListener listener) {
-        // Establecer el diseño a null (absolute positioning)
         setLayout(null);
-
-        // Opcional: Establecer un tamaño para el panel
+        // Establecer un tamaño para el panel
         setPreferredSize(new Dimension(800, 1000));
         setBackground(Color.WHITE);
         // Agregar las sillas
@@ -95,6 +93,10 @@ public class PanelAsientos extends JPanel {
         }
 
         System.out.println("Sillas seleccionadas: " + sillasSeleccionadas);
+    }
+    
+        public Set<String> getSillasSeleccionadas() {
+        return sillasSeleccionadas;
     }
 
 //    public static void main(String[] args) {
