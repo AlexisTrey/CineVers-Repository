@@ -77,11 +77,11 @@ public class SeatState extends JPanel {
         lblTituloSillas.setBounds(20, 370, 250, 25);
         add(lblTituloSillas);
 
-        lblSillasSeleccionadas = new JLabel("Aún no has seleccionado sillas");
-        lblSillasSeleccionadas.setFont(new Font("Arial", Font.PLAIN, 14));
-        lblSillasSeleccionadas.setForeground(textColor);
-        lblSillasSeleccionadas.setBounds(20, 400, 260, 40);
-        add(lblSillasSeleccionadas);
+//        lblSillasSeleccionadas = new JLabel("Aún no has seleccionado sillas");
+//        lblSillasSeleccionadas.setFont(new Font("Arial", Font.PLAIN, 14));
+//        lblSillasSeleccionadas.setForeground(textColor);
+//        lblSillasSeleccionadas.setBounds(20, 400, 260, 40);
+//        add(lblSillasSeleccionadas);
 
         // Botón Volver
         JButton btnVolver = new JButton("< Volver");
@@ -212,17 +212,17 @@ public class SeatState extends JPanel {
         g2d.drawString(text, x + 8, y + 15);
     }
     
-//      public static void main(String[] args) {
-//            SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Estados de sillas");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//            SeatState panel = new SeatState (null);
-//            frame.add(panel);
-//
-//            frame.pack();
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        });
-//      }
+      public static void main(String[] args) {
+            SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Estados de sillas");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            SeatState panel = new SeatState (null);
+            frame.add(panel);
+
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+      }
 }
