@@ -276,7 +276,6 @@ public class Controller implements ActionListener {
             case "SELECTED_SEAT":
                 //hacer el llamado del cambio de icono
                 JButton clickedSeat = (JButton) e.getSource();
-                clickedSeat.setIcon(Utilities.SELECTED_ICON_SEAT_PATH);
                 mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos().alternarSeleccion(clickedSeat);
 
                 break;
