@@ -85,18 +85,25 @@ public class PanelAsientos extends JPanel {
         }
     }
 
+ 
     public void alternarSeleccion(JButton silla) {
-        if (silla.getIcon().equals(ICONO_SILLA_BASE) && seatState != null) {
-            silla.setIcon(ICONO_SILLA_SELECCIONADA);
-            sillasSeleccionadas.add(silla.getName());
-            seatState.actualizarSillasSeleccionadas(sillasSeleccionadas);
-        } else {
-            silla.setIcon(ICONO_SILLA_BASE);
-            sillasSeleccionadas.remove(silla.getName());
-        }
-
-        System.out.println("Sillas seleccionadas: " + sillasSeleccionadas);
+    if (silla.getIcon().equals(ICONO_SILLA_BASE)) {
+        // Cambiar a seleccionada
+        silla.setIcon(ICONO_SILLA_SELECCIONADA);
+        sillasSeleccionadas.add(silla.getName());
+    } else {
+        // Cambiar a desocupada
+        silla.setIcon(ICONO_SILLA_BASE);
+        sillasSeleccionadas.remove(silla.getName());
     }
+
+    // Solo actualiza SeatState si está inicializado (no condiciona el cambio)
+    if (seatState != null) {
+        seatState.actualizarSillasSeleccionadas(sillasSeleccionadas);
+    }
+
+    System.out.println("Sillas seleccionadas: " + sillasSeleccionadas);
+}
 
     // public void alternarSeleccion(JButton silla, Icon baseIcon, Icon seleccionadoIcon) {
     //     if (silla.getIcon().equals(baseIcon)) {
