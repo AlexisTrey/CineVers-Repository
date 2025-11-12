@@ -204,36 +204,20 @@ public class FormBillboardPanel extends JPanel {
         return panel;
     }
 
-    public JLabel getTitleLabel() {
-        return titleLabel;
-    }
-
-    public void setTitleLabel(JLabel titleLabel) {
-        this.titleLabel = titleLabel;
-    }
-
-    public JComboBox getCampoTitulo() {
-        return cmbPeliculas;
-    }
-
-    public void setCampoTitulo(JComboBox campoTitulo) {
-        this.cmbPeliculas = campoTitulo;
-    }
-
-    public JButton getBotonContinuar() {
-        return botonContinuar;
-    }
-
-    public void setBotonContinuar(JButton botonContinuar) {
-        this.botonContinuar = botonContinuar;
-    }
-
     public ActionListener getListener() {
         return listener;
     }
 
     public void setListener(ActionListener listener) {
         this.listener = listener;
+    }
+
+    public JLabel getTitleLabel() {
+        return titleLabel;
+    }
+
+    public void setTitleLabel(JLabel titleLabel) {
+        this.titleLabel = titleLabel;
     }
 
     public JComboBox<String> getCmbPeliculas() {
@@ -250,6 +234,14 @@ public class FormBillboardPanel extends JPanel {
 
     public void setTitles(String[] titles) {
         this.titles = titles;
+    }
+
+    public JButton getBotonContinuar() {
+        return botonContinuar;
+    }
+
+    public void setBotonContinuar(JButton botonContinuar) {
+        this.botonContinuar = botonContinuar;
     }
 
     public JTextField getTxtFunctionId() {
