@@ -7,6 +7,7 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -277,9 +278,9 @@ public class Controller implements ActionListener {
             case "SELECTED_SEAT":
                 //hacer el llamado del cambio de icono
                 JButton clickedSeat = (JButton) e.getSource();
-                PanelAsientos panelAsientos = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
-                panelAsientos.alternarSeleccion(clickedSeat, Utilities.BASE_ICON_SEAT_PATH,
-                Utilities.SELECTED_ICON_SEAT_PATH);
+                clickedSeat.setIcon(Utilities.SELECTED_ICON_SEAT_PATH);
+                mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos().alternarSeleccion(clickedSeat);
+
                 break;
 
             case "CONFIRM_SEATS" :

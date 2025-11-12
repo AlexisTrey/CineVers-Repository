@@ -17,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import utilities.Utilities;
 
 /**
@@ -80,12 +79,8 @@ public class FunctionsEditionPanel extends JPanel {
     }
 
     private void createContentPanel() {
-        JPanel wrapperPanel = new JPanel(new BorderLayout());
-        wrapperPanel.setBackground(new Color(240, 240, 240));
-
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
-        contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new java.awt.Insets(20, 0, 30, 0);
@@ -94,7 +89,7 @@ public class FunctionsEditionPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
 
         AddCardButton btnAddFunction = new AddCardButton("Agregar Función");
-        btnAddFunction.setActionCommand("AGREGAR_FUNCION");
+        btnAddFunction.setActionCommand("AGREGAR_SALA");
         btnAddFunction.addActionListener(listener);
         contentPanel.add(btnAddFunction, gbc);
 
@@ -118,9 +113,6 @@ public class FunctionsEditionPanel extends JPanel {
             contentPanel.add(function, gbc);
             gbc.gridy++;
         }
-        
-        wrapperPanel.add(contentPanel, BorderLayout.NORTH);
-        this.contentPanel = wrapperPanel;
     }
 
     public JPanel getContentPanel() {

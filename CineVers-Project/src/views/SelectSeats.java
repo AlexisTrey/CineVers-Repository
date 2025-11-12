@@ -50,10 +50,10 @@ public class SelectSeats extends JPanel {
 //            SwingUtilities.invokeLater(() -> {
 //            JFrame frame = new JFrame("Sillas selecionadas");
 //            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
+
 //            SelectSeats panel = new SelectSeats();
 //            frame.add(panel);
-//
+
 //            frame.pack();
 //            frame.setLocationRelativeTo(null);
 //            frame.setVisible(true);

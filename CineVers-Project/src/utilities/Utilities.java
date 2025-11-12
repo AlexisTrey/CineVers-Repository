@@ -47,8 +47,8 @@ public class Utilities {
 
   public static final String BANNER_TOGETHER_PATH = "/resources/images/banner_together.jpg";
 
-  public static final Icon BASE_ICON_SEAT_PATH = new ImageIcon(
+  public static final ImageIcon BASE_ICON_SEAT_PATH = new ImageIcon(
       Utilities.class.getResource("/resources/images/silladesocupada.png"));
-  public static final Icon SELECTED_ICON_SEAT_PATH = new ImageIcon(
+  public static final ImageIcon SELECTED_ICON_SEAT_PATH = new ImageIcon(
       Utilities.class.getResource("/resources/images/sillaocupada.png"));
 }
