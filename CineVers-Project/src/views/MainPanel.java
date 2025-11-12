@@ -83,7 +83,7 @@ public class MainPanel extends JPanel {
         addRoomPanel = new AddRoomPanel(listener);
         addMovieBillboard = new AddMovieBillboard(listener);
         addFuctionPanel = new AddFuctionPanel(listener);
-        selectSeats = new SelectSeats();
+        selectSeats = new SelectSeats(listener);
 
         showPanel(SELECT_CITY);
     }
@@ -150,6 +150,7 @@ public class MainPanel extends JPanel {
     public LoginView getLoginView() {
         return loginView;
     }
+
     public RegisterView getRegisterView() {
     return registerView;
 }
@@ -157,5 +158,8 @@ public class MainPanel extends JPanel {
         return selectSeats; 
     }
 
+    public FunctionsEditionPanel getFunctionsEditionPanel() {
+        return functionsEditionPanel;
+    }
 
 }

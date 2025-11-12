@@ -12,9 +12,10 @@ package models;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class City {
+
     private String id;
     private String name;
-    private String country="Colombia";
+    private String country = "Colombia";
 
     public City(String id, String name) {
         this.id = id;
@@ -49,7 +50,5 @@ public class City {
     public String toString() {
         return "City{" + "id=" + id + ", name=" + name + ", country=" + country + '}';
     }
-   
 
-    
 }

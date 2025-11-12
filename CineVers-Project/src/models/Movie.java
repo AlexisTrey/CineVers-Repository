@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
  * @author Jhonnyd Bleyck Arias Santafe
  */
 public class Movie {
+
     private String id;
     private String title;
     private String genre;
@@ -37,25 +38,22 @@ public class Movie {
         this.releaseDate = date;
 //        this.incart = incarte;
     }
+
     public Movie() {
     }
 
 //    public LocalDateTime getReleaseDate() {
 //        return releaseDate;
 //    }
-
 //    public void setReleaseDate(LocalDateTime releaseDate) {
 //        this.releaseDate = releaseDate;
 //    }
-
 //    public Boolean getIncart() {
 //        return incart;
 //    }
-
 //    public void setIncart(Boolean incart) {
 //        this.incart = incart;
 //    }
-    
 //    public String getId() {
 //        return id;
 //    }
@@ -65,24 +63,31 @@ public class Movie {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getGenre() {
         return genre;
     }
+
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
     public int getDurationMinutes() {
         return durationMinutes;
     }
+
     public void setDurationMinutes(int durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
+
     public String getClassification() {
         return classification;
     }
+
     public void setClassification(String classification) {
         this.classification = classification;
     }
@@ -92,9 +97,11 @@ public class Movie {
 //    public void setDirector(String director) {
 //        this.director = director;
 //    }
+
     public String getSynopsis() {
         return synopsis;
     }
+
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
     }
@@ -112,5 +119,5 @@ public class Movie {
     @Override
     public String toString() {
         return getMovieInfo();
-    }   
+    }
 }

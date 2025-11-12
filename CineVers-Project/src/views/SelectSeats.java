@@ -7,39 +7,43 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Paola
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class SelectSeats extends JPanel {
-    
+
     private MovieDetailsPanel contentPanelMovieDetails;
-    private PanelAsientos contentPanelAsientos; 
+    private PanelAsientos contentPanelAsientos;
     private SeatState contentPanelSeatState;
-    
-    public SelectSeats() {
+
+    public SelectSeats(ActionListener listener) {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
-        contentPanelMovieDetails = new MovieDetailsPanel(null); //revisar cómo quedaría bien porque la clase MovieDetailsPanel pide un listener por parámetro
-        contentPanelAsientos = new PanelAsientos(null);
-        contentPanelSeatState = new SeatState(null);
+        contentPanelMovieDetails = new MovieDetailsPanel(listener); //revisar cómo quedaría bien porque la clase MovieDetailsPanel pide un listener por parámetro
+        contentPanelAsientos = new PanelAsientos(listener);
+        contentPanelSeatState = new SeatState(listener);
         buildPanel();
     }
-    
-    private void buildPanel(){
-    JPanel contentCenterPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0)); // 40 px de espacio horizontal entre los paneles
-    contentCenterPanel.setBackground(Color.WHITE);
 
-    add(contentPanelMovieDetails , BorderLayout.NORTH);
-  
-    contentCenterPanel.add(contentPanelSeatState);
-    contentCenterPanel.add(contentPanelAsientos);
-    
-    add(contentCenterPanel, BorderLayout.CENTER);
+    private void buildPanel() {
+        JPanel contentCenterPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0)); // 40 px de espacio horizontal entre los paneles
+        contentCenterPanel.setBackground(Color.WHITE);
+
+        add(contentPanelMovieDetails, BorderLayout.NORTH);
+
+        contentCenterPanel.add(contentPanelSeatState);
+        contentCenterPanel.add(contentPanelAsientos);
+
+        add(contentCenterPanel, BorderLayout.CENTER);
     }
 
     public PanelAsientos getPanelAsientos(){
@@ -60,4 +64,3 @@ public class SelectSeats extends JPanel {
 //        });
 //    }
 }
- 

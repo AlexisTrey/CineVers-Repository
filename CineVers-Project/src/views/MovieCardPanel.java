@@ -43,7 +43,7 @@ public class MovieCardPanel extends JPanel {
     private JButton btnDetails;
     private ActionListener listener;
 
-    public MovieCardPanel(String title, String genre, String tags, ImageIcon poster,  ActionListener listener) {
+    public MovieCardPanel(String title, String genre, String tags, ImageIcon poster, ActionListener listener) {
         this.listener = listener;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(350, 570));
@@ -98,7 +98,6 @@ public class MovieCardPanel extends JPanel {
         btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnDetails.setActionCommand("VER_DETALLES");
         btnDetails.addActionListener(listener);
-
 
         infoPanel.add(lblTitle);
         infoPanel.add(lblGenre);

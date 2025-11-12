@@ -85,6 +85,7 @@ public class CineVersSystem {
         }
     }
 
+
 //    public static List<Seat> filterChairsByName(Set<String> nombresSillas,  ) {
 //        List<Seat> resultado = new ArrayList<>();
 //
@@ -358,6 +359,18 @@ public class CineVersSystem {
         // 5. Convertir la List<String> a un vector String[]
         // El método toArray(new String[0]) es el estándar para esto.
         return titlesList.toArray(new String[0]);
+    }
+
+    public void refreshMovies() {
+        this.movies = gson.loadPeliculas(Utilities.MOVIES_PATH);
+    }
+
+    public void refreshFunctions() {
+        this.functions = gson.loadFunctions(Utilities.FUNCTION_PATH);
+    }
+
+    public void refreshRooms() {
+        this.rooms = gson.loadRooms(Utilities.ROOMS_PATH);
     }
 
 }

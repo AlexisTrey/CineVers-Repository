@@ -11,10 +11,11 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author meloc
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
-
-
 public class UserMenuPanel extends JPopupMenu {
 
     private JLabel lblName, lblEmail, lblRole;

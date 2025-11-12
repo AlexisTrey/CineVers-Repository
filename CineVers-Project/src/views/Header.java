@@ -75,8 +75,8 @@ public class Header extends JPanel {
 
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        Font bigFont = customFont.deriveFont(Font.BOLD, 70f);  
-        Font normalFont = customFont.deriveFont(Font.BOLD, 50f); 
+        Font bigFont = customFont.deriveFont(Font.BOLD, 70f);
+        Font normalFont = customFont.deriveFont(Font.BOLD, 50f);
 
         int x = 50;
         int y = 85;
@@ -151,7 +151,7 @@ public class Header extends JPanel {
         btnUserProfile.setBackground(new Color(70, 67, 133));
         btnUserProfile.setForeground(Color.WHITE);
         btnUserProfile.setFocusPainted(false);
-        btnUserProfile.setVisible(false); 
+        btnUserProfile.setVisible(false);
         btnUserProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         btnUserProfile.setBorderPainted(false);
@@ -159,8 +159,7 @@ public class Header extends JPanel {
 
         btnUserProfile.setOpaque(true);
         btnUserProfile.setBorder(BorderFactory.createEmptyBorder());
-        btnUserProfile.setBackground(new Color(70, 67, 133)); 
-
+        btnUserProfile.setBackground(new Color(70, 67, 133));
 
         btnUserProfile.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
             @Override
@@ -177,12 +176,12 @@ public class Header extends JPanel {
         btnUserProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                btnUserProfile.setBackground(new Color(123, 44, 191)); 
+                btnUserProfile.setBackground(new Color(123, 44, 191));
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                btnUserProfile.setBackground(new Color(70, 67, 133)); 
+                btnUserProfile.setBackground(new Color(70, 67, 133));
             }
         });
 
@@ -209,10 +208,10 @@ public class Header extends JPanel {
     public void setUserVisible(boolean visible) {
         btnUserProfile.setVisible(visible);
 
-        btnAccount.setVisible(!visible); 
+        btnAccount.setVisible(!visible);
 
         if (!visible && btnAdmin != null) {
-            btnAdmin.setVisible(false); 
+            btnAdmin.setVisible(false);
         }
     }
 
@@ -227,7 +226,7 @@ public class Header extends JPanel {
             );
             btnUserProfile.setVisible(true);
             btnAccount.setVisible(false);
-            setAdminVisible(user.isAdmin()); 
+            setAdminVisible(user.isAdmin());
         } else {
             btnUserProfile.setVisible(false);
             btnAccount.setVisible(true);

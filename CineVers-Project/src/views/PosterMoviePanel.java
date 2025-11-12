@@ -66,8 +66,10 @@ public class PosterMoviePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-super.paintComponent(g);
-        if (posterImage == null) return;
+        super.paintComponent(g);
+        if (posterImage == null) {
+            return;
+        }
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -93,7 +95,6 @@ super.paintComponent(g);
 //            drawImageWithShadow(g2d, posterImage, xPos, y, imgWidth, imgHeight);
 //        }
 //    }
-
     private void drawImageWithShadow(Graphics2D g2d, BufferedImage image, int x, int y, int width, int height) {
         // Dibujar sombra
         g2d.setColor(new Color(0, 0, 0, 30));

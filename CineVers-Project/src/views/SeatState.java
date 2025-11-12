@@ -23,7 +23,10 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Paola
+ * @author Yulian Alexis Tobar Rios
+ * @author Paola Andrea Camacho Gonzalez
+ * @author Hellen Valeria Melo Cubides
+ * @author Jhonnyd Bleyck Arias Santafe
  */
 public class SeatState extends JPanel {
 
@@ -90,6 +93,7 @@ public class SeatState extends JPanel {
         btnVolver.setBackground(new Color(100, 0, 160));
         btnVolver.setFocusPainted(false);
         btnVolver.setBounds(20, 520, 110, 40);
+        btnVolver.setActionCommand("HOME");
         btnVolver.addActionListener(listener);
         add(btnVolver);
 
@@ -100,6 +104,7 @@ public class SeatState extends JPanel {
         btnConfirmar.setBackground(new Color(0, 180, 0));
         btnConfirmar.setFocusPainted(false);
         btnConfirmar.setBounds(150, 520, 120, 40);
+        btnConfirmar.setActionCommand("CONFIRMAR_RESERVA");
         btnConfirmar.addActionListener(listener);
         btnConfirmar.setActionCommand("CONFIRM_SEATS");
         add(btnConfirmar);
@@ -213,19 +218,17 @@ public class SeatState extends JPanel {
         g2d.drawString(text, x + 8, y + 15);
     }
 
-    
-    
-    //   public static void main(String[] args) {
-    //         SwingUtilities.invokeLater(() -> {
-    //         JFrame frame = new JFrame("Estados de sillas");
-    //         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    //         SeatState panel = new SeatState (null);
-    //         frame.add(panel);
-
-    //         frame.pack();
-    //         frame.setLocationRelativeTo(null);
-    //         frame.setVisible(true);
-    //     });
-    //   }
+//      public static void main(String[] args) {
+//            SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Estados de sillas");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//            SeatState panel = new SeatState (null);
+//            frame.add(panel);
+//
+//            frame.pack();
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        });
+//      }
 }

@@ -82,7 +82,7 @@ public class RoomEditionPanel extends JPanel {
     private void createContentPanel() {
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setBackground(new Color(240, 240, 240));
-        
+
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
         contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
@@ -118,7 +118,7 @@ public class RoomEditionPanel extends JPanel {
             contentPanel.add(room, gbc);
             gbc.gridy++;
         }
-        
+
         wrapperPanel.add(contentPanel, BorderLayout.NORTH);
         this.contentPanel = wrapperPanel;
     }

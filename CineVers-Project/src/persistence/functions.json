@@ -4,20 +4,20 @@
         "movie": {
             "id": "M001",
             "title": "Orgullo y Prejuicio",
-            "genre": "Comedia",
+            "genre": "Drama",
             "durationMinutes": 180,
             "classification": "A",
-            "synopsis": "Una historia clásica de Jane Austen sobre la familia Bennett.",
+            "synopsis": "Una historia clásica de amor y prejuicios basada en la obra de Jane Austen.",
             "releaseDate": "2025-11-07"
         },
         "room": {
-            "id": "R05",
-            "name": "Sala 05",
+            "id": "R01",
+            "name": "Sala 01",
             "capacity": 33,
             "type": "VIP 3D",
             "price": 12.5
         },
-        "dateTime": "12:55"
+        "dateTime": "12:00"
     },
     {
         "id": "F002",
@@ -25,9 +25,9 @@
             "id": "M002",
             "title": "Zootopia 2",
             "genre": "Animación",
-            "durationMinutes": 228,
-            "classification": "B",
-            "synopsis": "Los animales detectives Nick y Judy vuelven a la acción.",
+            "durationMinutes": 120,
+            "classification": "A",
+            "synopsis": "Los detectives Nick y Judy regresan a resolver un nuevo misterio en Zootopia.",
             "releaseDate": "2024-12-19"
         },
         "room": {
@@ -35,29 +35,148 @@
             "name": "Sala 02",
             "capacity": 50,
             "type": "2D",
-            "price": 8.99
+            "price": 9.0
         },
-        "dateTime": "18:45"
+        "dateTime": "15:30"
     },
-
     {
         "id": "F003",
         "movie": {
-            "id": "M002",
-            "title": "TOGETHER",
-            "genre": "Drama",
-            "durationMinutes": 115,
-            "classification": "h",
-            "synopsis": "Amor sin compacion",
-            "releaseDate": "2024-12-19"
+            "id": "M003",
+            "title": "Demon Slayer: Infinity Castle",
+            "genre": "Acción",
+            "durationMinutes": 170,
+            "classification": "B",
+            "synopsis": "Tanjiro y sus compañeros enfrentan la batalla final en el Castillo Infinito.",
+            "releaseDate": "2024-10-01"
         },
         "room": {
-            "id": "R01",
+            "id": "R03",
             "name": "Sala 03",
-            "capacity": 50,
-            "type": "2D",
-            "price": 8.99
+            "capacity": 20,
+            "type": "3D",
+            "price": 10.5
         },
-        "dateTime": "18:45"
+        "dateTime": "18:00"
+    },
+    {
+        "id": "F004",
+        "movie": {
+            "id": "M004",
+            "title": "Miraculous: Las Aventuras de Ladybug",
+            "genre": "Animación",
+            "durationMinutes": 115,
+            "classification": "A",
+            "synopsis": "Marinette y Adrien deben proteger París de un nuevo villano.",
+            "releaseDate": "2025-06-01"
+        },
+        "room": {
+            "id": "R04",
+            "name": "Sala 04",
+            "capacity": 45,
+            "type": "2D - VIP",
+            "price": 11.0
+        },
+        "dateTime": "10:00"
+    },
+    {
+        "id": "F005",
+        "movie": {
+            "id": "M005",
+            "title": "Jurassic World Rebirth",
+            "genre": "Aventura",
+            "durationMinutes": 127,
+            "classification": "B",
+            "synopsis": "Un nuevo parque temático revive los dinosaurios, pero algo sale mal.",
+            "releaseDate": "2025-01-10"
+        },
+        "room": {
+            "id": "R05",
+            "name": "Sala 05",
+            "capacity": 60,
+            "type": "3D",
+            "price": 10.0
+        },
+        "dateTime": "21:00"
+    },
+    {
+        "id": "F006",
+        "movie": {
+            "id": "M006",
+            "title": "Together: Juntos Hasta la Muerte",
+            "genre": "Terror",
+            "durationMinutes": 102,
+            "classification": "C",
+            "synopsis": "Una pareja enfrenta un oscuro secreto que pondrá a prueba su amor.",
+            "releaseDate": "2025-02-14"
+        },
+        "room": {
+            "id": "R06",
+            "name": "Sala 06",
+            "capacity": 40,
+            "type": "2D",
+            "price": 8.0
+        },
+        "dateTime": "23:30"
+    },
+    {
+        "id": "F007",
+        "movie": {
+            "id": "M007",
+            "title": "Otro Viernes de Locos",
+            "genre": "Comedia",
+            "durationMinutes": 127,
+            "classification": "A",
+            "synopsis": "Una madre y su hija vuelven a intercambiar cuerpos, pero con un giro moderno.",
+            "releaseDate": "2025-03-20"
+        },
+        "room": {
+            "id": "R07",
+            "name": "Sala 07",
+            "capacity": 55,
+            "type": "2D - VIP",
+            "price": 9.5
+        },
+        "dateTime": "19:15"
+    },
+    {
+        "id": "F008",
+        "movie": {
+            "id": "M008",
+            "title": "Pompoko - La Guerra de los Mapaches",
+            "genre": "Animación",
+            "durationMinutes": 126,
+            "classification": "A",
+            "synopsis": "Los mapaches luchan por proteger su bosque de la urbanización humana.",
+            "releaseDate": "2025-04-12"
+        },
+        "room": {
+            "id": "R08",
+            "name": "Sala 08",
+            "capacity": 30,
+            "type": "2D",
+            "price": 7.5
+        },
+        "dateTime": "14:00"
+    },
+    {
+        "id": "F009",
+        "movie": {
+            "id": "M009",
+            "title": "Avatar: Fuego y Ceniza",
+            "genre": "Ciencia Ficción",
+            "durationMinutes": 162,
+            "classification": "B",
+            "synopsis": "Jake Sully regresa para enfrentar una nueva amenaza en Pandora.",
+            "releaseDate": "2025-07-18"
+        },
+        "room": {
+            "id": "R09",
+            "name": "Sala 09",
+            "capacity": 70,
+            "type": "3D - VIP",
+            "price": 13.0
+        },
+        "dateTime": "20:45"
     }
 ]

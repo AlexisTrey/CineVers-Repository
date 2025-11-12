@@ -129,8 +129,9 @@ public class MovieDetailsPanel extends JPanel {
         // Permitimos ancho ilimitado (para que se ajuste al ancho del scroll),
         // pero fijamos la altura al preferred para no estirar verticalmente.
         Dimension pref = getPreferredSize();
-        if (pref == null)
+        if (pref == null) {
             return new Dimension(Integer.MAX_VALUE, 800);
+        }
         return new Dimension(Integer.MAX_VALUE, pref.height);
     }
 

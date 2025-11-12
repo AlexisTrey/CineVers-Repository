@@ -8,14 +8,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
- /**
+
+/**
  *
  * @author Yulian Alexis Tobar Rios
  * @author Paola Andrea Camacho Gonzalez
  * @author Hellen Valeria Melo Cubides
  * @author Jhonnyd Bleyck Arias Santafe
  */
-
 public class LoginPromptDialog extends JDialog {
 
     public static final String ACTION_GO_LOGIN = "PROMPT_GO_LOGIN";
@@ -25,7 +25,7 @@ public class LoginPromptDialog extends JDialog {
         super(owner, true);
         this.listener = listener;
         setUndecorated(true);
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         initComponents(owner);
     }
 
@@ -54,23 +54,23 @@ public class LoginPromptDialog extends JDialog {
                 super.paintComponent(g);
             }
         };
-        card.setOpaque(false); 
+        card.setOpaque(false);
         card.setPreferredSize(new Dimension(CARD_W, CARD_H));
         card.setBorder(new EmptyBorder(18, 20, 18, 20));
 
         JLabel title = new JLabel("Atención", SwingConstants.CENTER);
         title.setFont(new Font("Segoe UI", Font.BOLD, 20));
         title.setForeground(new Color(160, 60, 190));
-JLabel message = new JLabel(
-        "<html><div style='text-align:center; line-height:1.4;'>"
-      + "Debes iniciar sesión para continuar con la compra<br>"
-      + "y acceder a las opciones de reserva."
-      + "</div></html>",
-        SwingConstants.CENTER);
+        JLabel message = new JLabel(
+                "<html><div style='text-align:center; line-height:1.4;'>"
+                + "Debes iniciar sesión para continuar con la compra<br>"
+                + "y acceder a las opciones de reserva."
+                + "</div></html>",
+                SwingConstants.CENTER);
 
-message.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-message.setForeground(new Color(50, 50, 50));
-message.setBorder(new EmptyBorder(10, 10, 10, 10));
+        message.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        message.setForeground(new Color(50, 50, 50));
+        message.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JButton btnLogin = new JButton("Iniciar sesión") {
             @Override
@@ -103,11 +103,10 @@ message.setBorder(new EmptyBorder(10, 10, 10, 10));
         });
 
         card.add(title, BorderLayout.NORTH);
-JPanel center = new JPanel(new BorderLayout());
-center.setOpaque(false);
-center.add(message, BorderLayout.CENTER);
-card.add(center, BorderLayout.CENTER);
-
+        JPanel center = new JPanel(new BorderLayout());
+        center.setOpaque(false);
+        center.add(message, BorderLayout.CENTER);
+        card.add(center, BorderLayout.CENTER);
 
         JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         south.setOpaque(false);
@@ -115,7 +114,8 @@ card.add(center, BorderLayout.CENTER);
         card.add(south, BorderLayout.SOUTH);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
         getContentPane().add(card, gbc);
 
@@ -129,7 +129,8 @@ card.add(center, BorderLayout.CENTER);
             setLocationRelativeTo(null);
         }
 
-        getRootPane().registerKeyboardAction(e -> {}, 
+        getRootPane().registerKeyboardAction(e -> {
+        },
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
     }

@@ -1,38 +1,38 @@
 [
-  {
-    "id": "M001",
-    "title": "Orgullo y Prejuicio",
-    "genre": "Comedia",
-    "durationMinutes": 180,
-    "classification": "A",
-    "synopsis": "Una historia clásica de Jane Austen sobre la familia Bennett.",
-    "releaseDate": "2025-11-07"
-  },
-  {
-    "id": "M002",
-    "title": "Zootopia 2",
-    "genre": "Animación",
-    "durationMinutes": 228,
-    "classification": "B",
-    "synopsis": "Los animales detectives Nick y Judy vuelven a la acción.",
-    "releaseDate": "2024-12-19"
-  },
-  {
-    "id": "M003",
-    "title": "El Señor de los Anillos: La Comunidad del Anillo",
-    "genre": "Fantasía",
-    "durationMinutes": 228,
-    "classification": "B",
-    "synopsis": "Un hobbit emprende una aventura épica.",
-    "releaseDate": "2001-12-19"
-  },
-  {
-    "id": "M004",
-    "title": "The Social Network",
-    "genre": "Drama",
-    "durationMinutes": 120,
-    "classification": "C",
-    "synopsis": "La creación de Facebook y sus consecuencias.",
-    "releaseDate": "2010-10-01"
-  }
+    {
+        "id": "M001",
+        "title": "Orgullo y Prejuicio",
+        "genre": "Comedia",
+        "durationMinutes": 180,
+        "classification": "A",
+        "synopsis": "Una historia clásica de Jane Austen sobre la familia Bennett.",
+        "releaseDate": "2025-11-07"
+    },
+    {
+        "id": "M002",
+        "title": "Zootopia 2",
+        "genre": "Animación",
+        "durationMinutes": 228,
+        "classification": "B",
+        "synopsis": "Los animales detectives Nick y Judy vuelven a la acción.",
+        "releaseDate": "2024-12-19"
+    },
+    {
+        "id": "M003",
+        "title": "El Señor de los Anillos: La Comunidad del Anillo",
+        "genre": "Fantasía",
+        "durationMinutes": 228,
+        "classification": "B",
+        "synopsis": "Un hobbit emprende una aventura épica.",
+        "releaseDate": "2001-12-19"
+    },
+    {
+        "id": "M004",
+        "title": "The Social Network",
+        "genre": "Drama",
+        "durationMinutes": 120,
+        "classification": "C",
+        "synopsis": "La creación de Facebook y sus consecuencias.",
+        "releaseDate": "2010-10-01"
+    }
 ]
