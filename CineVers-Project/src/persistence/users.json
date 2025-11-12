@@ -100,7 +100,7 @@
     "email": "fernandez@gmail.com",
     "phone": "123456789",
     "password": "15948",
-    "isAdmin": false,
+    "isAdmin": true,
     "city": {
       "id": "C925702077",
       "name": "Armenia",
