@@ -160,23 +160,23 @@
     "dateTime": "14:00"
     },
     {
-        "id": "F009",
-        "movie": {
-            "id": "M009",
-            "title": "Avatar: Fuego y Ceniza",
-            "genre": "Ciencia Ficción",
-            "durationMinutes": 162,
-            "classification": "B",
-            "synopsis": "Jake Sully regresa para enfrentar una nueva amenaza en Pandora.",
-            "releaseDate": "2025-07-18"
-        },
-        "room": {
-            "id": "R09",
-            "name": "Sala 09",
-            "capacity": 70,
-            "type": "3D - VIP",
-            "price": 13.0
-        },
-        "dateTime": "20:45"
+    "id": "F009",
+    "movie": {
+      "id": "M009",
+      "title": "Avatar: Fuego y Ceniza",
+      "genre": "Ciencia Ficción",
+      "durationMinutes": 162,
+      "classification": "B",
+      "synopsis": "Jake Sully regresa para enfrentar una nueva amenaza en Pandora.",
+      "releaseDate": "2025-07-18"
+    },
+    "room": {
+      "id": "R09",
+      "name": "Sala 09",
+      "capacity": 70,
+      "type": "3D - VIP",
+      "price": 13.0
+    },
+    "dateTime": "20:45"
   }
 ]
