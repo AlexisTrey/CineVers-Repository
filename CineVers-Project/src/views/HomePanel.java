@@ -11,16 +11,18 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
-import java.net.http.WebSocket.Listener;
-
-import javax.swing.BoxLayout;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import models.CineVersSystem;
+import models.Movie;
 import utilities.Utilities;
 
 /**
@@ -38,21 +40,21 @@ public class HomePanel extends JPanel {
     private JScrollPane scrollPane;
     private ActionListener listener;
     private JButton btnUpcoming;
+    private CineVersSystem cine;
 
     public HomePanel(ActionListener listener) {
         this.listener = listener;
+        this.cine = new CineVersSystem();
+
         setLayout(new BorderLayout());
         setBackground(new Color(44, 44, 84));
 
         mainContent = new JPanel();
-        mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
+        mainContent.setLayout(new BorderLayout());
         mainContent.setBackground(new Color(44, 44, 84));
 
         createTopPanel();
         createContentPanel();
-
-        mainContent.add(topPanel);
-        mainContent.add(contentPanel);
 
         scrollPane = new JScrollPane(mainContent);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -83,6 +85,8 @@ public class HomePanel extends JPanel {
 
         gbc.gridy = 1;
         topPanel.add(lblSubTitle, gbc);
+
+        mainContent.add(topPanel, BorderLayout.NORTH);
     }
 
     private void createContentPanel() {
@@ -90,29 +94,30 @@ public class HomePanel extends JPanel {
         contentPanel.setBackground(new Color(240, 240, 240));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new java.awt.Insets(30, 30, 30, 30);
+        gbc.insets = new Insets(30, 30, 30, 30);
         gbc.gridy = 0;
         gbc.gridx = 0;
 
-        MovieCardPanel[] movies = {
-            new MovieCardPanel("Orgullo y Prejuicio", "Drama • Romance", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.PREJUICIO_PATH)), listener),
-            new MovieCardPanel("Together: Juntos Hasta la Muerte", "Horror • 1h 42min", "2D",
-            new ImageIcon(getClass().getResource(Utilities.TOGETHER_PATH)), listener),
-            new MovieCardPanel("Otro Viernes de Locos", "Comedia • Familiar • 2h 7min", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.VIERNES_PATH)), listener),
-            new MovieCardPanel("Miraculous: Las Aventuras de Ladybug", "Animación • Aventura", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.MIRACULOUS_PATH)), listener),
-            new MovieCardPanel("Demon Slayer: Infinity Castle", "Acción • Fantasía • 2h 54min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.DEMON_PATH)), listener),
-            new MovieCardPanel("Jurassic World Rebirth", "Aventura • Ciencia Ficción • 2h 7min", "3D - 2D",
-            new ImageIcon(getClass().getResource(Utilities.JURASSIC_PATH)), listener)
-        };
+        List<Movie> movies = cine.getMovies();
+        int col = 0;
 
-        for (int i = 0; i < movies.length; i++) {
-            contentPanel.add(movies[i], gbc);
+        for (Movie m : movies) {
+            String imagePath = Utilities.getImageForMovieTitle(m.getTitle());
+            MovieCardPanel card = new MovieCardPanel(
+                    m.getTitle(),
+                    m.getGenre() + " • " + m.getClassification(),
+                    "Duración: " + m.getDurationMinutes() + " min",
+                    new ImageIcon(getClass().getResource(imagePath)),
+                    listener
+            );
 
-            if ((i + 1) % 3 == 0) {
+            card.getBtnDetails().setActionCommand("VER_DETALLES_" + m.getId());
+            card.getBtnDetails().addActionListener(listener);
+
+            contentPanel.add(card, gbc);
+            col++;
+            if (col == 3) {
+                col = 0;
                 gbc.gridx = 0;
                 gbc.gridy++;
             } else {
@@ -120,10 +125,12 @@ public class HomePanel extends JPanel {
             }
         }
 
+        //Próximos Estrenos
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = 3;
-        gbc.insets = new java.awt.Insets(60, 0, 20, 0);
+        gbc.insets = new Insets(80, 0, 20, 0);
+        gbc.anchor = GridBagConstraints.CENTER;
 
         btnUpcoming = new JButton("PRÓXIMOS ESTRENOS");
         btnUpcoming.setFont(new Font("Segoe UI", Font.BOLD, 34));
@@ -137,35 +144,45 @@ public class HomePanel extends JPanel {
         btnUpcoming.addActionListener(listener);
         contentPanel.add(btnUpcoming, gbc);
 
-        gbc.gridwidth = 1;
-        gbc.insets = new java.awt.Insets(20, 30, 50, 30);
         gbc.gridy++;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(20, 30, 50, 30);
         gbc.gridx = 0;
 
-        MovieCardPanel[] upcoming = {
-            new MovieCardPanel("Pompoko - La Guerra de los Mapaches", "Tierna • Animado • 1h 06min ", "2D",
-            new ImageIcon(getClass().getResource(Utilities.POMPOKO_PATH)), listener),
-            new MovieCardPanel("Zootopia 2", "Drama • Romance • 2h 54min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.ZOOTOPIA_PATH)), listener),
-            new MovieCardPanel("Avatar: Fuego y Ceniza", "Comedia • Accion • 2h 7min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.AVATAR_PATH)), listener)
-        };
+        List<Movie> upcomingMovies = cine.getGson().loadPeliculas(Utilities.UPCOMING_MOVIES_PATH);
+        col = 0;
 
-        for (int i = 0; i < upcoming.length; i++) {
-            contentPanel.add(upcoming[i], gbc);
+        for (Movie m : upcomingMovies) {
+            String imagePath = Utilities.getImageForMovieTitle(m.getTitle());
+            MovieCardPanel card = new MovieCardPanel(
+                    m.getTitle(),
+                    m.getGenre() + " • " + m.getClassification(),
+                    "Duración: " + m.getDurationMinutes() + " min",
+                    new ImageIcon(getClass().getResource(imagePath)),
+                    listener
+            );
 
-            if ((i + 1) % 3 == 0) {
+            card.getBtnDetails().setActionCommand("VER_DETALLES_" + m.getId());
+            card.getBtnDetails().addActionListener(listener);
+
+            contentPanel.add(card, gbc);
+
+            col++;
+            if (col == 3) {
+                col = 0;
                 gbc.gridx = 0;
                 gbc.gridy++;
             } else {
                 gbc.gridx++;
             }
         }
+
+        mainContent.add(contentPanel, BorderLayout.CENTER);
     }
 
     public void scrollToUpcoming() {
         if (scrollPane != null && btnUpcoming != null) {
-            javax.swing.SwingUtilities.invokeLater(() -> {
+            SwingUtilities.invokeLater(() -> {
                 Rectangle rect = btnUpcoming.getBounds();
                 btnUpcoming.scrollRectToVisible(rect);
                 scrollPane.getViewport().setViewPosition(

@@ -41,6 +41,7 @@ public class Utilities {
     public static final String FUNCTION_PATH = "src/persistence/functions.json";
     public static final String ROOMS_PATH = "src/persistence/rooms.json";
     public static final String RESERVATION_PATH = "src/persistence/reservations.json";
+    public static final String UPCOMING_MOVIES_PATH = "src/persistence/upcomingMovies.json";
 
     public static final String BANNER_TOGETHER_PATH = "/resources/images/banner_together.jpg";
 

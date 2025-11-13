@@ -96,7 +96,7 @@ public class MovieCardPanel extends JPanel {
         btnDetails.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnDetails.setMaximumSize(new Dimension(180, 45));
         btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnDetails.setActionCommand("VER_DETALLES");
+        //btnDetails.setActionCommand("VER_DETALLES");
         btnDetails.addActionListener(listener);
 
         infoPanel.add(lblTitle);

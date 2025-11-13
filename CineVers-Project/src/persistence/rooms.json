@@ -10,14 +10,56 @@
         "id": "R02",
         "name": "Sala 02",
         "capacity": 50,
-        "type": "3D",
-        "price": 10.0
+        "type": "2D",
+        "price": 9.0
     },
     {
         "id": "R03",
         "name": "Sala 03",
-        "capacity": 35,
-        "type": "VIP 3D",
-        "price": 12.5
+        "capacity": 20,
+        "type": "3D",
+        "price": 10.5
+    },
+    {
+        "id": "R04",
+        "name": "Sala 04",
+        "capacity": 45,
+        "type": "2D - VIP",
+        "price": 11.0
+    },
+    {
+        "id": "R05",
+        "name": "Sala 05",
+        "capacity": 60,
+        "type": "3D",
+        "price": 10.0
+    },
+    {
+        "id": "R06",
+        "name": "Sala 06",
+        "capacity": 40,
+        "type": "2D",
+        "price": 8.0
+    },
+    {
+        "id": "R07",
+        "name": "Sala 07",
+        "capacity": 55,
+        "type": "2D - VIP",
+        "price": 9.5
+    },
+    {
+        "id": "R08",
+        "name": "Sala 08",
+        "capacity": 30,
+        "type": "2D",
+        "price": 7.5
+    },
+    {
+        "id": "R09",
+        "name": "Sala 09",
+        "capacity": 70,
+        "type": "3D - VIP",
+        "price": 13.0
     }
 ]
