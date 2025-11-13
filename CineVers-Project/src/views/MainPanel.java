@@ -1,9 +1,11 @@
 package views;
 
+import controllers.Controller;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import models.CineVersSystem;
 
 /**
  *
@@ -80,7 +82,7 @@ public class MainPanel extends JPanel {
         roomEditionPanel = new RoomEditionPanel(listener);
         billboardEditionPanel = new BillboardEditionPanel(listener);
         functionsEditionPanel = new FunctionsEditionPanel(listener);
-        addRoomPanel = new AddRoomPanel(listener);
+        addRoomPanel = new AddRoomPanel(listener);  
         addMovieBillboard = new AddMovieBillboard(listener);
         addFuctionPanel = new AddFuctionPanel(listener);
         selectSeats = new SelectSeats(listener);

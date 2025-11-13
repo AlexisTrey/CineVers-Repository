@@ -32,6 +32,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import java.awt.Frame;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 import views.LoginPromptDialog;
 import views.ReservationConfirmationJDialog;
@@ -280,27 +281,59 @@ public class Controller implements ActionListener {
 
                 break;
 
-            case "CONFIRM_SEATS" :
+            case "CONFIRM_SEATS":
                 PanelAsientos panelAsientos2 = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
                 Set<String> setsleceted = panelAsientos2.getSillasSeleccionadas();
                 String newIdReservation = String.valueOf(cine.createIdReservation());
-               // Function fuctionreservation = this.cine.getFuctionReservation(this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
-               // List<Seat> seatsreservation = this.cine.filterChairsByName(setsleceted);
-                
+                // Function fuctionreservation = this.cine.getFuctionReservation(this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
+                // List<Seat> seatsreservation = this.cine.filterChairsByName(setsleceted);
+
                 ConfirmReservation dialog = new ConfirmReservation(mainFrame, this);
                 dialog.setVisible(true);
                 break;
 
-                
+            default: 
+                //ELIMINAR FUNCIÓN
+                if (command.startsWith("ELIMINAR_FUNCION_")) {
+                    String idEliminar = command.replace("ELIMINAR_FUNCION_", "");
+                    try {
+                        Function fEliminar = cine.getFunctions().stream()
+                                .filter(f -> f.getId().equals(idEliminar))
+                                .findFirst()
+                                .orElse(null);
 
-            // case "UPCOMING":
-            // mainFrame.getMainPanel().showPanel(MainPanel.HOME);
-            // javax.swing.SwingUtilities.invokeLater(() -> {
-            // mainFrame.getMainPanel().getHomePanel().scrollToUpcoming();
-            // });
-            // break;
-            default:
+                        if (fEliminar != null) {
+                            cine.removeFunction(new User(true), fEliminar);
+                            cine.refreshFunctions(); //actualiza lista interna
+                            mainFrame.getMainPanel().getFunctionsEditionPanel().refreshContent(); //actualiza UI en tiempo real
+                            JOptionPane.showMessageDialog(mainFrame, "Función eliminada correctamente.");
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mainFrame, "Error al eliminar función: " + ex.getMessage());
+                    }
+                    break;
+                }
+
+                //EDITAR FUNCIÓN
+                if (command.startsWith("EDITAR_FUNCION_")) {
+                    String idEditar = command.replace("EDITAR_FUNCION_", "");
+                    Function fEditar = cine.getFunctions().stream()
+                            .filter(f -> f.getId().equals(idEditar))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (fEditar != null) {
+                        mainFrame.getMainPanel().showPanel(MainPanel.ADD_FUNCTION);
+                        FormBillboardPanel form = mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel();
+                        form.getTxtFunctionId().setText(fEditar.getId());
+                        form.getTxtStartTime().setText(fEditar.getDateTime());
+                        form.getCmbPeliculas().setSelectedItem(fEditar.getMovie().getTitle());
+                    }
+                    break;
+                }
+
                 System.out.println("Acción no reconocida: " + command);
+                break;
         }
     }
 
@@ -362,8 +395,9 @@ public class Controller implements ActionListener {
                 java.lang.reflect.Method m2 = mainFrame.getMainPanel().getHeader().getClass()
                         .getMethod("isUserVisible");
                 Object visible = m2.invoke(mainFrame.getMainPanel().getHeader());
-                if (visible instanceof Boolean)
+                if (visible instanceof Boolean) {
                     return (Boolean) visible;
+                }
             } catch (Exception ex2) {
             }
             return false;

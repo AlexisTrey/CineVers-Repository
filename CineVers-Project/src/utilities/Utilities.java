@@ -34,56 +34,34 @@ public class Utilities {
     public static final String POMPOKO_PATH = "/resources/images/Pompoko.png";
     public static final String ZOOTOPIA_PATH = "/resources/images/Zootopia2.png";
     public static final String AVATAR_PATH = "/resources/images/Avatar2.png";
-    
+
     public static final String MOVIES_PATH = "src/persistence/movies.json";
     public static final String USERS_PATH = "src/persistence/users.json";
 
+    public static final String FUNCTION_PATH = "src/persistence/functions.json";
+    public static final String ROOMS_PATH = "src/persistence/rooms.json";
+    public static final String RESERVATION_PATH = "src/persistence/reservations.json";
 
-  public static final String FUNCTION_PATH = "src/persistence/functions.json";
-  public static final String ROOMS_PATH = "src/persistence/rooms.json";
-  public static final String RESERVATION_PATH = "src/persistence/reservations.json";
+    public static final String BANNER_TOGETHER_PATH = "/resources/images/banner_together.jpg";
 
-  public static final String BANNER_TOGETHER_PATH = "/resources/images/banner_together.jpg";
-
-  public static final ImageIcon BASE_ICON_SEAT_PATH = new ImageIcon(
-      Utilities.class.getResource("/resources/images/silladesocupada.png"));
-  public static final ImageIcon SELECTED_ICON_SEAT_PATH = new ImageIcon(
-      Utilities.class.getResource("/resources/images/sillaocupada.png"));
-
+    public static final ImageIcon BASE_ICON_SEAT_PATH = new ImageIcon(
+            Utilities.class.getResource("/resources/images/silladesocupada.png"));
+    public static final ImageIcon SELECTED_ICON_SEAT_PATH = new ImageIcon(
+            Utilities.class.getResource("/resources/images/sillaocupada.png"));
 
     public static String getImageForMovieTitle(String title) {
-        if (title == null) {
-            return PREJUICIO_PATH;
-        }
+        if (title == null) return PREJUICIO_PATH;
         title = title.toLowerCase();
 
-        if (title.contains("orgullo")) {
-            return PREJUICIO_PATH;
-        }
-        if (title.contains("zootopia")) {
-            return ZOOTOPIA_PATH;
-        }
-        if (title.contains("demon")) {
-            return DEMON_PATH;
-        }
-        if (title.contains("miraculous")) {
-            return MIRACULOUS_PATH;
-        }
-        if (title.contains("jurassic")) {
-            return JURASSIC_PATH;
-        }
-        if (title.contains("together")) {
-            return TOGETHER_PATH;
-        }
-        if (title.contains("viernes")) {
-            return VIERNES_PATH;
-        }
-        if (title.contains("pompoko")) {
-            return POMPOKO_PATH;
-        }
-        if (title.contains("avatar")) {
-            return AVATAR_PATH;
-        }
+        if (title.contains("orgullo")) return PREJUICIO_PATH;
+        if (title.contains("zootopia")) return ZOOTOPIA_PATH;
+        if (title.contains("demon")) return DEMON_PATH;
+        if (title.contains("miraculous")) return MIRACULOUS_PATH;
+        if (title.contains("jurassic")) return JURASSIC_PATH;
+        if (title.contains("together")) return TOGETHER_PATH;
+        if (title.contains("viernes")) return VIERNES_PATH;
+        if (title.contains("pompoko")) return POMPOKO_PATH;
+        if (title.contains("avatar")) return AVATAR_PATH;
 
         return PREJUICIO_PATH;
     }
