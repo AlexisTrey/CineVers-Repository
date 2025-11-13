@@ -164,4 +164,30 @@ public class MainPanel extends JPanel {
         return functionsEditionPanel;
     }
 
+    public RoomEditionPanel getRoomEditionPanel() {
+        return roomEditionPanel;
+    }
+
+    public void setRoomEditionPanel(RoomEditionPanel roomEditionPanel) {
+        this.roomEditionPanel = roomEditionPanel;
+    }
+
+    public BillboardEditionPanel getBillboardEditionPanel() {
+        return billboardEditionPanel;
+    }
+
+    public void setBillboardEditionPanel(BillboardEditionPanel billboardEditionPanel) {
+        this.billboardEditionPanel = billboardEditionPanel;
+    }
+
+    public AddRoomPanel getAddRoomPanel() {
+        return addRoomPanel;
+    }
+
+    public void setAddRoomPanel(AddRoomPanel addRoomPanel) {
+        this.addRoomPanel = addRoomPanel;
+    }
+    
+    
+
 }

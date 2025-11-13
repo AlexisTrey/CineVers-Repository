@@ -105,6 +105,23 @@ public class Movie {
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
     }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+    
+    
 //    public String getLanguage() {
 //        return language;
 //    }

@@ -12,12 +12,17 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import models.CineVersSystem;
+import models.Room;
 import utilities.Utilities;
 
 /**
@@ -35,9 +40,11 @@ public class RoomEditionPanel extends JPanel {
     private JButton btnRooms;
     private JPanel contentPanel;
     private ActionListener listener;
+    private CineVersSystem cine;
 
     public RoomEditionPanel(ActionListener listener) {
         this.listener = listener;
+        this.cine = new CineVersSystem();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
@@ -80,15 +87,12 @@ public class RoomEditionPanel extends JPanel {
     }
 
     private void createContentPanel() {
-        JPanel wrapperPanel = new JPanel(new BorderLayout());
-        wrapperPanel.setBackground(new Color(240, 240, 240));
-
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
-        contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
+        contentPanel.setBorder(new EmptyBorder(20, 0, 30, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new java.awt.Insets(30, 0, 40, 0);
+        gbc.insets = new Insets(20, 0, 30, 0);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -99,28 +103,53 @@ public class RoomEditionPanel extends JPanel {
         contentPanel.add(btnAddRoom, gbc);
 
         gbc.gridy++;
-        gbc.insets = new java.awt.Insets(15, 30, 15, 30);
+        refreshContent();
+    }
 
-        RoomCardPanel[] rooms = {
-            new RoomCardPanel("Sala 1 – VIP 3D", "VIP Platino", "40 | Disponibles: 35", "Activa",
-            new ImageIcon(getClass().getResource(Utilities.ICON_ROOM_PATH))),
-            new RoomCardPanel("Sala 2 – Estándar 2D", "Estándar 2D", "Capacidad: 80 | Disponibles: 72", "Activa",
-            new ImageIcon(getClass().getResource(Utilities.ICON_ROOM_PATH))),
-            new RoomCardPanel("Sala 3 – D-BOX", "D-BOX (2D + movimiento)", "50 | Disponibles: 45", "Mantenimiento",
-            new ImageIcon(getClass().getResource(Utilities.ICON_ROOM_PATH))),
-            new RoomCardPanel("Sala 4 – Premium Dolby Atmos", "Premium Dolby Atmos", "60 | Disponibles: 58", "Activa",
-            new ImageIcon(getClass().getResource(Utilities.ICON_ROOM_PATH))),
-            new RoomCardPanel("Sala 5 – Infantil", "Infantil (2D)", "30 | Disponibles: 27", "Activa",
-            new ImageIcon(getClass().getResource(Utilities.ICON_ROOM_PATH)))
-        };
-
-        for (RoomCardPanel room : rooms) {
-            contentPanel.add(room, gbc);
-            gbc.gridy++;
+    public void refreshContent() {
+        for (int i = contentPanel.getComponentCount() - 1; i >= 1; i--) {
+            contentPanel.remove(i);
         }
 
-        wrapperPanel.add(contentPanel, BorderLayout.NORTH);
-        this.contentPanel = wrapperPanel;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 30, 10, 30);
+        gbc.gridx = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridy = 1;
+
+        cine.refreshRooms();
+        List<Room> rooms = cine.getRooms();
+
+        if (rooms.isEmpty()) {
+            JLabel lbl = new JLabel("No hay salas registradas");
+            lbl.setFont(new Font("Segoe UI", Font.ITALIC, 18));
+            lbl.setForeground(new Color(100, 100, 100));
+            contentPanel.add(lbl, gbc);
+        } else {
+            for (Room room : rooms) {
+                RoomCardPanel card = new RoomCardPanel(
+                        room.getName(),
+                        room.getType(),
+                        String.valueOf(room.getCapacity()),
+                        "Activa",
+                        new ImageIcon(getClass().getResource(Utilities.ICON_ROOM_PATH))
+                );
+
+                //Acción de editar
+                card.getBtnEdit().setActionCommand("EDITAR_SALA_" + room.getId());
+                card.getBtnEdit().addActionListener(listener);
+
+                //Acción de eliminar
+                card.getBtnDelete().setActionCommand("ELIMINAR_SALA_" + room.getId());
+                card.getBtnDelete().addActionListener(listener);
+
+                contentPanel.add(card, gbc);
+                gbc.gridy++;
+            }
+        }
+
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     public JPanel getContentPanel() {

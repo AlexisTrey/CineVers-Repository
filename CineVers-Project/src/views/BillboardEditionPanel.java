@@ -12,13 +12,17 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import models.CineVersSystem;
+import models.Movie;
 import utilities.Utilities;
 
 /**
@@ -36,15 +40,18 @@ public class BillboardEditionPanel extends JPanel {
     private JButton btnRooms;
     private JPanel contentPanel;
     private ActionListener listener;
+    private CineVersSystem cine;
 
     public BillboardEditionPanel(ActionListener listener) {
         this.listener = listener;
+        this.cine = new CineVersSystem();
+
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
         createMenuPanel(listener);
-        createContentPanel();
-
+        createContentPanel(); 
+        
         add(menuPanel, BorderLayout.NORTH);
         add(contentPanel, BorderLayout.CENTER);
     }
@@ -81,50 +88,61 @@ public class BillboardEditionPanel extends JPanel {
     }
 
     private void createContentPanel() {
-        JPanel wrapperPanel = new JPanel(new BorderLayout());
-        wrapperPanel.setBackground(new Color(240, 240, 240));
-
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
-        contentPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
+        contentPanel.setBorder(new EmptyBorder(20, 0, 30, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new java.awt.Insets(30, 30, 30, 30);
-        gbc.gridy = 0;
+        gbc.insets = new Insets(20, 0, 30, 0);
         gbc.gridx = 0;
-
+        gbc.gridy = 0;
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new java.awt.Insets(50, 0, 50, 0);
-        AddCardButton btnAddBillboard = new AddCardButton("Agregar Cartelera");
-        btnAddBillboard.setActionCommand("AGREGAR_CARTELERA");
-        btnAddBillboard.addActionListener(listener);
-        contentPanel.add(btnAddBillboard, gbc);
 
-        gbc.gridwidth = 1;
+        AddCardButton btnAddMovie = new AddCardButton("Agregar Película");
+        btnAddMovie.setActionCommand("AGREGAR_CARTELERA");
+        btnAddMovie.addActionListener(listener);
+        contentPanel.add(btnAddMovie, gbc);
+
         gbc.gridy++;
+        gbc.gridwidth = 1;
+
+        refreshContent();
+    }
+
+    public void refreshContent() {
+        for (int i = contentPanel.getComponentCount() - 1; i > 0; i--) {
+            contentPanel.remove(i);
+        }
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(30, 30, 30, 30);
         gbc.gridx = 0;
-        gbc.insets = new java.awt.Insets(10, 30, 30, 30);
+        gbc.gridy = 1;
 
-        BillboardCardPanel[] movies = {
-            new BillboardCardPanel("Orgullo y Prejuicio", "Drama • Romance", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.PREJUICIO_PATH))),
-            new BillboardCardPanel("Together: Juntos Hasta la Muerte", "Horror • 1h 42min", "2D",
-            new ImageIcon(getClass().getResource(Utilities.TOGETHER_PATH))),
-            new BillboardCardPanel("Otro Viernes de Locos", "Comedia • Familiar • 2h 7min", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.VIERNES_PATH))),
-            new BillboardCardPanel("Miraculous: Las Aventuras de Ladybug", "Animación • Aventura", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.MIRACULOUS_PATH))),
-            new BillboardCardPanel("Demon Slayer: Infinity Castle", "Acción • Fantasía • 2h 54min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.DEMON_PATH))),
-            new BillboardCardPanel("Jurassic World Rebirth", "Aventura • Ciencia Ficción • 2h 7min", "3D - 2D",
-            new ImageIcon(getClass().getResource(Utilities.JURASSIC_PATH)))
-        };
+        //Mostrar películas actuales
+        List<Movie> movies = cine.getMovies();
+        int col = 0;
 
-        for (int i = 0; i < movies.length; i++) {
-            contentPanel.add(movies[i], gbc);
+        for (Movie m : movies) {
+            String imagePath = Utilities.getImageForMovieTitle(m.getTitle());
+            BillboardCardPanel card = new BillboardCardPanel(
+                    m.getTitle(),
+                    m.getGenre() + " • " + m.getClassification(),
+                    m.getDurationMinutes() + " min",
+                    new ImageIcon(getClass().getResource(imagePath))
+            );
 
-            if ((i + 1) % 3 == 0) {
+            card.getBtnEdit().setActionCommand("EDITAR_PELICULA_" + m.getId());
+            card.getBtnEdit().addActionListener(listener);
+
+            card.getBtnDelete().setActionCommand("ELIMINAR_PELICULA_" + m.getId());
+            card.getBtnDelete().addActionListener(listener);
+
+            contentPanel.add(card, gbc);
+            col++;
+            if (col == 3) {
+                col = 0;
                 gbc.gridx = 0;
                 gbc.gridy++;
             } else {
@@ -135,30 +153,42 @@ public class BillboardEditionPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth = 3;
-        gbc.insets = new java.awt.Insets(80, 0, 20, 0);
-        JLabel lblUpcoming = new JLabel("PRÓXIMOS ESTRENOS", JLabel.CENTER);
-        lblUpcoming.setFont(new Font("Segoe UI", Font.BOLD, 34));
-        lblUpcoming.setForeground(new Color(30, 30, 30));
-        contentPanel.add(lblUpcoming, gbc);
+        gbc.insets = new Insets(80, 0, 20, 0);
+        gbc.anchor = GridBagConstraints.CENTER;
 
-        gbc.gridwidth = 1;
-        gbc.insets = new java.awt.Insets(20, 30, 50, 30);
+        JButton btnUpcoming = new JButton("PRÓXIMOS ESTRENOS");
+        btnUpcoming.setFont(new Font("Segoe UI", Font.BOLD, 34));
+        btnUpcoming.setForeground(Color.BLACK);
+        btnUpcoming.setOpaque(false);
+        btnUpcoming.setContentAreaFilled(false);
+        btnUpcoming.setBorderPainted(false);
+        btnUpcoming.setFocusPainted(false);
+        btnUpcoming.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        contentPanel.add(btnUpcoming, gbc);
+
+        //Mostrar películas de Proximos Estrenos
         gbc.gridy++;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(20, 30, 50, 30);
         gbc.gridx = 0;
 
-        BillboardCardPanel[] upcoming = {
-            new BillboardCardPanel("Pompoko - La Guerra de los Mapaches", "Tierna • Animado • 1h 06min ", "2D",
-            new ImageIcon(getClass().getResource(Utilities.POMPOKO_PATH))),
-            new BillboardCardPanel("Zootopia 2", "Drama • Romance • 2h 54min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.ZOOTOPIA_PATH))),
-            new BillboardCardPanel("Avatar: Fuego y Ceniza", "Comedia • Acción • 2h 7min", "2D - 3D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.AVATAR_PATH)))
-        };
+        List<Movie> upcomingMovies = cine.getGson().loadPeliculas(Utilities.UPCOMING_MOVIES_PATH);
+        col = 0;
 
-        for (int i = 0; i < upcoming.length; i++) {
-            contentPanel.add(upcoming[i], gbc);
+        for (Movie m : upcomingMovies) {
+            String imagePath = Utilities.getImageForMovieTitle(m.getTitle());
+            BillboardCardPanel card = new BillboardCardPanel(
+                    m.getTitle(),
+                    m.getGenre() + " • " + m.getClassification(),
+                    m.getDurationMinutes() + " min",
+                    new ImageIcon(getClass().getResource(imagePath))
+            );
 
-            if ((i + 1) % 3 == 0) {
+            contentPanel.add(card, gbc);
+
+            col++;
+            if (col == 3) {
+                col = 0;
                 gbc.gridx = 0;
                 gbc.gridy++;
             } else {
@@ -166,8 +196,8 @@ public class BillboardEditionPanel extends JPanel {
             }
         }
 
-        wrapperPanel.add(contentPanel, BorderLayout.NORTH);
-        this.contentPanel = wrapperPanel;
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     public JPanel getContentPanel() {
