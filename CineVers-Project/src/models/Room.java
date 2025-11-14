@@ -21,16 +21,9 @@ public class Room {
     private String name;
     private int capacity;
     private String type; // Ej: 2D, 3D, IMAX
-    private double price;
     private List<Seat> allSeats;
 
-    public double getPrice() {
-        return price;
-    }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
 
     public Room(String id, String name, int capacity, String type, List<Seat> seats) {
@@ -41,8 +34,6 @@ public class Room {
         this.allSeats = seats;
     }
 
-    public Room() {
-    }
 
     public String getId() {
         return id;
@@ -81,6 +72,16 @@ public class Room {
     public void setAllSeats(List<Seat> seats) {
         this.allSeats = seats;
     }
+    public void updateSeats(List<Seat> seatsToUpdate) {
+    for (Seat updatedSeat : seatsToUpdate) {
+        for (Seat seat : this.allSeats) {
+            if (seat.getId().equals(updatedSeat.getId())) {
+                seat.setAvailable(updatedSeat.isAvailable()); // Si manejas tipo de silla
+                break;
+            }
+        }
+    }
+}
 
     public int getAvailableSeats() {
         int count = 0;
@@ -101,14 +102,6 @@ public class Room {
         return null;
     }
 
-    public boolean reserveSeat(String row, int number) {
-        Seat seat = findSeat(row, number);
-        if (seat != null && seat.isAvailable()) {
-            seat.reserve();
-            return true;
-        }
-        return false;
-    }
 
     public void showSeatMap() {
     //Mostrar las filas ordenadas por letra 

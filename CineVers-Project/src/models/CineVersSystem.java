@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.google.gson.reflect.TypeToken;
+
 import utilities.Utilities;
 
 /**
@@ -47,8 +49,27 @@ public class CineVersSystem {
 
     }
 
-    public int createIdReservation() {
-        return reservations.size() + 1;
+    public String createIdReservation() {
+        try {
+            int maxId = 0;
+
+            for (Reservation r : reservations) {
+                try {
+                    int currentId = Integer.parseInt(r.getId());
+                    if (currentId > maxId) {
+                        maxId = currentId;
+                    }
+                } catch (NumberFormatException ignored) {
+                    // ID no numérico → se ignora
+                }
+            }
+
+            return String.valueOf(maxId + 1);
+
+        } catch (Exception e) {
+            System.err.println("Error generando ID: " + e.getMessage());
+            return "1"; // Si algo falla, empezamos desde 1
+        }
     }
 
     public User getActiveUser() {
@@ -64,14 +85,16 @@ public class CineVersSystem {
     }
 
     public Function getFuctionReservation(String name) {
+        Function functionFound = null;
         for (Function f : functions) {
             if (f.getMovie().getTitle().equals(name)) {
                 System.out.println("Función encontrada para el nombre: " + name);
-                return f;
+                functionFound = f;
+                break;
             }
         }
         System.out.println("Función no encontrada para el nombre: " + name);
-        return null;
+        return functionFound;
     }
 
     public void loadUsers() {
@@ -87,17 +110,35 @@ public class CineVersSystem {
         }
     }
 
-    public List<Seat> filterChairsByName(Set<String> nombresSillas, Room roomReservation) {
-        List<Seat> resultado = new ArrayList<>();
+public List<Seat> filterChairsByName(Set<String> nombresSillas, Room roomReservation, String roomName) {
 
-        for (Seat seat : roomReservation.getAllSeats()) {
-            if (nombresSillas.contains(seat.getId())) {
-                resultado.add(seat);
+    List<Seat> actualizadas = new ArrayList<>();
+
+    // 1️⃣ Buscar la sala en la lista global
+    for (Room room : rooms) { // rooms es la lista global cargada desde JSON
+
+        if (room.getName().equals(roomName)) {
+
+            // 2️⃣ Actualizar solo las sillas que coinciden
+            for (Seat seat : room.getAllSeats()) {
+                if (nombresSillas.contains(seat.getId())) {
+                    seat.setAvailable(false); // actualizar el estado
+                    actualizadas.add(seat);
+                }
             }
+            room.updateSeats(actualizadas);
+            break; // Sala encontrada → salimos
         }
-
-        return resultado;
     }
+
+    // 3️⃣ Guardar la lista completa actualizada en JSON
+    gson.saveRooms(rooms, Utilities.ROOMS_PATH);
+
+    // 4️⃣ Recargar para mantener sincronizada la clase Cine
+    this.rooms = gson.loadRooms(Utilities.ROOMS_PATH);
+
+    return actualizadas;
+}
 
     public void saveUsers() {
         List<User> allUsers = new ArrayList<>();
@@ -256,17 +297,13 @@ public class CineVersSystem {
             return;
         }
         functions.remove(function);
-        gson.saveListToJson(functions, Utilities.FUNCTION_PATH);
+        gson.saveFunctions(functions, Utilities.FUNCTION_PATH);
         System.out.println("Función eliminada correctamente.");
     }
 
-    public void addReservation(User user, Reservation function) throws IOException {
-        if (user.isAdmin()) {
-            System.out.println("Solo un administrador puede crear funciones.");
-            return;
-        }
+    public void addReservation(Reservation function) throws IOException {
         reservations.add(function);
-        gson.saveListToJson(functions, Utilities.RESERVATION_PATH);
+        gson.saveReservations(function, Utilities.RESERVATION_PATH);
         System.out.println("Reservcion agregada con exito ");
     }
 
@@ -397,22 +434,18 @@ public class CineVersSystem {
     }
 
     public List<Seat> findRoomByName(String roomName) {
-        // 1. Validaciones iniciales
+
         if (rooms == null || roomName == null) {
-            // Devuelve una lista vacía en lugar de null para evitar NullPointerExceptions
+
             return Collections.emptyList();
         }
 
-        // 2. Limpiamos y normalizamos el nombre de búsqueda
         String normalizedSearchName = roomName.trim().toLowerCase();
 
-        // 3. Iteramos sobre la lista de salas (sin usar Streams)
         for (Room room : rooms) {
 
-            // 4. Limpiamos y normalizamos el nombre de la sala actual para la comparación
             String currentRoomName = room.getName().trim().toLowerCase();
 
-            // 5. Comparamos los nombres
             if (currentRoomName.equals(normalizedSearchName)) {
                 // 6. ¡Coincidencia encontrada! Devolvemos la lista de asientos de esa sala.
                 return room.getAllSeats();

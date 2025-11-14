@@ -29,6 +29,7 @@ public class FormBillboardPanel extends JPanel {
     private JTextField txtFunctionId; // Nuevo: ID de la Función
     private JComboBox<String> cmbRooms; // Sala (Nuevo JComboBox)
     private JTextField txtStartTime; // Hora de inicio (LocalDateTime)
+    private String[] newRoomNames;
 
     public FormBillboardPanel(ActionListener listener) {
         this.listener = listener;
@@ -61,9 +62,13 @@ public class FormBillboardPanel extends JPanel {
         this.updateMovieTitles(titles);
     }
 
+        public void setJComboBoxRooms(String[] newRoomNames) {
+        this.newRoomNames = newRoomNames;
+        this.updateRoomNames(newRoomNames);
+    }
+
     public void updateMovieTitles(String[] newTitles) {
-        // Debes importar javax.swing.DefaultComboBoxModel si no lo has hecho
-        // para que esta línea funcione.
+
         if (cmbPeliculas != null) {
             // Reemplazar el modelo del ComboBox con los nuevos títulos.
             cmbPeliculas.setModel(new DefaultComboBoxModel<>(newTitles));
@@ -85,6 +90,7 @@ public class FormBillboardPanel extends JPanel {
             cmbRooms.repaint();
         }
     }
+    
 
     private void buildFormContent() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -132,14 +138,15 @@ public class FormBillboardPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 0); // Más espacio arriba para separar sección
         add(createSeparator(), gbc);
 
-//        cmbRooms = SurveryStyle.createStyledComboBox(null);
-//        cmbRooms.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
-//        gbc.gridy++;
-//        gbc.gridx = 0;
-//        gbc.gridwidth = 2; 
-//        gbc.insets = new Insets(10, 0, 10, 0);
-//        add(cmbRooms, gbc);
-        // --- Separador ---
+       cmbRooms = SurveryStyle.createStyledComboBox(newRoomNames );
+       cmbRooms.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
+       gbc.gridy++;
+       gbc.gridx = 0;
+       gbc.gridwidth = 2; 
+       gbc.insets = new Insets(10, 0, 10, 0);
+       add(cmbRooms, gbc);
+
+
         gbc.gridy++;
         gbc.gridx = 0;
         gbc.gridwidth = 2;

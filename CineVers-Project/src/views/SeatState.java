@@ -32,6 +32,8 @@ public class SeatState extends JPanel {
 
     private JLabel lblCantidad;
     private JLabel lblSillasSeleccionadas;
+
+
     private int cantidad = 0;
 
     private Color titleColor = new Color(102, 0, 161);
@@ -80,11 +82,11 @@ public class SeatState extends JPanel {
         lblTituloSillas.setBounds(20, 370, 250, 25);
         add(lblTituloSillas);
 
-//        lblSillasSeleccionadas = new JLabel("Aún no has seleccionado sillas");
-//        lblSillasSeleccionadas.setFont(new Font("Arial", Font.PLAIN, 14));
-//        lblSillasSeleccionadas.setForeground(textColor);
-//        lblSillasSeleccionadas.setBounds(20, 400, 260, 40);
-//        add(lblSillasSeleccionadas);
+       lblSillasSeleccionadas = new JLabel("");
+       lblSillasSeleccionadas.setFont(new Font("Arial", Font.PLAIN, 14));
+       lblSillasSeleccionadas.setForeground(textColor);
+       lblSillasSeleccionadas.setBounds(20, 400, 260, 40);
+       add(lblSillasSeleccionadas);
 
         // Botón Volver
         JButton btnVolver = new JButton("< Volver");
@@ -106,7 +108,6 @@ public class SeatState extends JPanel {
         btnConfirmar.setBounds(150, 520, 120, 40);
         btnConfirmar.setActionCommand("CONFIRMAR_RESERVA");
         btnConfirmar.addActionListener(listener);
-        btnConfirmar.setActionCommand("CONFIRM_SEATS");
         add(btnConfirmar);
     }
 
@@ -216,6 +217,9 @@ public class SeatState extends JPanel {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, 12));
         g2d.drawString(text, x + 8, y + 15);
+    }
+        public JLabel getLblSillasSeleccionadas() {
+        return lblSillasSeleccionadas;
     }
 
 //      public static void main(String[] args) {

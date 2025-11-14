@@ -105,7 +105,7 @@ public class GsonConverter {
         }
     }
 
-    public static void saveRooms(List<Room> list, String filePath) {
+    public  static void saveRooms(List<Room> list, String filePath) {
         try {
             saveListToJson(list, filePath);
         } catch (IOException e) {
@@ -127,11 +127,32 @@ public class GsonConverter {
 
     
 
-    public static void saveReservations(List<Reservation> list, String filePath) {
-        try {
-            saveListToJson(list, filePath);
-        } catch (IOException e) {
-            System.out.println("Error al guardar reservaciones: " + e.getMessage());
+public static void saveReservations(Reservation reservation, String filePath) {
+    try {
+        // 1️⃣ Cargar la lista existente del archivo JSON
+        List<Reservation> reservations = loadReservations(filePath);
+        boolean updated = false;
+        for (int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).getId().equals(reservation.getId())) {
+                reservations.set(i, reservation); // La reemplaza
+                updated = true;
+                break;
+            }
         }
-    } 
+
+        if (!updated) {
+            reservations.add(reservation);
+        }
+
+        saveListToJson(reservations, filePath);
+
+        System.out.println(updated 
+                ? "Reserva actualizada correctamente" 
+                : "Reserva creada correctamente");
+
+    } catch (IOException e) {
+        System.err.println("Error al guardar la reservación: " + e.getMessage());
+    }
+}
+
 }

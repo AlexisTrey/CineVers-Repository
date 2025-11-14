@@ -31,6 +31,8 @@ import models.City;
 import javax.swing.Timer;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+
 import java.awt.Frame;
 import java.awt.Panel;
 import java.util.List;
@@ -129,21 +131,40 @@ public class Controller implements ActionListener {
                 }
                 break;
 
-            // case "VER_DETALLES":
-            // mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
-            // break;
             case "SELECCIONAR_HORA":
                 mainFrame.getMainPanel().showPanel(MainPanel.SELECT_SEATS);
                 String nameMovie = this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[4][1];
                 PanelAsientos panelAsientos = this.mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
                 List <Seat> seats = this.cine.findRoomByName(nameMovie);
                 panelAsientos.buildSeatsView(seats);
+                panelAsientos.repaint();
+                seats = null;
                 break;
 
             case "CONFIRMAR_RESERVA":
-                ReservationConfirmationJDialog confirmDialog = new ReservationConfirmationJDialog(mainFrame, true);
-                confirmDialog.setLocationRelativeTo(mainFrame);
-                confirmDialog.setVisible(true);
+            mainFrame.getMainPanel().showPanel(MainPanel.HOME);
+                PanelAsientos panelAsientos2 = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
+                Set<String> setsleceted = panelAsientos2.getSillasSeleccionadas();
+                String newIdReservation = String.valueOf(cine.createIdReservation());
+                Function fuctionreservation = this.cine.getFuctionReservation(this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
+                List<Seat> seatsreservation = this.cine.filterChairsByName(setsleceted, fuctionreservation.getRoom(), this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
+                Reservation newReservation = new Reservation(
+                        newIdReservation,
+                        this.cine.getActiveUser(),
+                        fuctionreservation,
+                        seatsreservation,
+                        (Utilities.getCurrentDateTime()).toString(),
+                        true,
+                        seatsreservation.size() * 12.50);
+                try {
+                    this.cine.addReservation( newReservation);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    System.err.println("Error al guardar la Reservacion: " + e1.getMessage());
+                }
+                ConfirmReservationDialog dialog = new ConfirmReservationDialog(mainFrame, this);
+                dialog.setVisible(true);
+                panelAsientos2.repaint();
                 break;
 
             case "SELECCIONAR_CIUDAD":
@@ -259,7 +280,6 @@ public class Controller implements ActionListener {
             case "AGREGAR_FUNCION_FORM":
                 FormBillboardPanel formanPnale1 = this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel();
                 String titleserch = (String) formanPnale1.getCmbPeliculas().getSelectedItem();
-
                 String id = formanPnale1.getTxtFunctionId().getText();
                 // Room rom1 = crear las salas
                 String date = formanPnale1.getTxtStartTime().getText();
@@ -277,40 +297,29 @@ public class Controller implements ActionListener {
 
             case "AGREGAR_SALA_FORM":
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
+                String idRoom = String.valueOf(new UID());
+                String roomName = this.mainFrame.getMainPanel().getAddRoomPanel().getFormPanel().getTxtRoomName().getText(); 
+                String roomType = this.mainFrame.getMainPanel().getAddRoomPanel().getFormPanel().getTxtRoomType().getText();
+                int seatsNumber = Integer.parseInt(this.mainFrame.getMainPanel().getAddRoomPanel().getFormPanel().getTxtSeatsNumber().getText());
+                List<Seat> seatsNewRoom = Room.generate(seatsNumber);
+                Room newRoom = new Room(idRoom, roomName, seatsNumber, roomType, seatsNewRoom);
+                try {
+                    this.cine.addRoom(new User(true), newRoom);
+                    System.out.println("Sala agregada correctamente.");
+                } catch (IOException ex) {
+                    System.err.println("Error al guardar la sala: " + ex.getMessage());
+                }                                                              
                 break;
 
             case "SELECTED_SEAT":
                 // hacer el llamado del cambio de icono
                 JButton clickedSeat = (JButton) e.getSource();
+                int numberSeats= 0;
                 mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos().alternarSeleccion(clickedSeat);
-
-                break;
-
-            case "CONFIRM_SEATS":
-                PanelAsientos panelAsientos2 = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
-                Set<String> setsleceted = panelAsientos2.getSillasSeleccionadas();
-                String newIdReservation = String.valueOf(cine.createIdReservation());
-                Function fuctionreservation = this.cine.getFuctionReservation(
-                        this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
-                Room roomreservation = fuctionreservation.getRoom();
-                List<Seat> seatsreservation = this.cine.filterChairsByName(setsleceted, roomreservation);
-                Reservation newReservation = new Reservation(
-                        newIdReservation,
-                        cine.getActiveUser(),
-                        fuctionreservation,
-                        seatsreservation,
-                        Utilities.getCurrentDateTime(),
-                        true,
-                        seatsreservation.size() * 12.50,
-                        roomreservation);
-                try {
-                    this.cine.addReservation(cine.getActiveUser(), newReservation);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    System.err.println("Error al guardar la Reservacion: " + e1.getMessage());
-                }
-                ConfirmReservationDialog dialog = new ConfirmReservationDialog(mainFrame, this);
-                dialog.setVisible(true);
+                Set<String> seatsSelection = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos().getSillasSeleccionadas();
+                mainFrame.getMainPanel().getSelectSeatsPanel().getContentPanelSeatState().getLblSillasSeleccionadas().setText(""+seatsSelection);
+                mainFrame.getMainPanel().getSelectSeatsPanel().getContentPanelSeatState().repaint();
+                seatsSelection.removeAll(seatsSelection);
                 break;
 
             default:

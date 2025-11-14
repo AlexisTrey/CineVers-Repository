@@ -4,12 +4,9 @@
  */
 package models;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import models.Room;
-
 /**
  *
  * @author Yulian Alexis Tobar Rios
@@ -23,14 +20,14 @@ public class Reservation {
     private User user;
     private Function function;
     private List<Seat> selectSeats;
-    private LocalDateTime reservationDate;
+    private String reservationDate;
     private boolean status;
     private double price;
-    private Room roomReservation;
+    // private Room roomReservation;
 
 
-	public Reservation(String id, User user, Function function, List<Seat> seats, LocalDateTime reservationDate,
-            boolean status, double price, Room roomReservation) {
+	public Reservation(String id, User user, Function function, List<Seat> seats, String reservationDate,
+            boolean status, double price) {
         this.id = id;
         this.user = user;
         this.function = function;
@@ -38,7 +35,7 @@ public class Reservation {
         this.reservationDate = reservationDate;
         this.status = status;
         this.price = price;
-        this.roomReservation= roomReservation;
+        // this.roomReservation= roomReservation;
     }
 
     public boolean maxSeats(int numberSeats, String[] seatsSelects) {
@@ -50,13 +47,6 @@ public class Reservation {
     }
 
     //metodo que devuelve la lista de asientos seleccionados
-
-
-
-
-    public Reservation() {
-        this.selectSeats = new ArrayList<>();
-    }
 
     public String getId() {
         return id;
@@ -98,11 +88,11 @@ public class Reservation {
         this.status = status;
     }
 
-    public LocalDateTime getReservationDate() {
+    public String getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(LocalDateTime reservationDate) {
+    public void setReservationDate(String reservationDate) {
         this.reservationDate = reservationDate;
     }
 
@@ -143,13 +133,13 @@ public class Reservation {
     }
 
     
-    public Room getRoomReservation() {
-		return roomReservation;
-	}
+    // public Room getRoomReservation() {
+	// 	return roomReservation;
+	// }
 
-	public void setRoomReservation(Room rommReservation) {
-		this.roomReservation = rommReservation;
-	}
+	// public void setRoomReservation(Room rommReservation) {
+	// 	this.roomReservation = rommReservation;
+	// }
 
 
     public String getReservationDetails() {

@@ -25,6 +25,8 @@ public class SelectSeats extends JPanel {
     private PanelAsientos contentPanelAsientos;
     private SeatState contentPanelSeatState;
 
+
+
     public SelectSeats(ActionListener listener) {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
@@ -49,6 +51,9 @@ public class SelectSeats extends JPanel {
     public PanelAsientos getPanelAsientos(){
         return contentPanelAsientos;
     }
+        public SeatState getContentPanelSeatState() {
+        return contentPanelSeatState;
+    }
     
     
 //    public static void main(String[] args) {
@@ -56,7 +61,7 @@ public class SelectSeats extends JPanel {
 //            JFrame frame = new JFrame("Sillas selecionadas");
 //            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//            SelectSeats panel = new SelectSeats();
+//            SelectSeats panel = new SelectSeats(null);
 //            frame.add(panel);
 
 //            frame.pack();
