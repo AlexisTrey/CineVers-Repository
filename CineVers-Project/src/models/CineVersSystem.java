@@ -63,7 +63,7 @@ public class CineVersSystem {
 
     public Function getFuctionReservation(String name) {
         for (Function f : functions) {
-            if (f.getId().equals(name)) {
+            if (f.getMovie().getTitle().equals(name)) {
                 System.out.println("Función encontrada para el nombre: " + name);
                 return f;
             }
@@ -86,17 +86,17 @@ public class CineVersSystem {
     }
 
 
-//    public static List<Seat> filterChairsByName(Set<String> nombresSillas,  ) {
-//        List<Seat> resultado = new ArrayList<>();
-//
-//        for (Seat seat : this.roomReservation.getAllSeats()) {
-//            if (nombresSillas.contains(seat.getId())) {
-//                resultado.add(seat);
-//            }
-//        }
-//
-//        return resultado;
-//    }
+   public  List<Seat> filterChairsByName(Set<String> nombresSillas, Room roomReservation) {
+       List<Seat> resultado = new ArrayList<>();
+
+       for (Seat seat : roomReservation.getAllSeats()) {
+           if (nombresSillas.contains(seat.getId())) {
+               resultado.add(seat);
+           }
+       }
+
+       return resultado;
+   }
 
     public void saveUsers() {
         List<User> allUsers = new ArrayList<>();
@@ -245,6 +245,26 @@ public class CineVersSystem {
         System.out.println("Función eliminada correctamente.");
     }
 
+        public void addReservation(User user, Reservation function) throws IOException {
+        if (user.isAdmin()) {
+            System.out.println("Solo un administrador puede crear funciones.");
+            return;
+        }
+        reservations.add(function);
+        gson.saveListToJson(functions, Utilities.RESERVATION_PATH);
+        System.out.println("Reservcion agregada con exito ");
+    }
+
+    public void removeReservation(User user, Reservation function) throws IOException {
+        if (!user.isAdmin()) {
+            System.out.println("Solo un administrador puede eliminar funciones.");
+            return;
+        }
+        reservations.remove(function);
+        gson.saveListToJson(functions, Utilities.RESERVATION_PATH);
+        System.out.println("reserva eliminada correctamente.");
+    }
+
     public List<Function> getFunctions() {
         return functions;
     }
@@ -273,10 +293,10 @@ public class CineVersSystem {
         return rooms;
     }
 
-    public void addReservation(User user, Reservation reservation) {
-        reservations.add(reservation);
-        System.out.println("Reserva creada para " + user.getFullName());
-    }
+    // public void addReservation(User user, Reservation reservation) {
+    //     reservations.add(reservation);
+    //     System.out.println("Reserva creada para " + user.getFullName());
+    // }
 
     public void cancelReservation(User user, String reservationId) {
         for (Reservation r : reservations) {

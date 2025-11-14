@@ -291,17 +291,17 @@ public class ScheduleMoviePanel extends JPanel {
         }
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Horarios de Cine");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//            ScheduleMoviePanel panel = new ScheduleMoviePanel();
-//            frame.add(panel);
-//
-//            frame.pack();
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        });
-//    }
+   public static void main(String[] args) {
+       SwingUtilities.invokeLater(() -> {
+           JFrame frame = new JFrame("Horarios de Cine");
+           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+           ScheduleMoviePanel panel = new ScheduleMoviePanel(null);
+           frame.add(panel);
+
+           frame.pack();
+           frame.setLocationRelativeTo(null);
+           frame.setVisible(true);
+       });
+   }
 }

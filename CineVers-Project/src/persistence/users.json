@@ -16,6 +16,21 @@
     }
   },
   {
+    "firstName": "Ana",
+    "lastName": "Fernandez",
+    "documentType": "CC",
+    "documentNumber": "147852",
+    "email": "fernandez@gmail.com",
+    "phone": "123456789",
+    "password": "15948",
+    "isAdmin": true,
+    "city": {
+      "id": "C925702077",
+      "name": "Armenia",
+      "country": "Colombia"
+    }
+  },
+  {
     "id": "U002",
     "firstName": "Juan",
     "lastName": "Rodríguez",
@@ -26,8 +41,8 @@
     "password": "abcde",
     "isAdmin": false,
     "city": {
-      "id": "C2092667",
-      "name": "Cali",
+      "id": "C-839479718",
+      "name": "Medellín",
       "country": "Colombia"
     }
   },
@@ -89,21 +104,6 @@
     "city": {
       "id": "C985789520",
       "name": "Pereira",
-      "country": "Colombia"
-    }
-  },
-  {
-    "firstName": "Ana",
-    "lastName": "Fernandez",
-    "documentType": "CC",
-    "documentNumber": "147852",
-    "email": "fernandez@gmail.com",
-    "phone": "123456789",
-    "password": "15948",
-    "isAdmin": true,
-    "city": {
-      "id": "C925702077",
-      "name": "Armenia",
       "country": "Colombia"
     }
   }

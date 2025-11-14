@@ -58,7 +58,7 @@ public class MainPanel extends JPanel {
         header.setAdminVisible(false);
 
         footer = new Footer();
-        //background = new Background();
+        // background = new Background();
 
         contentContainer = new JPanel(new BorderLayout());
 
@@ -74,8 +74,8 @@ public class MainPanel extends JPanel {
         loginView = new LoginView(listener);
         registerView = new RegisterView(listener);
         movieDetailsPanel = new MovieDetailsPanel(listener);
-        panelAsientos = new PanelAsientos(listener);
-        panelAsientos.setSeatState(seatState);
+        // panelAsientos = new PanelAsientos(listener);
+        // panelAsientos.setSeatState(seatState);
         SeatState seatState = new SeatState(listener);
         roomEditionPanel = new RoomEditionPanel(listener);
         billboardEditionPanel = new BillboardEditionPanel(listener);
@@ -152,14 +152,19 @@ public class MainPanel extends JPanel {
     }
 
     public RegisterView getRegisterView() {
-    return registerView;
-}
-    public SelectSeats getSelectSeatsPanel(){
-        return selectSeats; 
+        return registerView;
+    }
+
+    public SelectSeats getSelectSeatsPanel() {
+        return selectSeats;
     }
 
     public FunctionsEditionPanel getFunctionsEditionPanel() {
         return functionsEditionPanel;
+    }
+
+    public MovieDetailsPanel getMovieDetailsPanel() {
+        return movieDetailsPanel;
     }
 
 }

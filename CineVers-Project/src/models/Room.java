@@ -4,7 +4,9 @@
  */
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
+import utilities.Utilities;
 
 /**
  *
@@ -131,6 +133,26 @@ public class Room {
     @Override
     public String toString() {
         return "Sala: " + name + " (" + type + ") - Capacidad: " + capacity;
+    }
+
+    public static List<Seat> generate(int capacity) {
+        List<Seat> allSeats = new ArrayList<>();
+        int count = 0; // Contador de sillas creadas
+
+        for (int i = 0; i < Utilities.FILAS_ASIENTOS.length && count < capacity; i++) {
+            String row = Utilities.FILAS_ASIENTOS[i];
+            // Asegura que no se exceda la capacidad ni el tamaño máximo de la fila
+            int seatsInRow = Math.min(Utilities.ASIENTOS_POR_FILA[i], capacity - count);
+
+            for (int j = 0; j < seatsInRow; j++) {
+                int number = j + 1;
+                // Inicialmente, todas las sillas generadas están DISPONIBLES (available = true)
+                Seat seat = new Seat(row, number, true); 
+                allSeats.add(seat);
+                count++;
+            }
+        }
+        return allSeats;
     }
 
 }

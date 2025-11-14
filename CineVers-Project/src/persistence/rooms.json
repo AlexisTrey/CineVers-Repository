@@ -1,23 +1,51 @@
 [
-    {
-        "id": "R01",
-        "name": "Sala 01",
-        "capacity": 40,
-        "type": "2D",
-        "price": 8.5
-    },
-    {
-        "id": "R02",
-        "name": "Sala 02",
-        "capacity": 50,
-        "type": "3D",
-        "price": 10.0
-    },
-    {
-        "id": "R03",
-        "name": "Sala 03",
-        "capacity": 35,
-        "type": "VIP 3D",
-        "price": 12.5
-    }
+  {
+    "id": "R01",
+    "name": "Sala 01",
+    "capacity": 40,
+    "type": "2D",
+    "price": 8.5,
+    "seats": [
+      { "id": "A1", "row": "A", "number": 1, "available": true },
+      { "id": "A2", "row": "A", "number": 2, "available": true },
+      { "id": "A3", "row": "A", "number": 3, "available": true },
+      { "id": "A4", "row": "A", "number": 4, "available": true },
+      { "id": "A5", "row": "A", "number": 5, "available": true },
+      { "id": "A6", "row": "A", "number": 6, "available": true },
+      { "id": "A7", "row": "A", "number": 7, "available": true },
+      { "id": "A8", "row": "A", "number": 8, "available": true },
+      { "id": "A9", "row": "A", "number": 9, "available": true },
+      { "id": "B1", "row": "B", "number": 1, "available": true },
+      { "id": "B2", "row": "B", "number": 1, "available": true },
+      { "id": "B3", "row": "B", "number": 3, "available": true },
+      { "id": "B4", "row": "B", "number": 4, "available": true },
+      { "id": "B5", "row": "B", "number": 5, "available": true },
+      { "id": "B6", "row": "B", "number": 6, "available": true },
+      { "id": "B7", "row": "B", "number": 7, "available": true },
+      { "id": "B8", "row": "B", "number": 8, "available": true },
+      { "id": "B9", "row": "B", "number": 9, "available": true },
+      { "id": "C1", "row": "C", "number": 1, "available": true },
+        { "id": "C2", "row": "C", "number": 2, "available": true },
+        { "id": "C3", "row": "C", "number": 3, "available": true },
+        { "id": "C4", "row": "C", "number": 4, "available": true },
+        { "id": "C5", "row": "C", "number": 5, "available": true },
+        { "id": "C6", "row": "C", "number": 6, "available": true },
+        { "id": "C7", "row": "C", "number": 7, "available": true },
+        { "id": "C8", "row": "C", "number": 8, "available": true },
+      { "id": "C9", "row": "C", "number": 9, "available": true },
+      { "id": "D1", "row": "D", "number": 1, "available": true },
+        { "id": "D2", "row": "D", "number": 2, "available": true },
+        { "id": "D3", "row": "D", "number": 3, "available": true },
+        { "id": "D4", "row": "D", "number": 4, "available": true },
+        { "id": "D5", "row": "D", "number": 5, "available": true },
+        { "id": "D6", "row": "D", "number": 6, "available": true },
+        { "id": "D7", "row": "D", "number": 7, "available": true },
+        { "id": "D8", "row": "D", "number": 8, "available": true },
+      { "id": "D9", "row": "D", "number": 9, "available": true },
+      { "id": "E1", "row": "E", "number": 1, "available": true },
+        { "id": "E2", "row": "E", "number": 2, "available": true },
+        { "id": "E3", "row": "E", "number": 3, "available": true },
+        { "id": "E4", "row": "E", "number": 4, "available": true }
+    ]
+  }
 ]

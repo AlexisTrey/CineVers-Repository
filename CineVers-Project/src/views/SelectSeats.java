@@ -50,6 +50,7 @@ public class SelectSeats extends JPanel {
         return contentPanelAsientos;
     }
     
+    
 //    public static void main(String[] args) {
 //            SwingUtilities.invokeLater(() -> {
 //            JFrame frame = new JFrame("Sillas selecionadas");
