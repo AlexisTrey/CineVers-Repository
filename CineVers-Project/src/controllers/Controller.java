@@ -18,7 +18,7 @@ import models.Reservation;
 import models.Room;
 import models.User;
 import models.Seat;
-import views.ConfirmReservation;
+import views.ConfirmReservationDialog;
 import views.FormBillboardPanel;
 import views.FormFuctionPanel;
 import views.MainFrame;
@@ -32,6 +32,7 @@ import javax.swing.Timer;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import java.awt.Frame;
+import java.awt.Panel;
 import java.util.List;
 import javax.swing.JOptionPane;
 import views.FormAddRoomPanel;
@@ -128,12 +129,15 @@ public class Controller implements ActionListener {
                 }
                 break;
 
-//            case "VER_DETALLES":
-//                mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
-//                break;
+            // case "VER_DETALLES":
+            // mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
+            // break;
             case "SELECCIONAR_HORA":
                 mainFrame.getMainPanel().showPanel(MainPanel.SELECT_SEATS);
-                this.mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos().buildSeatsView(this.cine.getRooms().get(0).generate(50));
+                String nameMovie = this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[4][1];
+                PanelAsientos panelAsientos = this.mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
+                List <Seat> seats = this.cine.findRoomByName(nameMovie);
+                panelAsientos.buildSeatsView(seats);
                 break;
 
             case "CONFIRMAR_RESERVA":
@@ -233,7 +237,6 @@ public class Controller implements ActionListener {
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_ROOMS);
                 break;
             case "AGREGAR_CARTELERA_FORM":
-
                 mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
                 FormFuctionPanel formPanel = this.mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
                 String title = formPanel.getCampoTitulo().getText();
@@ -287,7 +290,8 @@ public class Controller implements ActionListener {
                 PanelAsientos panelAsientos2 = mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos();
                 Set<String> setsleceted = panelAsientos2.getSillasSeleccionadas();
                 String newIdReservation = String.valueOf(cine.createIdReservation());
-                Function fuctionreservation = this.cine.getFuctionReservation(this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
+                Function fuctionreservation = this.cine.getFuctionReservation(
+                        this.mainFrame.getMainPanel().getMovieDetailsPanel().getSinopsis().getInfo()[0][1]);
                 Room roomreservation = fuctionreservation.getRoom();
                 List<Seat> seatsreservation = this.cine.filterChairsByName(setsleceted, roomreservation);
                 Reservation newReservation = new Reservation(
@@ -300,17 +304,17 @@ public class Controller implements ActionListener {
                         seatsreservation.size() * 12.50,
                         roomreservation);
                 try {
-                    this.cine.addReservation(cine.getActiveUser() , newReservation);
+                    this.cine.addReservation(cine.getActiveUser(), newReservation);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                     System.err.println("Error al guardar la Reservacion: " + e1.getMessage());
                 }
-                ConfirmReservation dialog = new ConfirmReservation(mainFrame, this);
+                ConfirmReservationDialog dialog = new ConfirmReservationDialog(mainFrame, this);
                 dialog.setVisible(true);
                 break;
 
             default:
-                //ELIMINAR FUNCIÓN
+                // ELIMINAR FUNCIÓN
                 if (command.startsWith("ELIMINAR_FUNCION_")) {
                     String idEliminar = command.replace("ELIMINAR_FUNCION_", "");
                     try {
@@ -321,8 +325,9 @@ public class Controller implements ActionListener {
 
                         if (fEliminar != null) {
                             cine.removeFunction(new User(true), fEliminar);
-                            cine.refreshFunctions(); //actualiza lista interna
-                            mainFrame.getMainPanel().getFunctionsEditionPanel().refreshContent(); //actualiza UI en tiempo real
+                            cine.refreshFunctions(); // actualiza lista interna
+                            mainFrame.getMainPanel().getFunctionsEditionPanel().refreshContent(); // actualiza UI en
+                                                                                                  // tiempo real
                             JOptionPane.showMessageDialog(mainFrame, "Función eliminada correctamente.");
                         }
                     } catch (Exception ex) {
@@ -331,7 +336,7 @@ public class Controller implements ActionListener {
                     break;
                 }
 
-                //EDITAR FUNCIÓN
+                // EDITAR FUNCIÓN
                 if (command.startsWith("EDITAR_FUNCION_")) {
                     String idEditar = command.replace("EDITAR_FUNCION_", "");
                     Function fEditar = cine.getFunctions().stream()

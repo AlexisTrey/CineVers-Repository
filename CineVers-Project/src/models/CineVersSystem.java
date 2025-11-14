@@ -6,7 +6,9 @@ package models;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import utilities.Utilities;
@@ -85,18 +87,17 @@ public class CineVersSystem {
         }
     }
 
+    public List<Seat> filterChairsByName(Set<String> nombresSillas, Room roomReservation) {
+        List<Seat> resultado = new ArrayList<>();
 
-   public  List<Seat> filterChairsByName(Set<String> nombresSillas, Room roomReservation) {
-       List<Seat> resultado = new ArrayList<>();
+        for (Seat seat : roomReservation.getAllSeats()) {
+            if (nombresSillas.contains(seat.getId())) {
+                resultado.add(seat);
+            }
+        }
 
-       for (Seat seat : roomReservation.getAllSeats()) {
-           if (nombresSillas.contains(seat.getId())) {
-               resultado.add(seat);
-           }
-       }
-
-       return resultado;
-   }
+        return resultado;
+    }
 
     public void saveUsers() {
         List<User> allUsers = new ArrayList<>();
@@ -259,7 +260,7 @@ public class CineVersSystem {
         System.out.println("Función eliminada correctamente.");
     }
 
-        public void addReservation(User user, Reservation function) throws IOException {
+    public void addReservation(User user, Reservation function) throws IOException {
         if (user.isAdmin()) {
             System.out.println("Solo un administrador puede crear funciones.");
             return;
@@ -308,8 +309,8 @@ public class CineVersSystem {
     }
 
     // public void addReservation(User user, Reservation reservation) {
-    //     reservations.add(reservation);
-    //     System.out.println("Reserva creada para " + user.getFullName());
+    // reservations.add(reservation);
+    // System.out.println("Reserva creada para " + user.getFullName());
     // }
 
     public void cancelReservation(User user, String reservationId) {
@@ -375,7 +376,7 @@ public class CineVersSystem {
         // 1. Verificar si la lista está vacía o es nula
         if (this.movies == null || this.movies.isEmpty()) {
             // Devuelve un array con solo el placeholder si no hay películas
-            return new String[]{"-- Sin Películas Disponibles --"};
+            return new String[] { "-- Sin Películas Disponibles --" };
         }
 
         // 2. Crear una lista temporal para recopilar los títulos (más fácil que un
@@ -393,6 +394,33 @@ public class CineVersSystem {
         // 5. Convertir la List<String> a un vector String[]
         // El método toArray(new String[0]) es el estándar para esto.
         return titlesList.toArray(new String[0]);
+    }
+
+    public List<Seat> findRoomByName(String roomName) {
+        // 1. Validaciones iniciales
+        if (rooms == null || roomName == null) {
+            // Devuelve una lista vacía en lugar de null para evitar NullPointerExceptions
+            return Collections.emptyList();
+        }
+
+        // 2. Limpiamos y normalizamos el nombre de búsqueda
+        String normalizedSearchName = roomName.trim().toLowerCase();
+
+        // 3. Iteramos sobre la lista de salas (sin usar Streams)
+        for (Room room : rooms) {
+
+            // 4. Limpiamos y normalizamos el nombre de la sala actual para la comparación
+            String currentRoomName = room.getName().trim().toLowerCase();
+
+            // 5. Comparamos los nombres
+            if (currentRoomName.equals(normalizedSearchName)) {
+                // 6. ¡Coincidencia encontrada! Devolvemos la lista de asientos de esa sala.
+                return room.getAllSeats();
+            }
+        }
+
+        // 7. Si el bucle termina sin encontrar la sala, devolvemos una lista vacía.
+        return Collections.emptyList();
     }
 
     public void refreshMovies() {

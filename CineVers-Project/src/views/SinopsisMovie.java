@@ -73,7 +73,8 @@ public class SinopsisMovie extends JPanel {
                 { "Nombre original:", "TOGETHER" },
                 { "Clasificación:", "Para mayores de 15 años" },
                 { "Reparto:", "Dave Franco, Alison Brie, Damon Herriman" },
-                { "Director:", "Michael Shanks" } 
+                { "Director:", "Michael Shanks" },
+                {"Sala:", "Sala 01"}
         };
 
         g2d.setFont(new Font("Arial", Font.BOLD, 12));

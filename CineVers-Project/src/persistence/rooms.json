@@ -5,7 +5,7 @@
     "capacity": 40,
     "type": "2D",
     "price": 8.5,
-    "seats": [
+    "allSeats": [
       { "id": "A1", "row": "A", "number": 1, "available": true },
       { "id": "A2", "row": "A", "number": 2, "available": true },
       { "id": "A3", "row": "A", "number": 3, "available": true },
