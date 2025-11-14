@@ -221,6 +221,20 @@ public class CineVersSystem {
         System.out.println("Película eliminada: " + movie.getTitle());
     }
 
+    public void deleteMovieById(String id) {
+        if (movies == null) {
+            return;
+        }
+
+        movies.removeIf(m -> m.getId().equals(id));
+        try {
+            gson.saveListToJson(movies, Utilities.MOVIES_PATH);
+            System.out.println("Película eliminada correctamente: " + id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Movie> getMovies() {
         return movies;
     }
@@ -361,7 +375,7 @@ public class CineVersSystem {
         // 1. Verificar si la lista está vacía o es nula
         if (this.movies == null || this.movies.isEmpty()) {
             // Devuelve un array con solo el placeholder si no hay películas
-            return new String[] { "-- Sin Películas Disponibles --" };
+            return new String[]{"-- Sin Películas Disponibles --"};
         }
 
         // 2. Crear una lista temporal para recopilar los títulos (más fácil que un
@@ -391,6 +405,14 @@ public class CineVersSystem {
 
     public void refreshRooms() {
         this.rooms = gson.loadRooms(Utilities.ROOMS_PATH);
+    }
+
+    public GsonConverter getGson() {
+        return gson;
+    }
+
+    public void setGson(GsonConverter gson) {
+        this.gson = gson;
     }
 
 }

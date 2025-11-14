@@ -23,12 +23,12 @@
         "id": "F002",
         "movie": {
             "id": "M002",
-            "title": "Zootopia 2",
-            "genre": "Animación",
-            "durationMinutes": 120,
-            "classification": "A",
-            "synopsis": "Los detectives Nick y Judy regresan a resolver un nuevo misterio en Zootopia.",
-            "releaseDate": "2024-12-19"
+            "title": "Together: Juntos Hasta la Muerte",
+            "genre": "Terror",
+            "durationMinutes": 102,
+            "classification": "C",
+            "synopsis": "Una pareja enfrenta un oscuro secreto que pondrá a prueba su amor.",
+            "releaseDate": "2025-02-14"
         },
         "room": {
             "id": "R02",
@@ -43,12 +43,12 @@
         "id": "F003",
         "movie": {
             "id": "M003",
-            "title": "Demon Slayer: Infinity Castle",
-            "genre": "Acción",
-            "durationMinutes": 170,
-            "classification": "B",
-            "synopsis": "Tanjiro y sus compañeros enfrentan la batalla final en el Castillo Infinito.",
-            "releaseDate": "2024-10-01"
+            "title": "Otro Viernes de Locos",
+            "genre": "Comedia",
+            "durationMinutes": 127,
+            "classification": "A",
+            "synopsis": "Una madre y su hija vuelven a intercambiar cuerpos, pero con un giro moderno.",
+            "releaseDate": "2025-03-20"
         },
         "room": {
             "id": "R03",
@@ -83,12 +83,12 @@
         "id": "F005",
         "movie": {
             "id": "M005",
-            "title": "Jurassic World Rebirth",
-            "genre": "Aventura",
-            "durationMinutes": 127,
+            "title": "Demon Slayer: Infinity Castle",
+            "genre": "Acción",
+            "durationMinutes": 170,
             "classification": "B",
-            "synopsis": "Un nuevo parque temático revive los dinosaurios, pero algo sale mal.",
-            "releaseDate": "2025-01-10"
+            "synopsis": "Tanjiro y sus compañeros enfrentan la batalla final en el Castillo Infinito.",
+            "releaseDate": "2024-10-01"
         },
         "room": {
             "id": "R05",
@@ -122,27 +122,7 @@
     {
         "id": "F007",
         "movie": {
-            "id": "M007",
-            "title": "Otro Viernes de Locos",
-            "genre": "Comedia",
-            "durationMinutes": 127,
-            "classification": "A",
-            "synopsis": "Una madre y su hija vuelven a intercambiar cuerpos, pero con un giro moderno.",
-            "releaseDate": "2025-03-20"
-        },
-        "room": {
-            "id": "R07",
-            "name": "Sala 07",
-            "capacity": 55,
-            "type": "2D - VIP",
-            "price": 9.5
-        },
-        "dateTime": "19:15"
-    },
-    {
-        "id": "F008",
-        "movie": {
-            "id": "M008",
+            "id": "U001",
             "title": "Pompoko - La Guerra de los Mapaches",
             "genre": "Animación",
             "durationMinutes": 126,
@@ -151,18 +131,38 @@
             "releaseDate": "2025-04-12"
         },
         "room": {
+            "id": "R07",
+            "name": "Sala 07",
+            "capacity": 55,
+            "type": "2D - VIP",
+            "price": 9.5
+        },
+        "dateTime": "14:00"
+    },
+    {
+        "id": "F008",
+        "movie": {
+            "id": "U002",
+            "title": "Zootopia 2",
+            "genre": "Animación",
+            "durationMinutes": 140,
+            "classification": "A",
+            "synopsis": "Nick y Judy regresan a la acción.",
+            "releaseDate": "2025-06-01"
+        },
+        "room": {
             "id": "R08",
             "name": "Sala 08",
             "capacity": 30,
             "type": "2D",
             "price": 7.5
         },
-        "dateTime": "14:00"
+        "dateTime": "16:45"
     },
     {
         "id": "F009",
         "movie": {
-            "id": "M009",
+            "id": "U003",
             "title": "Avatar: Fuego y Ceniza",
             "genre": "Ciencia Ficción",
             "durationMinutes": 162,

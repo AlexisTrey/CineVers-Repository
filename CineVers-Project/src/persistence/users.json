@@ -10,8 +10,23 @@
     "password": "12345",
     "isAdmin": true,
     "city": {
-      "id": "C-839479718",
-      "name": "Medellín",
+      "id": "C1995213762",
+      "name": "Bogotá",
+      "country": "Colombia"
+    }
+  },
+  {
+    "firstName": "Ana",
+    "lastName": "Fernandez",
+    "documentType": "CC",
+    "documentNumber": "147852",
+    "email": "fernandez@gmail.com",
+    "phone": "123456789",
+    "password": "15948",
+    "isAdmin": true,
+    "city": {
+      "id": "C925702077",
+      "name": "Armenia",
       "country": "Colombia"
     }
   },

@@ -29,6 +29,7 @@ public class AddRoomPanel extends javax.swing.JPanel {
     private Background badground;
     private ActionListener listener;
     private GridBagConstraints gbc;
+    private FormAddRoomPanel formPanel;
 
     public AddRoomPanel(ActionListener listener) {
         this.listener = listener;
@@ -40,8 +41,8 @@ public class AddRoomPanel extends javax.swing.JPanel {
         this.setLayout(new BorderLayout());
         this.badground = new Background();
         this.badground.setLayout(new GridBagLayout());
-        JPanel centerWrapper = createCenterContainer();
 
+        JPanel centerWrapper = createCenterContainer();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -50,7 +51,6 @@ public class AddRoomPanel extends javax.swing.JPanel {
 
         this.badground.add(centerWrapper, gbc);
         this.add(this.badground, BorderLayout.CENTER);
-
     }
 
     private JPanel createCenterContainer() {
@@ -58,9 +58,15 @@ public class AddRoomPanel extends javax.swing.JPanel {
         JPanel centerWrapper = new JPanel(new BorderLayout());
         centerWrapper.setOpaque(false);
         centerWrapper.setBorder(new EmptyBorder(110, 0, 120, 0));
-        FormAddRoomPanel formPanel = new FormAddRoomPanel(listener);
+
+        formPanel = new FormAddRoomPanel(listener);
         centerWrapper.add(formPanel, BorderLayout.NORTH);
+
         return centerWrapper;
+    }
+
+    public FormAddRoomPanel getFormPanel() {
+        return formPanel;
     }
 
 //    public static void main(String[] args) {

@@ -12,11 +12,17 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import models.CineVersSystem;
+import models.Function;
 import utilities.Utilities;
 
 /**
@@ -34,15 +40,16 @@ public class FunctionsEditionPanel extends JPanel {
     private JButton btnRooms;
     private JPanel contentPanel;
     private ActionListener listener;
+    private CineVersSystem cine;
 
     public FunctionsEditionPanel(ActionListener listener) {
         this.listener = listener;
+        this.cine = new CineVersSystem();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
         createMenuPanel(listener);
         createContentPanel();
-
         add(menuPanel, BorderLayout.NORTH);
         add(contentPanel, BorderLayout.CENTER);
     }
@@ -81,38 +88,65 @@ public class FunctionsEditionPanel extends JPanel {
     private void createContentPanel() {
         contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(new Color(240, 240, 240));
+        contentPanel.setBorder(new EmptyBorder(20, 0, 30, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new java.awt.Insets(20, 0, 30, 0);
+        gbc.insets = new Insets(20, 0, 30, 0);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
 
         AddCardButton btnAddFunction = new AddCardButton("Agregar Función");
-        btnAddFunction.setActionCommand("AGREGAR_SALA");
+        btnAddFunction.setActionCommand("AGREGAR_FUNCION");
         btnAddFunction.addActionListener(listener);
         contentPanel.add(btnAddFunction, gbc);
 
         gbc.gridy++;
-        gbc.insets = new java.awt.Insets(10, 30, 10, 30);
+        refreshContent();
+    }
 
-        FunctionCardPanel[] functions = {
-            new FunctionCardPanel("Orgullo y Prejuicio", "05", "33", "12:00", "VIP 3D",
-            new ImageIcon(getClass().getResource(Utilities.PREJUICIO_PATH))),
-            new FunctionCardPanel("Zootopia 2", "02", "50", "15:30", "2D",
-            new ImageIcon(getClass().getResource(Utilities.ZOOTOPIA_PATH))),
-            new FunctionCardPanel("Demon Slayer: Infinity Castle", "03", "20", "18:00", "3D",
-            new ImageIcon(getClass().getResource(Utilities.DEMON_PATH))),
-            new FunctionCardPanel("Miraculous: Las Aventuras de Ladybug", "04", "45", "10:00", "2D - VIP",
-            new ImageIcon(getClass().getResource(Utilities.MIRACULOUS_PATH))),
-            new FunctionCardPanel("Jurassic World Rebirth", "01", "60", "21:00", "3D",
-            new ImageIcon(getClass().getResource(Utilities.JURASSIC_PATH)))
-        };
-
-        for (FunctionCardPanel function : functions) {
-            contentPanel.add(function, gbc);
-            gbc.gridy++;
+    public void refreshContent() {
+        for (int i = contentPanel.getComponentCount() - 1; i >= 1; i--) {
+            contentPanel.remove(i);
         }
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 30, 10, 30);
+        gbc.gridx = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridy = 1;
+
+        List<Function> functions = cine.getFunctions();
+
+        if (functions.isEmpty()) {
+            JLabel lbl = new JLabel("No hay funciones registradas");
+            lbl.setFont(new Font("Segoe UI", Font.ITALIC, 18));
+            lbl.setForeground(new Color(100, 100, 100));
+            contentPanel.add(lbl, gbc);
+        } else {
+            for (Function f : functions) {
+                FunctionCardPanel card = new FunctionCardPanel(
+                        f.getMovie().getTitle(),
+                        f.getRoom().getName(),
+                        String.valueOf(f.getRoom().getCapacity()),
+                        f.getDateTime(),
+                        f.getRoom().getType(),
+                        new ImageIcon(getClass().getResource(Utilities.getImageForMovieTitle(f.getMovie().getTitle())))
+                );
+
+                card.getBtnEdit().setActionCommand("EDITAR_FUNCION_" + f.getId());
+                card.getBtnEdit().addActionListener(listener);
+
+                card.getBtnDelete().setActionCommand("ELIMINAR_FUNCION_" + f.getId());
+                card.getBtnDelete().addActionListener(listener);
+
+                contentPanel.add(card, gbc);
+                gbc.gridy++;
+            }
+        }
+
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     public JPanel getContentPanel() {

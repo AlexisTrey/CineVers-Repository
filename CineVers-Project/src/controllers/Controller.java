@@ -33,6 +33,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import java.awt.Frame;
 import java.util.List;
+import javax.swing.JOptionPane;
+import views.FormAddRoomPanel;
 
 import views.LoginPromptDialog;
 import views.ReservationConfirmationJDialog;
@@ -126,10 +128,9 @@ public class Controller implements ActionListener {
                 }
                 break;
 
-            case "VER_DETALLES":
-                mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
-                break;
-
+//            case "VER_DETALLES":
+//                mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
+//                break;
             case "SELECCIONAR_HORA":
                 mainFrame.getMainPanel().showPanel(MainPanel.SELECT_SEATS);
                 this.mainFrame.getMainPanel().getSelectSeatsPanel().getPanelAsientos().buildSeatsView(this.cine.getRooms().get(0).generate(50));
@@ -308,14 +309,128 @@ public class Controller implements ActionListener {
                 dialog.setVisible(true);
                 break;
 
-            // case "UPCOMING":
-            // mainFrame.getMainPanel().showPanel(MainPanel.HOME);
-            // javax.swing.SwingUtilities.invokeLater(() -> {
-            // mainFrame.getMainPanel().getHomePanel().scrollToUpcoming();
-            // });
-            // break;
             default:
+                //ELIMINAR FUNCIÓN
+                if (command.startsWith("ELIMINAR_FUNCION_")) {
+                    String idEliminar = command.replace("ELIMINAR_FUNCION_", "");
+                    try {
+                        Function fEliminar = cine.getFunctions().stream()
+                                .filter(f -> f.getId().equals(idEliminar))
+                                .findFirst()
+                                .orElse(null);
+
+                        if (fEliminar != null) {
+                            cine.removeFunction(new User(true), fEliminar);
+                            cine.refreshFunctions(); //actualiza lista interna
+                            mainFrame.getMainPanel().getFunctionsEditionPanel().refreshContent(); //actualiza UI en tiempo real
+                            JOptionPane.showMessageDialog(mainFrame, "Función eliminada correctamente.");
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mainFrame, "Error al eliminar función: " + ex.getMessage());
+                    }
+                    break;
+                }
+
+                //EDITAR FUNCIÓN
+                if (command.startsWith("EDITAR_FUNCION_")) {
+                    String idEditar = command.replace("EDITAR_FUNCION_", "");
+                    Function fEditar = cine.getFunctions().stream()
+                            .filter(f -> f.getId().equals(idEditar))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (fEditar != null) {
+                        mainFrame.getMainPanel().showPanel(MainPanel.ADD_FUNCTION);
+                        FormBillboardPanel form = mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel();
+                        form.getTxtFunctionId().setText(fEditar.getId());
+                        form.getTxtStartTime().setText(fEditar.getDateTime());
+                        form.getCmbPeliculas().setSelectedItem(fEditar.getMovie().getTitle());
+                    }
+                    break;
+                }
+
+                if (command.startsWith("ELIMINAR_PELICULA_")) {
+                    String idEliminar = command.replace("ELIMINAR_PELICULA_", "");
+                    try {
+                        cine.deleteMovieById(idEliminar);
+                        JOptionPane.showMessageDialog(mainFrame, "Película eliminada correctamente.");
+
+                        mainFrame.getMainPanel().getBillboardEditionPanel().refreshContent();
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mainFrame, "Error al eliminar película: " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                    break;
+                }
+
+                if (command.startsWith("EDITAR_PELICULA_")) {
+                    String idEditar = command.replace("EDITAR_PELICULA_", "");
+                    Movie movie = cine.getMovies().stream()
+                            .filter(m -> m.getId().equals(idEditar))
+                            .findFirst().orElse(null);
+                    if (movie != null) {
+                        mainFrame.getMainPanel().showPanel(MainPanel.ADD_BILLBOARD);
+                        FormFuctionPanel form = mainFrame.getMainPanel().getAddMovieBillboard().getFormPanel();
+                        form.getCampoTitulo().setText(movie.getTitle());
+                        form.getCampoSinopsis().setText(movie.getSynopsis());
+                        form.getCampoClasificacion().setText(movie.getClassification());
+                        form.getCampoDuracion().setText(String.valueOf(movie.getDurationMinutes()));
+                        form.getComboGenero().setSelectedItem(movie.getGenre());
+                    }
+                    break;
+                }
+
+                if (command.startsWith("ELIMINAR_SALA_")) {
+                    String idEliminar = command.replace("ELIMINAR_SALA_", "");
+                    try {
+                        Room roomEliminar = cine.getRooms().stream()
+                                .filter(r -> r.getId().equals(idEliminar))
+                                .findFirst()
+                                .orElse(null);
+
+                        if (roomEliminar != null) {
+                            cine.removeRoom(new User(true), roomEliminar);
+                            cine.refreshRooms(); // 🔄 recarga desde JSON
+                            mainFrame.getMainPanel().getRoomEditionPanel().refreshContent(); // 🔄 actualiza vista
+                            JOptionPane.showMessageDialog(mainFrame, "Sala eliminada correctamente.");
+                        } else {
+                            JOptionPane.showMessageDialog(mainFrame, "No se encontró la sala a eliminar.");
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mainFrame, "Error al eliminar la sala: " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                    break;
+                }
+
+                if (command.startsWith("EDITAR_SALA_")) {
+                    String idEditar = command.replace("EDITAR_SALA_", "");
+                    Room roomEditar = cine.getRooms().stream()
+                            .filter(r -> r.getId().equals(idEditar))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (roomEditar != null) {
+                        mainFrame.getMainPanel().showPanel(MainPanel.ADD_ROOM);
+
+                        FormAddRoomPanel form = mainFrame.getMainPanel().getAddRoomPanel().getFormPanel();
+
+                        JOptionPane.showMessageDialog(mainFrame,
+                                "Editando sala: " + roomEditar.getName(),
+                                "Editar Sala", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(mainFrame, "No se encontró la sala para editar.");
+                    }
+                    break;
+                }
+
+                if (command.startsWith("VER_DETALLES_")) {
+                    mainFrame.getMainPanel().showPanel(MainPanel.MOVIE_DETAILS);
+                    return;
+                }
+
                 System.out.println("Acción no reconocida: " + command);
+                break;
         }
     }
 
@@ -377,8 +492,9 @@ public class Controller implements ActionListener {
                 java.lang.reflect.Method m2 = mainFrame.getMainPanel().getHeader().getClass()
                         .getMethod("isUserVisible");
                 Object visible = m2.invoke(mainFrame.getMainPanel().getHeader());
-                if (visible instanceof Boolean)
+                if (visible instanceof Boolean) {
                     return (Boolean) visible;
+                }
             } catch (Exception ex2) {
             }
             return false;

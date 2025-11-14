@@ -42,6 +42,7 @@ public class Utilities {
     public static final String BANNER_TOGETHER_PATH = "/resources/images/banner_together.jpg";
     public static final String[] FILAS_ASIENTOS = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" }; // Filas de la sala
     public static final int[] ASIENTOS_POR_FILA = { 9, 9, 9, 9, 11, 11, 11, 11, 11, 11, 11, 11, 11, 13 };    // El tamaño de la sala se determina por la suma de las sillas por fila
+    public static final String UPCOMING_MOVIES_PATH = "src/persistence/upcomingMovies.json";
 
     public static final ImageIcon BASE_ICON_SEAT_PATH = new ImageIcon(
             Utilities.class.getResource("/resources/images/silladesocupada.png"));
@@ -49,38 +50,18 @@ public class Utilities {
             Utilities.class.getResource("/resources/images/sillaocupada.png"));
 
     public static String getImageForMovieTitle(String title) {
-        if (title == null) {
-            return PREJUICIO_PATH;
-        }
+        if (title == null) return PREJUICIO_PATH;
         title = title.toLowerCase();
 
-        if (title.contains("orgullo")) {
-            return PREJUICIO_PATH;
-        }
-        if (title.contains("zootopia")) {
-            return ZOOTOPIA_PATH;
-        }
-        if (title.contains("demon")) {
-            return DEMON_PATH;
-        }
-        if (title.contains("miraculous")) {
-            return MIRACULOUS_PATH;
-        }
-        if (title.contains("jurassic")) {
-            return JURASSIC_PATH;
-        }
-        if (title.contains("together")) {
-            return TOGETHER_PATH;
-        }
-        if (title.contains("viernes")) {
-            return VIERNES_PATH;
-        }
-        if (title.contains("pompoko")) {
-            return POMPOKO_PATH;
-        }
-        if (title.contains("avatar")) {
-            return AVATAR_PATH;
-        }
+        if (title.contains("orgullo")) return PREJUICIO_PATH;
+        if (title.contains("zootopia")) return ZOOTOPIA_PATH;
+        if (title.contains("demon")) return DEMON_PATH;
+        if (title.contains("miraculous")) return MIRACULOUS_PATH;
+        if (title.contains("jurassic")) return JURASSIC_PATH;
+        if (title.contains("together")) return TOGETHER_PATH;
+        if (title.contains("viernes")) return VIERNES_PATH;
+        if (title.contains("pompoko")) return POMPOKO_PATH;
+        if (title.contains("avatar")) return AVATAR_PATH;
 
         return PREJUICIO_PATH;
     }

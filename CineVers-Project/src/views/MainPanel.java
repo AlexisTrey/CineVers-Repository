@@ -1,9 +1,11 @@
 package views;
 
+import controllers.Controller;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import models.CineVersSystem;
 
 /**
  *
@@ -80,7 +82,7 @@ public class MainPanel extends JPanel {
         roomEditionPanel = new RoomEditionPanel(listener);
         billboardEditionPanel = new BillboardEditionPanel(listener);
         functionsEditionPanel = new FunctionsEditionPanel(listener);
-        addRoomPanel = new AddRoomPanel(listener);
+        addRoomPanel = new AddRoomPanel(listener);  
         addMovieBillboard = new AddMovieBillboard(listener);
         addFuctionPanel = new AddFuctionPanel(listener);
         selectSeats = new SelectSeats(listener);
@@ -165,6 +167,29 @@ public class MainPanel extends JPanel {
 
     public MovieDetailsPanel getMovieDetailsPanel() {
         return movieDetailsPanel;
+    }
+        public RoomEditionPanel getRoomEditionPanel() {
+        return roomEditionPanel;
+    }
+
+    public void setRoomEditionPanel(RoomEditionPanel roomEditionPanel) {
+        this.roomEditionPanel = roomEditionPanel;
+    }
+
+    public BillboardEditionPanel getBillboardEditionPanel() {
+        return billboardEditionPanel;
+    }
+
+    public void setBillboardEditionPanel(BillboardEditionPanel billboardEditionPanel) {
+        this.billboardEditionPanel = billboardEditionPanel;
+    }
+
+    public AddRoomPanel getAddRoomPanel() {
+        return addRoomPanel;
+    }
+
+    public void setAddRoomPanel(AddRoomPanel addRoomPanel) {
+        this.addRoomPanel = addRoomPanel;
     }
 
 }

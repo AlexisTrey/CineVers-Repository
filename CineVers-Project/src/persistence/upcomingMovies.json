@@ -1,0 +1,29 @@
+[
+    {
+        "id": "U001",
+        "title": "Pompoko - La Guerra de los Mapaches",
+        "genre": "Animación",
+        "durationMinutes": 126,
+        "classification": "A",
+        "synopsis": "Los mapaches luchan por proteger su bosque de la urbanización humana.",
+        "releaseDate": "2025-04-12"
+    },
+    {
+        "id": "U002",
+        "title": "Zootopia 2",
+        "genre": "Animación",
+        "durationMinutes": 140,
+        "classification": "A",
+        "synopsis": "Nick y Judy regresan a la acción.",
+        "releaseDate": "2025-06-01"
+    },
+    {
+        "id": "U003",
+        "title": "Avatar: Fuego y Ceniza",
+        "genre": "Ciencia Ficción",
+        "durationMinutes": 162,
+        "classification": "B",
+        "synopsis": "Jake Sully regresa para enfrentar una nueva amenaza en Pandora.",
+        "releaseDate": "2025-07-18"
+    }
+]
