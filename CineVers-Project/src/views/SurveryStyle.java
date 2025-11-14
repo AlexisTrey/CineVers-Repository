@@ -171,6 +171,10 @@ public class SurveryStyle {
      * Aplica estilo uniforme a un JComboBox.
      */
     public static JComboBox<String> createStyledComboBox(String[] items) {
+        if (items == null) {
+            items = new String[0];
+        }
+
         JComboBox<String> comboBox = new JComboBox<>(items);
 
         // Por la complejidad de estilizar el ComboBox completamente, 
