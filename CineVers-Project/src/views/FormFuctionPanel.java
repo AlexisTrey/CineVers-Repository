@@ -222,10 +222,6 @@ public class FormFuctionPanel extends JPanel {
         panel.setLayout(new BorderLayout());
         panel.add(visualLabel, BorderLayout.CENTER);
         panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        // =======================================================
-        // AÑADIR EL ESCUCHADOR DE CLIC AL PANEL
-        // =======================================================
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  *
@@ -30,6 +31,7 @@ public class FormBillboardPanel extends JPanel {
     private JComboBox<String> cmbRooms; // Sala (Nuevo JComboBox)
     private JTextField txtStartTime; // Hora de inicio (LocalDateTime)
     private String[] newRoomNames;
+        private String imagePath;
 
     public FormBillboardPanel(ActionListener listener) {
         this.listener = listener;
@@ -62,10 +64,10 @@ public class FormBillboardPanel extends JPanel {
         this.updateMovieTitles(titles);
     }
 
-        public void setJComboBoxRooms(String[] newRoomNames) {
-        this.newRoomNames = newRoomNames;
-        this.updateRoomNames(newRoomNames);
-    }
+    //     public void setJComboBoxRooms(String[] newRoomNames) {
+    //     this.newRoomNames = newRoomNames;
+    //     this.updateRoomNames(newRoomNames);
+    // }
 
     public void updateMovieTitles(String[] newTitles) {
 
@@ -138,7 +140,8 @@ public class FormBillboardPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 0); // Más espacio arriba para separar sección
         add(createSeparator(), gbc);
 
-       cmbRooms = SurveryStyle.createStyledComboBox(newRoomNames );
+        String[] roomNames = {"Sala 01", "Sala 02", "Sala 03"}; // Ejemplo de nombres de salas  
+       cmbRooms = SurveryStyle.createStyledComboBox(roomNames);
        cmbRooms.setPreferredSize(new Dimension(FIELD_WIDTH, FIELD_HEIGHT));
        gbc.gridy++;
        gbc.gridx = 0;
@@ -163,7 +166,7 @@ public class FormBillboardPanel extends JPanel {
         add(txtStartTime, gbc);
 
         botonContinuar = SurveryStyle.createStyledButton("Continuar");
-        botonContinuar.setActionCommand("AGREGAR_FUNCION_ FORM");
+        botonContinuar.setActionCommand("AGREGAR_FUNCION_FORM");
         botonContinuar.addActionListener(listener);
         gbc.gridy++;
         gbc.gridx = 0;
@@ -182,34 +185,71 @@ public class FormBillboardPanel extends JPanel {
         separator.setPreferredSize(new Dimension(FIELD_WIDTH * 2, 1));
         return separator;
     }
+        private void openFileChooser(JPanel sourcePanel, JLabel iconLabel) {
+        JFileChooser fileChooser = new JFileChooser();
+
+        // Filtro para solo permitir imágenes
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+                "Archivos de Imagen (JPG, PNG, GIF)", "jpg", "jpeg", "png", "gif"));
+
+        // Muestra la ventana de diálogo
+        int result = fileChooser.showOpenDialog(sourcePanel);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            this.imagePath = selectedFile.getAbsolutePath(); // Guarda la ruta
+
+            // --- Lógica de Previsualización ---
+            ImageIcon originalIcon = new ImageIcon(this.imagePath);
+
+            // Redimensionar la imagen para que encaje
+            Image scaledImage = originalIcon.getImage().getScaledInstance(
+                    sourcePanel.getWidth(), sourcePanel.getHeight(), Image.SCALE_SMOOTH);
+
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+            // Reemplaza el icono de la cámara con la imagen seleccionada
+            iconLabel.setIcon(scaledIcon);
+            iconLabel.setText(""); // Oculta el texto "Agregar imagen:" si el label lo contiene
+            iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            iconLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+            // Asegura que el contenedor se actualice
+            sourcePanel.revalidate();
+            sourcePanel.repaint();
+
+            System.out.println("Imagen seleccionada: " + this.imagePath);
+        }
+    }
 
     /**
      * Mejorado: Placeholder para imagen más estilizado
      */
     private JPanel createImagenPlaceholder(String text) {
-        JPanel panel = new RoundedPanel(15, new Color(245, 245, 245)); // Color más suave
+        JPanel panel = new RoundedPanel(15, new Color(245, 245, 245));
+        // ...
+        JLabel label = new JLabel(text, SwingConstants.CENTER); // Etiqueta "Agregar imagen:"
+        // ...
+        JLabel iconLabel = new JLabel("📷"); // Etiqueta del icono de la cámara
+
+        JLabel visualLabel = new JLabel("<html><center>📷<br>" + text + "</center></html>", SwingConstants.CENTER);
+        visualLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 24)); // Para el emoji
+        visualLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+        visualLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 1));
-
-        JLabel label = new JLabel(text, SwingConstants.CENTER);
-        label.setFont(SurveryStyle.DEFAULT_FONT.deriveFont(Font.PLAIN, 12));
-        label.setForeground(new Color(150, 150, 150)); // Color más suave
-
-        // Agregar icono de cámara (opcional)
-        JLabel iconLabel = new JLabel("📷");
-        iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 24));
-        iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setOpaque(false);
-        contentPanel.add(iconLabel, BorderLayout.CENTER);
-        contentPanel.add(label, BorderLayout.SOUTH);
-
-        panel.add(contentPanel, BorderLayout.CENTER);
+        panel.add(visualLabel, BorderLayout.CENTER);
         panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // Pasamos el panel y la etiqueta visual para actualizar la imagen
+                openFileChooser(panel, visualLabel);
+            }
+        });
         return panel;
     }
+        
 
     public ActionListener getListener() {
         return listener;

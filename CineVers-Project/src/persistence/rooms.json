@@ -4,7 +4,6 @@
     "name": "Sala 01",
     "capacity": 147,
     "type": "2D",
-    "price": 8.5,
     "allSeats": [
       {
         "id": "A1",

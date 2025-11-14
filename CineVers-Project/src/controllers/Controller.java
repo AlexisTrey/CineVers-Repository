@@ -278,10 +278,11 @@ public class Controller implements ActionListener {
                 break;
 
             case "AGREGAR_FUNCION_FORM":
+                mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
                 FormBillboardPanel formanPnale1 = this.mainFrame.getMainPanel().getAddFuctionPanel().getFormPanel();
                 String titleserch = (String) formanPnale1.getCmbPeliculas().getSelectedItem();
+                String titleserch2 = (String) formanPnale1.getCmbRooms().getSelectedItem();
                 String id = formanPnale1.getTxtFunctionId().getText();
-                // Room rom1 = crear las salas
                 String date = formanPnale1.getTxtStartTime().getText();
                 Room selectedRoom = this.cine.getRooms().get(0);
                 try {
@@ -289,7 +290,7 @@ public class Controller implements ActionListener {
                             new User(true),
                             new Function(id, this.cine.searchMovieByTitle(titleserch), selectedRoom, date));
                     System.out.println("Función agregada correctamente.");
-                    mainFrame.getMainPanel().showPanel(MainPanel.EDIT_BILLBOARD);
+                    mainFrame.getMainPanel().showPanel(MainPanel.EDIT_FUNCTIONS);
                 } catch (IOException ex) {
                     System.err.println("Error al guardar la función: " + ex.getMessage());
                 }
